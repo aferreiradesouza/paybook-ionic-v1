@@ -1,1 +1,102 @@
-/* Empty. Add your own CSS if you like */
+.card-item{
+    background-color: rgb(241, 241, 241);
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 5px;
+    margin-top: 15px;
+    box-shadow: 7px 10px 34px -10px rgba(0,0,0,0.75);
+}
+
+.info{
+    padding:5px !important;
+}
+
+.descricao{
+    border-left: 1px solid rgba(128, 128, 128, 0.219);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}
+
+.gasto{
+    font-size: 18px;
+}
+
+.tempo{
+    line-height: 15px;
+    margin-top: 37px;
+}
+
+.dia{
+    font-size: 15px;
+}
+
+.hora{
+    font-size: 11px;
+    color: rgb(255, 255, 255);
+}
+
+.titulo-descricao{
+    position: absolute;
+    font-size: 18px;
+    height: 50%;
+}
+
+.localizacao{
+    height: 30%;
+    margin-top: 67px;
+}
+
+.localizacao-endereco{
+    margin-left: 5px;
+}
+
+.descricao-item{
+    animation-name: descricao;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes descricao{
+    0%{
+        height: 100px !important;
+    }
+    50%{
+        height: 200px !important;
+    }
+    100%{
+        height: 175px !important;
+    }
+}
+#comentario{
+    transition-duration: 0.5s;
+    overflow: hidden;
+    height: 0px;
+}
+
+.comentario{
+    padding: 5px;
+}
+
+.color{
+    color: white;
+}
+
+.comentarioHeight{
+    height: 50px !important;
+}
+
+.tipo{
+    margin-top: 50px;
+    position: absolute;
+    color: rgb(156, 155, 155);
+    font-size: 11px;
+}
+
+.dataPagamentos{
+    padding: 5px 5px 0 7px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+

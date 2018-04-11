@@ -1,0 +1,78 @@
+<ion-view view-title="Adicionar Gasto" ng-init="init()">
+  <ion-content>
+    <form name="addForm" ng-submit="addItem()">
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Descrição</span>
+          <input name="item" type="text" placeholder="Hambúrguer" ng-model="data.item" required>
+          <span ng-class="error" ng-show="addForm.item.$error.required"></span>
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Preço</span>
+          <input type="number" name="preco" placeholder="R$2,99" ng-model="data.preco" required>
+          <span ng-class="error" ng-show="addForm.preco.$error.required"></span>
+        </label>
+
+        <!-- <label class="item item-input item-stacked-label">
+          <span class="input-label">Data</span>
+          <input type="date" name="date" placeholder="dd/mm/aaaa" ng-model="data.data" required>
+          <span ng-class="error" ng-show="addForm.date.$error.required"></span>
+        </label> -->
+
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Localização</span>
+          <input type="text" name="localizacao" placeholder="Norte Shopping" ng-model="data.localizacao" required>
+          <span ng-class="error" ng-show="addForm.localizacao.$error.required"></span>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Tipo de gasto
+          </div>
+          <select name="tipo" ng-model="data.gasto" required>
+            <option selected>Refeição</option>
+            <option>Filmes</option>
+            <option>Jogos</option>
+            <option>Livros</option>
+            <option>Cerveja</option>ion-ios7-circle-filled
+          </select>
+          <div ng-show="data.gasto == 'Refeição'"><i class="icon ion-ios-nutrition" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Filmes'"><i class="icon ion-ios-videocam" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Jogos'"><i class="icon ion-ios-game-controller-a" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Livros'"><i class="icon ion-ios-book" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Cerveja'"><i class="icon ion-beer" style="font-size: 20px;"></i></div>
+          <span ng-class="error" ng-show="addForm.tipo.$error.required"></span>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Cor do item
+          </div>
+          <select name="cor" ng-model="data.cor" required>
+            <option>Roxo</option>
+            <option>Vermelho</option>
+            <option>Verde</option>
+            <option>Laranja</option>
+            <option>Azul</option>
+          </select>
+          <div ng-show="data.cor == 'Roxo'"><i class="icon ion-ios-circle-filled" style="color:#8e44ad;font-size: 22px;"></i></div>
+          <div ng-show="data.cor == 'Vermelho'"><i class="icon ion-ios-circle-filled" style="color:#c0392b;font-size: 22px;"></i></div>
+          <div ng-show="data.cor == 'Verde'"><i class="icon ion-ios-circle-filled" style="color:#27ae60;font-size: 22px;"></i></div>
+          <div ng-show="data.cor == 'Laranja'"><i class="icon ion-ios-circle-filled" style="color:#f39c12;font-size: 22px;"></i></div>
+          <div ng-show="data.cor == 'Azul'"><i class="icon ion-ios-circle-filled" style="color:#2980b9;font-size: 22px;"></i></div>
+          <span ng-class="error" ng-show="addForm.cor.$error.required"></span>
+        </label>
+<!-- 
+        <label class="item item-input">
+          <textarea placeholder="Comentários" style="height: 100px;"></textarea>
+        </label> -->
+
+      </div>
+      <div style="width: 90%; margin: 0 auto;">
+      <button class="button button-full button-positive" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+        Adicionar
+      </button></div>
+    </form>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,48 @@
+<ion-view view-title="Paybook" style="" ng-init="init()">
+  <!-- <div style="width: 100%; background-color: red; height: 30px; margin-top: 44px;position: absolute;z-index: 9999;">
+
+  </div> -->
+  <ion-content>
+    <div ng-if="lista == ''" style="text-align: center; margin-top: 10px; color: rgb(156, 155, 155);">
+      Não tem nenhum gasto.
+    </div>
+    <ul>
+      <li ng-repeat="item in lista">
+        <div class="card-item" style="margin-top: 10px;border-left: 5px solid {{item.cor}};">
+          <div class="row" style="margin: 0;padding: 0;height: 100%;">
+            <div class="col col-33 info color" style="background-color: {{item.cor}};">
+              <div class="gasto">
+                R${{item.preco}}
+              </div>
+              <div class="tempo">
+                <div class="hora">HÁ 1 MIN</div>
+                <div class="dia">{{item.dia | date:'dd/MM'}}</div>
+              </div>
+            </div>
+            <div class="col col-75 descricao">
+              <div style="position: absolute;margin-left: 50%;" ng-click="deleteItem($index)">
+                <i class="icon ion-close-circled" style="font-size: 20px;"></i>
+              </div>
+              <div class="titulo-descricao">
+                <i class="icon {{item.gastoConv}}" style="font-size: 20px;"></i>
+                <span class="titulo">{{item.item}}</span>
+              </div>
+              <div class="tipo">
+                TIPO: {{item.gasto | uppercase}}
+              </div>
+              <div class="localizacao">
+                <i class="icon ion-location" style="font-size: 20px;"></i>
+                <span class="localizacao-endereco">{{item.localizacao}}</span>
+              </div>
+            </div>
+          </div>
+          <div id="comentario" ng-class="comentarioHeight">
+            <div class="comentario">
+              Lorem Ipsum
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </ion-content>
+</ion-view>
