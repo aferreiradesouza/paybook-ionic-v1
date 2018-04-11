@@ -24,6 +24,9 @@ app.controller('addItemCtrl', function ($scope, Util) {
     function convHora(){
         var h = new Date();
         var hora = h.getHours()+':'+h.getMinutes();
+            if(hora.length == 4){
+                var hora = h.getHours()+':0'+h.getMinutes();
+            }
         return hora;
     }
 
