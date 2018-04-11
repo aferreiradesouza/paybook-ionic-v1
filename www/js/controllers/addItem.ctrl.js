@@ -14,10 +14,17 @@ app.controller('addItemCtrl', function ($scope, Util) {
         $scope.data.gastoConv = converterGasto($scope.data.gasto);
         $scope.data.cor = converterCor($scope.data.cor);
         $scope.data.dia = new Date();
+        $scope.data.hora = convHora();
 
         $scope.data.id = Util.criarGuid();
         $scope.lista.unshift($scope.data);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
+    }
+
+    function convHora(){
+        var h = new Date();
+        var hora = h.getHours()+':'+h.getMinutes();
+        return hora;
     }
 
     // function formatarData(dado) {
