@@ -31,17 +31,23 @@
             Tipo de gasto
           </div>
           <select name="tipo" ng-model="data.gasto" required>
-            <option selected>Refeição</option>
-            <option>Filmes</option>
+            <option selected>Comida</option>
+            <option>Cinema</option>
+            <option>Lanche</option>
+            <option>Música</option>
+            <option>Esportes</option>
             <option>Jogos</option>
             <option>Livros</option>
-            <option>Cerveja</option>ion-ios7-circle-filled
+            <option>Cerveja</option>
           </select>
-          <div ng-show="data.gasto == 'Refeição'"><i class="icon ion-ios-nutrition" style="font-size: 20px;"></i></div>
-          <div ng-show="data.gasto == 'Filmes'"><i class="icon ion-ios-videocam" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Comida'"><i class="icon ion-pizza" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Cinema'"><i class="icon ion-ios-videocam" style="font-size: 20px;"></i></div>
           <div ng-show="data.gasto == 'Jogos'"><i class="icon ion-ios-game-controller-a" style="font-size: 20px;"></i></div>
           <div ng-show="data.gasto == 'Livros'"><i class="icon ion-ios-book" style="font-size: 20px;"></i></div>
           <div ng-show="data.gasto == 'Cerveja'"><i class="icon ion-beer" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Esportes'"><i class="icon ion-ios-football" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Música'"><i class="icon ion-headphone" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Lanche'"><i class="icon ion-coffee" style="font-size: 20px;"></i></div>
           <span ng-class="error" ng-show="addForm.tipo.$error.required"></span>
         </label>
 
@@ -70,7 +76,7 @@
 
       </div>
       <div style="width: 90%; margin: 0 auto;">
-      <button onclick="location.href='/#/tab/lista-item'" class="button button-full button-positive" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+      <button class="button button-full button-positive" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
         Adicionar
       </button></div>
     </form>

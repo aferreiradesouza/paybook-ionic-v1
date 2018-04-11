@@ -64,17 +64,26 @@ app.controller('addItemCtrl', function ($scope, Util) {
     }
 
     function converterGasto(gasto) {
-        if (gasto == 'Refeição') {
-            var tipoGasto = 'ion-ios-nutrition';
+        if (gasto == 'Comida') {
+            var tipoGasto = 'ion-pizza';
+        }
+        if (gasto == 'Lanche') {
+            var tipoGasto = 'ion-coffee';
         }
         if (gasto == 'Jogos') {
             var tipoGasto = 'ion-ios-game-controller-a';
         }
-        if (gasto == 'Filmes') {
+        if (gasto == 'Cinema') {
             var tipoGasto = 'ion-ios-videocam';
         }
         if (gasto == 'Livros') {
             var tipoGasto = 'ion-ios-book';
+        }
+        if (gasto == 'Música') {
+            var tipoGasto = 'ion-headphone';
+        }
+        if (gasto == 'Esporte') {
+            var tipoGasto = 'ion-ios-football';
         }
         if (gasto == 'Cerveja') {
             var tipoGasto = 'ion-beer';
