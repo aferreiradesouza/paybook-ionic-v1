@@ -1,14 +1,16 @@
-<ion-view view-title="Paybook" style="" ng-init="init()">
-  <!-- <div style="width: 100%; background-color: red; height: 30px; margin-top: 44px;position: absolute;z-index: 9999;">
-
+<ion-view view-title="Paybook" ng-init="init()">
+  <!-- <div style="width: 100%; background-color: rgb(241, 241, 241); height: 40px; margin-top: 50px;position: absolute;z-index: 9999;">
+      
   </div> -->
-  <ion-content>
-    <div ng-if="lista == ''" style="text-align: center; margin-top: 10px; color: rgb(156, 155, 155);">
+  <ion-content class="platform-ios">
+    <ion-refresher pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()">
+    </ion-refresher>
+    <div ng-if="lista == ''" style="text-align: center; margin-top: 30px; color: rgb(156, 155, 155);">
       Não tem nenhum gasto.
     </div>
     <ul>
       <li ng-repeat="item in lista">
-        <div class="card-item" style="margin-top: 10px;border-left: 5px solid {{item.cor}};">
+        <div id="{{item.id}}" ng-click="abrirComentario()" class="card-item animated flipInX" style="border-left: 5px solid {{item.cor}};">
           <div class="row" style="margin: 0;padding: 0;height: 100%;">
             <div class="col col-33 info color" style="background-color: {{item.cor}};">
               <div class="gasto">
@@ -20,7 +22,7 @@
               </div>
             </div>
             <div class="col col-75 descricao">
-              <div style="position: absolute;margin-left: 50%;" ng-click="deleteItem($index)">
+              <div style="position: absolute;margin-left: 190px;" ng-click="deleteItem($index)">
                 <i class="icon ion-close-circled" style="font-size: 20px;"></i>
               </div>
               <div class="titulo-descricao">
@@ -36,7 +38,7 @@
               </div>
             </div>
           </div>
-          <div id="comentario" ng-class="comentarioHeight">
+          <div id="comentario">
             <div class="comentario">
               Lorem Ipsum
             </div>
@@ -45,4 +47,7 @@
       </li>
     </ul>
   </ion-content>
+  <div class="bar bar-footer bar-stable">
+    Total a pagar:
+  </div>
 </ion-view>

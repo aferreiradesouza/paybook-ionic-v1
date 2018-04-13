@@ -15,18 +15,28 @@ app.controller('addItemCtrl', function ($scope, Util) {
         $scope.data.cor = converterCor($scope.data.cor);
         $scope.data.dia = new Date();
         $scope.data.hora = convHora();
+        $scope.data.preco = parseFloat($scope.data.preco);
 
         $scope.data.id = Util.criarGuid();
         $scope.lista.unshift($scope.data);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
     }
 
-    function convHora(){
+    function convHora() {
         var h = new Date();
-        var hora = h.getHours()+':'+h.getMinutes();
-            if(hora.length == 4){
-                var hora = h.getHours()+':0'+h.getMinutes();
+        var hora = h.getHours() + ':' + h.getMinutes();
+        if (hora.length == 4) {
+            // var hora = h.getHours() + ':0' + h.getMinutes();
+            if (hora.charAt(0) != 0) {
+                var hora = '0' + h.getHours() + ':' + h.getMinutes();
             }
+            if (hora.charAt(3) != 0) {
+                var hora = h.getHours() + ':0' + h.getMinutes();
+            }
+        }
+        if (hora.length == 3) {
+            var hora = '0' + h.getHours() + ':0' + h.getMinutes();
+        }
         return hora;
     }
 
@@ -85,7 +95,7 @@ app.controller('addItemCtrl', function ($scope, Util) {
         if (gasto == 'Música') {
             var tipoGasto = 'ion-headphone';
         }
-        if (gasto == 'Esporte') {
+        if (gasto == 'Esportes') {
             var tipoGasto = 'ion-ios-football';
         }
         if (gasto == 'Cerveja') {

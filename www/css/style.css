@@ -3,8 +3,12 @@
     width: 90%;
     margin: 0 auto;
     border-radius: 5px;
-    margin-top: 15px;
+    margin-top: 10px;
     box-shadow: 7px 10px 34px -10px rgba(0,0,0,0.75);
+}
+
+.platform-ios .bar-footer{
+    bottom: 49px !important;
 }
 
 .info{
@@ -76,6 +80,7 @@
 
 .comentario{
     padding: 5px;
+    height: 50px !important;
 }
 
 .color{
@@ -97,6 +102,22 @@
     padding: 5px 5px 0 7px;
     font-size: 20px;
     font-weight: bold;
+}
+
+.ajusteHeader{
+    height: 55px !important;
+}
+
+ion-header-bar{
+    height: 55px !important;
+}
+
+.header-item{
+    margin-top: 10px !important;
+}
+
+.has-header{
+    top: 55px !important;
 }
 
 

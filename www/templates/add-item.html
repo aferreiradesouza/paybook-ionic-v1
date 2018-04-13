@@ -10,7 +10,7 @@
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Preço</span>
-          <input type="number" name="preco" placeholder="R$2,99" ng-model="data.preco" required>
+          <input type="number" name="preco" ui-mask="999,99" placeholder="R$2,99" ng-model="data.preco" required>
           <span ng-class="error" ng-show="addForm.preco.$error.required"></span>
         </label>
 
@@ -31,7 +31,7 @@
             Tipo de gasto
           </div>
           <select name="tipo" ng-model="data.gasto" required>
-            <option selected>Comida</option>
+            <option>Comida</option>
             <option>Cinema</option>
             <option>Lanche</option>
             <option>Música</option>
@@ -40,14 +40,30 @@
             <option>Livros</option>
             <option>Cerveja</option>
           </select>
-          <div ng-show="data.gasto == 'Comida'"><i class="icon ion-pizza" style="font-size: 20px;"></i></div>
-          <div ng-show="data.gasto == 'Cinema'"><i class="icon ion-ios-videocam" style="font-size: 20px;"></i></div>
-          <div ng-show="data.gasto == 'Jogos'"><i class="icon ion-ios-game-controller-a" style="font-size: 20px;"></i></div>
-          <div ng-show="data.gasto == 'Livros'"><i class="icon ion-ios-book" style="font-size: 20px;"></i></div>
-          <div ng-show="data.gasto == 'Cerveja'"><i class="icon ion-beer" style="font-size: 20px;"></i></div>
-          <div ng-show="data.gasto == 'Esportes'"><i class="icon ion-ios-football" style="font-size: 20px;"></i></div>
-          <div ng-show="data.gasto == 'Música'"><i class="icon ion-headphone" style="font-size: 20px;"></i></div>
-          <div ng-show="data.gasto == 'Lanche'"><i class="icon ion-coffee" style="font-size: 20px;"></i></div>
+          <div ng-show="data.gasto == 'Comida'">
+            <i class="icon ion-pizza" style="font-size: 20px;"></i>
+          </div>
+          <div ng-show="data.gasto == 'Cinema'">
+            <i class="icon ion-ios-videocam" style="font-size: 20px;"></i>
+          </div>
+          <div ng-show="data.gasto == 'Jogos'">
+            <i class="icon ion-ios-game-controller-a" style="font-size: 20px;"></i>
+          </div>
+          <div ng-show="data.gasto == 'Livros'">
+            <i class="icon ion-ios-book" style="font-size: 20px;"></i>
+          </div>
+          <div ng-show="data.gasto == 'Cerveja'">
+            <i class="icon ion-beer" style="font-size: 20px;"></i>
+          </div>
+          <div ng-show="data.gasto == 'Esportes'">
+            <i class="icon ion-ios-football" style="font-size: 20px;"></i>
+          </div>
+          <div ng-show="data.gasto == 'Música'">
+            <i class="icon ion-headphone" style="font-size: 20px;"></i>
+          </div>
+          <div ng-show="data.gasto == 'Lanche'">
+            <i class="icon ion-coffee" style="font-size: 20px;"></i>
+          </div>
           <span ng-class="error" ng-show="addForm.tipo.$error.required"></span>
         </label>
 
@@ -62,21 +78,31 @@
             <option>Laranja</option>
             <option>Azul</option>
           </select>
-          <div ng-show="data.cor == 'Roxo'"><i class="icon ion-ios-circle-filled" style="color:#8e44ad;font-size: 22px;"></i></div>
-          <div ng-show="data.cor == 'Vermelho'"><i class="icon ion-ios-circle-filled" style="color:#c0392b;font-size: 22px;"></i></div>
-          <div ng-show="data.cor == 'Verde'"><i class="icon ion-ios-circle-filled" style="color:#27ae60;font-size: 22px;"></i></div>
-          <div ng-show="data.cor == 'Laranja'"><i class="icon ion-ios-circle-filled" style="color:#f39c12;font-size: 22px;"></i></div>
-          <div ng-show="data.cor == 'Azul'"><i class="icon ion-ios-circle-filled" style="color:#2980b9;font-size: 22px;"></i></div>
+          <div ng-show="data.cor == 'Roxo'">
+            <i class="icon ion-ios-circle-filled" style="color:#8e44ad;font-size: 22px;"></i>
+          </div>
+          <div ng-show="data.cor == 'Vermelho'">
+            <i class="icon ion-ios-circle-filled" style="color:#c0392b;font-size: 22px;"></i>
+          </div>
+          <div ng-show="data.cor == 'Verde'">
+            <i class="icon ion-ios-circle-filled" style="color:#27ae60;font-size: 22px;"></i>
+          </div>
+          <div ng-show="data.cor == 'Laranja'">
+            <i class="icon ion-ios-circle-filled" style="color:#f39c12;font-size: 22px;"></i>
+          </div>
+          <div ng-show="data.cor == 'Azul'">
+            <i class="icon ion-ios-circle-filled" style="color:#2980b9;font-size: 22px;"></i>
+          </div>
           <span ng-class="error" ng-show="addForm.cor.$error.required"></span>
         </label>
-<!-- 
+        <!-- 
         <label class="item item-input">
           <textarea placeholder="Comentários" style="height: 100px;"></textarea>
         </label> -->
 
       </div>
       <div style="width: 90%; margin: 0 auto;">
-      <button class="button button-full button-positive" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+      <button class="button button-block button-positive" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
         Adicionar
       </button></div>
     </form>
