@@ -1,5 +1,4 @@
 var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular.filter'])
-
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -13,6 +12,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
       }
     });
   })
+  
 
   .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.views.maxCache(0);
@@ -42,6 +42,13 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
           }
         }
       })
+
+      .state('add-item', {
+        url: '/add-item',
+        templateUrl: 'templates/add-item.html',
+        controller: 'addItemCtrl'
+      })
+
       .state('tab.chat-detail', {
         url: '/chats/:chatId',
         views: {

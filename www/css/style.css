@@ -120,4 +120,57 @@ ion-header-bar{
     top: 55px !important;
 }
 
+.btn-add{
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    bottom: 50px;
+    border-radius: 25px;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    color: white;
+    background: -webkit-linear-gradient(-45deg, #31b3ff 0%,#258dc8 100%);
+    z-index: 999;
+    left: 0;
+    right: 0;
+    /* box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.41); */
+}
+.status-total-pagar{
+    width: calc(100vw - 55vw);
+    min-width: 40vw;
+    height: 35px;
+    position: absolute;
+    bottom: 55px;
+    border-radius: 25px;
+    text-align: left;
+    padding: 6px;
+    background-color: #f8f8f8;
+    border: 1px solid #b2b2b2;
+    margin-left: 20px;
+}
+
+.status-mes-passado{
+    width: calc(100vw - 50vw);
+    min-width: 40vw;
+    height: 35px;
+    position: absolute;
+    bottom: 55px;
+    border-radius: 25px;
+    text-align: right;
+    padding: 8px;
+    background-color: #f8f8f8;
+    border: 1px solid #b2b2b2;
+    margin-left: 145px;
+    z-index: 1;
+    font-size: 10px;
+}
+
+.btn-delete{
+    margin-left: calc(100vw - 50vw);
+}
+
+.scroll-refresher{
+    top: -10px;
+}
 

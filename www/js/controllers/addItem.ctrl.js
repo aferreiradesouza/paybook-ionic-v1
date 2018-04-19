@@ -10,6 +10,12 @@ app.controller('addItemCtrl', function ($scope, Util) {
         }
     }
 
+    $scope.voltarIndex = function () {
+        setTimeout(function () {
+            window.location.href="#/tab/lista-item";
+        }, 100);
+    }
+
     $scope.addItem = function () {
         $scope.data.gastoConv = converterGasto($scope.data.gasto);
         $scope.data.cor = converterCor($scope.data.cor);
@@ -31,7 +37,11 @@ app.controller('addItemCtrl', function ($scope, Util) {
                 var hora = '0' + h.getHours() + ':' + h.getMinutes();
             }
             if (hora.charAt(3) != 0) {
+                if(hora.charAt(0) == 0){
+                var hora = h.getHours() + '0:' + h.getMinutes();
+                }else{
                 var hora = h.getHours() + ':0' + h.getMinutes();
+                }
             }
         }
         if (hora.length == 3) {

@@ -15,13 +15,21 @@ app.controller('listaItemCtrl', function ($scope, Util) {
         }, 1500);
     }
 
+    $scope.sum = function() {
+        var total = 0;
+        angular.forEach($scope.lista, function(key, value) {
+          total += key.preco;
+        });
+        return "R$"+total.toFixed(2);
+      }
+
     $scope.deleteItem = function (index) {
         $scope.lista.splice(index, 1);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
     }
-    $(document).ready(function () {
-        $('.card-item').click(function () {
-            $('#comentario').toggleClass('comentarioHeight');
-        });
-    });
+    // $(document).ready(function () {
+    //     $('.card-item').click(function () {
+    //         $('#comentario').toggleClass('comentarioHeight');
+    //     });
+    // });
 })

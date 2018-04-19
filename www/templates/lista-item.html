@@ -1,8 +1,8 @@
 <ion-view view-title="Paybook" ng-init="init()">
-  <!-- <div style="width: 100%; background-color: rgb(241, 241, 241); height: 40px; margin-top: 50px;position: absolute;z-index: 9999;">
-      
-  </div> -->
   <ion-content class="platform-ios">
+      <div style="height: 50px;">
+
+      </div>
     <ion-refresher pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()">
     </ion-refresher>
     <div ng-if="lista == ''" style="text-align: center; margin-top: 30px; color: rgb(156, 155, 155);">
@@ -22,7 +22,7 @@
               </div>
             </div>
             <div class="col col-75 descricao">
-              <div style="position: absolute;margin-left: 190px;" ng-click="deleteItem($index)">
+              <div class="btn-delete" style="position: absolute;" ng-click="deleteItem($index)">
                 <i class="icon ion-close-circled" style="font-size: 20px;"></i>
               </div>
               <div class="titulo-descricao">
@@ -47,7 +47,13 @@
       </li>
     </ul>
   </ion-content>
-  <div class="bar bar-footer bar-stable">
-    Total a pagar:
+  <div class="status-total-pagar bar-stable">
+    <span class="animated fadeIn" style="font-size: 11px">TOTAL: </span><span class="animated fadeIn" ng-bind="sum()" style="font-weight: bold;"></span>
   </div>
+  <a ng-href="/#/add-item"><div class="btn-add">
+    <i class="icon ion-plus-round" style="font-size: 25px;"></i>
+  </div></a>
+  <!-- <div class="status-mes-passado bar-stable">
+    <span style="font-size: 11px">MES PASSADO:</span> R$ 1024,99
+  </div> -->
 </ion-view>
