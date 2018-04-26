@@ -167,7 +167,7 @@ ion-header-bar{
 }
 
 .btn-delete{
-    margin-left: calc(100vw - 50vw);
+    right: 8px;
 }
 
 .scroll-refresher{
