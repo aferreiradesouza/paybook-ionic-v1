@@ -18,14 +18,18 @@ app.controller('addItemCtrl', function ($scope, Util) {
 
     $scope.addItem = function () {
         $scope.data.gastoConv = converterGasto($scope.data.gasto);
-        $scope.data.cor = converterCor($scope.data.cor);
+        $scope.data.corConv = converterCor($scope.data.cor);
         $scope.data.dia = new Date();
         $scope.data.hora = convHora();
         $scope.data.preco = parseFloat($scope.data.preco);
+        // $scope.data.preco = precoConvertido($scope.data.preco);
+        console.log($scope.data);
 
         $scope.data.id = Util.criarGuid();
         $scope.lista.unshift($scope.data);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
+
+        $scope.voltarIndex();
     }
 
     function convHora() {
@@ -113,4 +117,11 @@ app.controller('addItemCtrl', function ($scope, Util) {
         }
         return tipoGasto;
     }
+
+    // function precoConvertido(gasto){
+    //     if(gasto.charAt(1) == "."){
+    //         gasto.charAt(1) = ",";
+    //         return gasto;
+    //     }
+    // }
 })

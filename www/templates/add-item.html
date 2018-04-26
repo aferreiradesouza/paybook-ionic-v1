@@ -1,13 +1,13 @@
 <ion-view ng-init="init()">
-  <ion-content>
     <div class="bar bar-header bar-stable" style="height: 55px;">
-      <a ng-href="/#/tab/lista-item" style="z-index: 999">
+      <a ng-href="/#/tab/lista-item" style="z-index: 999; color: black;">
         <div style="position: absolute; font-size: 22px; top: 22px; left: 5px;text-align: center; width: 30px; height: 25px;">
           <i class="icon ion-chevron-left"></i>
         </div>
       </a>
       <h1 class="title" style="margin-top: 10px;">Adicionar Gasto</h1>
     </div>
+  <ion-content>
     <div style="height: 50px;">
 
     </div>
@@ -21,7 +21,7 @@
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Preço</span>
-          <input type="number" name="preco" ui-mask="999,99" placeholder="R$2,99" ng-model="data.preco" required>
+          <input type="text" name="preco" placeholder="R$2.99" ng-model="data.preco" required>
           <span ng-class="error" ng-show="addForm.preco.$error.required"></span>
         </label>
 
@@ -113,7 +113,7 @@
 
       </div>
       <div style="width: 90%; margin: 0 auto;">
-        <button class="button button-block button-positive" ng-click="voltarIndex()" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+        <button class="button button-block button-positive" style="background-color: #387ef5 !important;" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
           Adicionar
         </button>
       </div>

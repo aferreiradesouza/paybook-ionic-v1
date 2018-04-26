@@ -1,20 +1,65 @@
-<ion-view view-title="Paybook" ng-init="init()">
-  <ion-content class="platform-ios">
-      <div style="height: 50px;">
-
+<ion-view ng-init="init()">
+  <div class="bar bar-header bar-stable" style="height: 73px;">
+    <h1 class="title animated slideInDown" style="margin-top: 27px;">Paybook</h1>
+    <a style="z-index: 999; color: black;">
+      <div ng-click="openModal()" style="position: absolute; font-size: 22px; top: 40px; right: 10px;text-align: center; width: 30px; height: 25px;">
+        <i class="icon ion-search"></i>
       </div>
+    </a>
+  </div>
+  <ion-content class="platform-ios">
+    <div style="height: 75px;">
+
+    </div>
     <ion-refresher pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()">
     </ion-refresher>
-    <div ng-if="lista == ''" style="text-align: center; margin-top: 30px; color: rgb(156, 155, 155);">
+    <div ng-if="lista == '' && listaFixa == ''" style="text-align: center; margin-top: 30px; color: rgb(156, 155, 155);">
       Não tem nenhum gasto.
     </div>
     <ul>
+      <li style="display: inline" ng-repeat="item in listaFixa">
+        <div style="display: inline-block;width: 140px; height: 160px; background-color: rgb(241, 241, 241);; margin-left: 10px; margin-top: 10px;border-radius: 7px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
+          <div style="position: absolute;width: 140px; height: 50px; background-color: {{item.corConv}};border-top-left-radius: 7px;border-top-right-radius: 7px;text-align: center; color: white;">
+            <div style="margin-top: 5px;font-size: 15px;">{{item.preco | currency:"R$"}}</div>
+            <div style="margin-top: 5px;">{{item.item}}</div>
+          </div>
+          <div style="padding: 3px 5px 0 5px;position: absolute;height: 110px;margin-top: 50px;width: 140px;border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;">
+            <div style="width: 130px; height: 27.5px;">
+              <i class="icon ion-location" style="font-size: 20px;"></i>
+              <span style="margin-left: 5px;">{{item.localizacao}}</span>
+            </div>
+            <div style="width: 130px; height: 27.5px;">
+              <i class="icon {{item.gastoConv}}"></i>
+              <span style="margin-left: 5px;">{{item.gasto}}</span>
+            </div>
+            <div style="width: 130px; height: 27.5px;">
+              <i class="icon ion-ios-calendar-outline"></i>
+              <span style="margin-left: 5px;">{{item.dia | date:'dd/MM/yy'}}</span>
+            </div>
+            <div style="width: 130px; height: 27.5px;">
+              <i class="icon ion-ios-clock-outline"></i>
+              <span style="margin-left: 5px;">{{item.hora | date:'HH:mm'}}</span>
+            </div>
+            <div style="top: 86px;right: 10px;font-size: 20px;position: absolute;" ng-click="desfixarItem(listaFixa[$index], listaFixa,lista)">
+              <i class="icon ion-pin"></i>
+            </div>
+          </div>
+        </div>
+        <!-- {{item.item}}
+        {{item.preco}}
+        {{item.localizacao}}
+        <div style="font-size: 25px;">
+            <i class="icon ion-android-attach"></i>
+        </div> -->
+      </li>
+    </ul>
+    <ul>
       <li ng-repeat="item in lista">
-        <div id="{{item.id}}" ng-click="abrirComentario()" class="card-item animated flipInX" style="border-left: 5px solid {{item.cor}};">
+        <div id="{{item.id}}" ng-click="abrirComentario()" class="card-item animated flipInX" style="border-left: 5px solid {{item.corConv}};">
           <div class="row" style="margin: 0;padding: 0;height: 100%;">
-            <div class="col col-33 info color" style="background-color: {{item.cor}};">
+            <div class="col col-33 info color" style="background-color: {{item.corConv}};">
               <div class="gasto">
-                R${{item.preco}}
+                {{item.preco | currency:"R$"}}
               </div>
               <div class="tempo">
                 <div class="hora" style="margin-top: -5px;">{{item.hora | date:'HH:mm'}}</div>
@@ -36,6 +81,9 @@
                 <i class="icon ion-location" style="font-size: 20px;"></i>
                 <span class="localizacao-endereco">{{item.localizacao}}</span>
               </div>
+              <div style="position: absolute; left: 308px; top: 65px; font-size: 25px;" ng-click="fixarItem(lista[$index], lista,listaFixa)">
+                <i class="icon ion-pin"></i>
+              </div>
             </div>
           </div>
           <div id="comentario">
@@ -48,12 +96,148 @@
     </ul>
   </ion-content>
   <div class="status-total-pagar bar-stable">
-    <span class="animated fadeIn" style="font-size: 11px">TOTAL: </span><span class="animated fadeIn" ng-bind="sum()" style="font-weight: bold;"></span>
+    <span class="animated fadeIn" style="font-size: 11px">TOTAL: </span>
+    <span class="animated fadeIn" ng-bind="sum()" style="font-weight: bold;"></span>
   </div>
-  <a ng-href="/#/add-item"><div class="btn-add">
-    <i class="icon ion-plus-round" style="font-size: 25px;"></i>
-  </div></a>
+  <a ng-href="/#/add-item">
+    <div class="btn-add">
+      <i class="icon ion-plus-round" style="font-size: 25px;"></i>
+    </div>
+  </a>
   <!-- <div class="status-mes-passado bar-stable">
     <span style="font-size: 11px">MES PASSADO:</span> R$ 1024,99
   </div> -->
+
+  <script id="my-modal.html" type="text/ng-template">
+    <ion-modal-view>
+      <div class="bar bar-header bar-stable" style="height: 73px;">
+        <div  ng-click="closeModal()" style="position: absolute; font-size: 25px; top: 31px; left: 5px;text-align: center; width: 30px; height: 25px;">
+          <i class="icon ion-ios-arrow-back"></i>
+        </div>
+        <div style="width: 100vw;">
+            <div class="list list-inset" style="margin-left: 39px;">
+                <label class="item item-input" style="padding: 0 0 0 11px !important;">
+                  <i class="icon ion-search placeholder-icon"></i>
+                  <input type="text" placeholder="Search" ng-model="procurar">
+                </label>
+            </div>
+        </div>
+      </div>
+      <ion-content>
+          <div style="height: 72px;">
+      
+          </div>
+          <div ng-show="listaFixa != ''" class="list" style="margin-bottom: 0;">
+              <div class="item item-divider" style="font-size: 13px;">
+                ITEM FIXADO
+              </div>
+          </div>            
+          <ion-list can-swipe="listCanSwipe">
+              <ion-item ng-repeat="item in listaFixa | filter : procurar" style="position: relative;">
+                <div style="border-left: 7px solid {{item.corConv}}; height: 90px;padding: 5px 0 0 5px;background-color: #f8f8f8 !important;">
+                  <div style="position: absolute;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">ITEM: </span>
+                  </div>
+                  <div style="position: absolute;top: 35px;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">PREÇO: </span>
+                  </div>
+                  <div style="position: absolute;top: 65px;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">LOCAL: </span>
+                  </div>
+                  <div style="position: absolute; width: 133px; height: 80px; margin-left: 39px;">
+                    <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
+                      {{item.item | uppercase}}
+                    </div>
+                    <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 130px;">
+                      {{item.preco | currency:"R$"}}
+                    </div>
+                    <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 130px;">
+                      {{item.localizacao | uppercase}}
+                    </div>
+                  </div>
+                </div>
+                <div style="top: 4px;position: absolute;height: 80px; left: 50%;border-left: 1px solid #e4e4e4; padding-left: 10px;">
+                  <div style="position: absolute;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">DATA: </span>
+                  </div>
+                  <div style="position: absolute;top: 30px;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">HORA: </span>
+                  </div>
+                  <div style="position: absolute;top: 60px;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">TIPO: </span>
+                  </div>
+                </div>
+                  <span style="display: none;">{{item.cor}}</span>
+                  <div style="top: 4px;position: absolute; width: 133px; height: 80px; margin-left: 238px">
+                      <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
+                        {{item.dia | date:'dd/MM/yy'}}
+                      </div>
+                      <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 130px;">
+                        {{item.hora | date:'HH:mm'}}
+                      </div>
+                      <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 130px;">
+                        {{item.gasto | uppercase}}
+                      </div>
+                    </div>
+                <ion-option-button class="button-info" ng-click="deleteItemFixado($index)">Delete</ion-option-button>
+              </ion-item>
+            </ion-list>
+            <div class="list" style="margin-bottom: 0;">
+                <div class="item item-divider" style="font-size: 13px;">
+                  ITEM NÃO FIXADO
+                </div>
+            </div>
+          <ion-list can-swipe="listCanSwipe">
+              <ion-item ng-repeat="item in lista | filter : procurar" style="position: relative;">
+                <div style="border-left: 7px solid {{item.corConv}}; height: 90px;padding: 5px 0 0 5px;background-color: #f8f8f8 !important;">
+                  <div style="position: absolute;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">ITEM: </span>
+                  </div>
+                  <div style="position: absolute;top: 35px;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">PREÇO: </span>
+                  </div>
+                  <div style="position: absolute;top: 65px;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">LOCAL: </span>
+                  </div>
+                  <div style="position: absolute; width: 133px; height: 80px; margin-left: 39px;">
+                    <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
+                      {{item.item | uppercase}}
+                    </div>
+                    <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 130px;">
+                      {{item.preco | currency:"R$"}}
+                    </div>
+                    <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 130px;">
+                      {{item.localizacao | uppercase}}
+                    </div>
+                  </div>
+                </div>
+                <div style="top: 4px;position: absolute;height: 80px; left: 50%;border-left: 1px solid #e4e4e4; padding-left: 10px;">
+                  <div style="position: absolute;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">DATA: </span>
+                  </div>
+                  <div style="position: absolute;top: 30px;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">HORA: </span>
+                  </div>
+                  <div style="position: absolute;top: 60px;">
+                    <span style="color: rgb(156, 155, 155); font-size: 11px;">TIPO: </span>
+                  </div>
+                </div>
+                  <span style="display: none;">{{item.cor}}</span>
+                  <div style="top: 4px;position: absolute; width: 133px; height: 80px; margin-left: 238px">
+                      <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
+                        {{item.dia | date:'dd/MM/yy'}}
+                      </div>
+                      <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 130px;">
+                        {{item.hora | date:'HH:mm'}}
+                      </div>
+                      <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 130px;">
+                        {{item.gasto | uppercase}}
+                      </div>
+                    </div>
+                <ion-option-button class="button-info" ng-click="deleteItem($index)">Delete</ion-option-button>
+              </ion-item>
+            </ion-list>
+      </ion-content>
+    </ion-modal-view>
+  </script>
 </ion-view>

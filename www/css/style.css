@@ -4,7 +4,7 @@
     margin: 0 auto;
     border-radius: 5px;
     margin-top: 10px;
-    box-shadow: 7px 10px 34px -10px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 }
 
 .platform-ios .bar-footer{
@@ -113,7 +113,7 @@ ion-header-bar{
 }
 
 .header-item{
-    margin-top: 10px !important;
+    margin-top: 25px !important;
 }
 
 .has-header{
@@ -171,6 +171,48 @@ ion-header-bar{
 }
 
 .scroll-refresher{
-    top: -10px;
+    top: 10px;
 }
 
+.card-item.ng-enter {
+    transition:0.5s linear all;
+    opacity:0;
+}
+
+.card-item.ng-enter.ng-enter-active {
+    opacity:1;
+}
+
+.card-item.ng-leave {
+    transition:0.5s linear all;
+    opacity:1;
+}
+.card-item.ng-leave.ng-leave-active {
+    opacity:0;
+}
+
+.slide-in-right {
+  -webkit-transform: translateX(100%);
+    transform: translateX(100%); }
+
+.slide-in-right.ng-enter, .slide-in-right > .ng-enter {
+  -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+  transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms; }
+
+.slide-in-right.ng-enter-active, .slide-in-right > .ng-enter-active {
+  -webkit-transform: translateX(0);
+    transform: translateX(0); }
+
+.slide-in-right.ng-leave, .slide-in-right > .ng-leave {
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms; }
+
+.button{
+    background-color:#e42112 !important;
+    color: white;
+}
+
+.item-content{
+    padding: 0px !important;
+    height: 90px;
+}
