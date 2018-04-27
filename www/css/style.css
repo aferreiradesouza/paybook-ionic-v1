@@ -1,126 +1,126 @@
-.card-item{
+.card-item {
     background-color: rgb(241, 241, 241);
     width: 90%;
     margin: 0 auto;
     border-radius: 5px;
     margin-top: 10px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
-.platform-ios .bar-footer{
+.platform-ios .bar-footer {
     bottom: 49px !important;
 }
 
-.info{
-    padding:5px !important;
+.info {
+    padding: 5px !important;
 }
 
-.descricao{
+.descricao {
     border-left: 1px solid rgba(128, 128, 128, 0.219);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-
 }
 
-.gasto{
+.gasto {
     font-size: 18px;
 }
 
-.tempo{
+.tempo {
     line-height: 15px;
     margin-top: 37px;
 }
 
-.dia{
+.dia {
     font-size: 15px;
 }
 
-.hora{
+.hora {
     font-size: 11px;
     color: rgb(255, 255, 255);
 }
 
-.titulo-descricao{
+.titulo-descricao {
     position: absolute;
     font-size: 18px;
     height: 50%;
 }
 
-.localizacao{
+.localizacao {
     height: 30%;
     margin-top: 67px;
 }
 
-.localizacao-endereco{
+.localizacao-endereco {
     margin-left: 5px;
 }
 
-.descricao-item{
+.descricao-item {
     animation-name: descricao;
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
 
-@keyframes descricao{
-    0%{
+@keyframes descricao {
+    0% {
         height: 100px !important;
     }
-    50%{
+    50% {
         height: 200px !important;
     }
-    100%{
+    100% {
         height: 175px !important;
     }
 }
-#comentario{
+
+#comentario {
     transition-duration: 0.5s;
     overflow: hidden;
     height: 0px;
 }
 
-.comentario{
+.comentario {
     padding: 5px;
     height: 50px !important;
 }
 
-.color{
+.color {
     color: white;
 }
 
-.comentarioHeight{
+.comentarioHeight {
     height: 50px !important;
 }
 
-.tipo{
+.tipo {
     margin-top: 50px;
     position: absolute;
     color: rgb(156, 155, 155);
     font-size: 11px;
 }
 
-.dataPagamentos{
+.dataPagamentos {
     padding: 5px 5px 0 7px;
     font-size: 20px;
     font-weight: bold;
 }
 
-.ajusteHeader{
+.ajusteHeader {
     height: 55px !important;
 }
 
-ion-header-bar{
+ion-header-bar {
     height: 55px !important;
 }
 
-.header-item{
+.header-item {
     margin-top: 25px !important;
 }
 
-.has-header{
+.has-header {
     top: 55px !important;
 }
 
-.btn-add{
+.btn-add {
     width: 45px;
     height: 45px;
     position: absolute;
@@ -130,13 +130,14 @@ ion-header-bar{
     padding: 10px;
     margin: auto;
     color: white;
-    background: -webkit-linear-gradient(-45deg, #31b3ff 0%,#258dc8 100%);
+    background: -webkit-linear-gradient(-45deg, #31b3ff 0%, #258dc8 100%);
     z-index: 999;
     left: 0;
     right: 0;
     /* box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.41); */
 }
-.status-total-pagar{
+
+.status-total-pagar {
     width: calc(100vw - 55vw);
     min-width: 40vw;
     height: 35px;
@@ -150,7 +151,7 @@ ion-header-bar{
     margin-left: 20px;
 }
 
-.status-mes-passado{
+.status-mes-passado {
     width: calc(100vw - 50vw);
     min-width: 40vw;
     height: 35px;
@@ -166,53 +167,93 @@ ion-header-bar{
     font-size: 10px;
 }
 
-.btn-delete{
+.btn-delete {
     right: 8px;
 }
 
-.scroll-refresher{
+.scroll-refresher {
     top: 10px;
 }
 
 .card-item.ng-enter {
-    transition:0.5s linear all;
-    opacity:0;
+    transition: 0.5s linear all;
+    opacity: 0;
 }
 
 .card-item.ng-enter.ng-enter-active {
-    opacity:1;
+    opacity: 1;
 }
 
 .card-item.ng-leave {
-    transition:0.5s linear all;
-    opacity:1;
+    transition: 0.5s linear all;
+    opacity: 1;
 }
+
 .card-item.ng-leave.ng-leave-active {
-    opacity:0;
+    opacity: 0;
 }
 
 .slide-in-right {
-  -webkit-transform: translateX(100%);
-    transform: translateX(100%); }
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+}
 
-.slide-in-right.ng-enter, .slide-in-right > .ng-enter {
-  -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
-  transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms; }
+.slide-in-right.ng-enter, .slide-in-right>.ng-enter {
+    -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+    transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+}
 
-.slide-in-right.ng-enter-active, .slide-in-right > .ng-enter-active {
-  -webkit-transform: translateX(0);
-    transform: translateX(0); }
+.slide-in-right.ng-enter-active, .slide-in-right>.ng-enter-active {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
 
-.slide-in-right.ng-leave, .slide-in-right > .ng-leave {
-  -webkit-transition: all ease-in-out 250ms;
-  transition: all ease-in-out 250ms; }
+.slide-in-right.ng-leave, .slide-in-right>.ng-leave {
+    -webkit-transition: all ease-in-out 250ms;
+    transition: all ease-in-out 250ms;
+}
 
-.button{
-    background-color:#e42112 !important;
+.button-info {
+    background-color: #e42112 !important;
     color: white;
 }
 
-.item-content{
+.item-content {
     padding: 0px !important;
     height: 90px;
 }
+
+.button-fixed {
+    background-color: #387ef5 !important;
+    color: white;
+}
+
+.slider-wrapper {
+    overflow: hidden;
+    height: 185px !important;
+}
+
+.slider-content {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: 5px;
+    height: calc(100% + 10px);
+    max-height: calc(100% + 10px);
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.card-slider {
+    display: inline-block;
+    position: relative;
+}
+
+.card-slider-fixo {
+    height: 210px;
+}
+
+.card-fixo .card {}

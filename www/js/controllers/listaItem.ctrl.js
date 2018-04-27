@@ -19,24 +19,16 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
     }
 
     $scope.fixarItem = function(item, from, to) {
-
-        console.log('Move item   Item: '+item+' From:: '+from+' To:: '+to);
-        //Here from is returned as blank and to as undefined
-
         var idx=from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
-            to.push(item);      
+            to.unshift(item);     
         }
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
     };
 
     $scope.desfixarItem = function(item, from, to) {
-
-        console.log('Move item   Item: '+item+' From:: '+from+' To:: '+to);
-        //Here from is returned as blank and to as undefined
-
         var idx=from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);

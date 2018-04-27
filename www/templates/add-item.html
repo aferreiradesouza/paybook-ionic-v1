@@ -1,4 +1,10 @@
 <ion-view ng-init="init()">
+  <script>
+    
+    $(function () {
+        $("#currency").maskMoney();
+    });
+    </script>
     <div class="bar bar-header bar-stable" style="height: 55px;">
       <a ng-href="/#/tab/lista-item" style="z-index: 999; color: black;">
         <div style="position: absolute; font-size: 22px; top: 22px; left: 5px;text-align: center; width: 30px; height: 25px;">
@@ -33,7 +39,7 @@
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Localização</span>
-          <input type="text" name="localizacao" placeholder="Norte Shopping" ng-model="data.localizacao" required>
+          <input maxlength="15" type="text" name="localizacao" placeholder="Norte Shopping" ng-model="data.localizacao" required>
           <span ng-class="error" ng-show="addForm.localizacao.$error.required"></span>
         </label>
 

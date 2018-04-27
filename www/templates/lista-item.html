@@ -7,52 +7,48 @@
       </div>
     </a>
   </div>
-  <ion-content class="platform-ios">
+  <ion-content class="platform-ios" overflow-scroll="true">
     <div style="height: 75px;">
 
     </div>
     <ion-refresher pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()">
     </ion-refresher>
     <div ng-if="lista == '' && listaFixa == ''" style="text-align: center; margin-top: 30px; color: rgb(156, 155, 155);">
-      Não tem nenhum gasto.
+      Não tem nenhum item adicionado.
     </div>
-    <ul>
-      <li style="display: inline" ng-repeat="item in listaFixa">
-        <div class="animated flipInX" style="display: inline-block;width: 140px; height: 160px; background-color: rgb(241, 241, 241);; margin-left: 10px; margin-top: 10px;border-radius: 7px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
-          <div style="position: absolute;width: 140px; height: 50px; background-color: {{item.corConv}};border-top-left-radius: 7px;border-top-right-radius: 7px;text-align: center; color: white;">
-            <div style="margin-top: 5px;font-size: 15px;">{{item.preco | currency:"R$"}}</div>
-            <div style="margin-top: 5px;">{{item.item}}</div>
-          </div>
-          <div style="padding: 3px 5px 0 5px;position: absolute;height: 110px;margin-top: 50px;width: 140px;border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;">
-            <div style="width: 130px; height: 27.5px;">
-              <i class="icon ion-location" style="font-size: 20px;"></i>
-              <span style="margin-left: 5px;">{{item.localizacao}}</span>
+    <div ng-if="listaFixa != ''" class="slider-wrapper card-slider-fixo">
+      <div class="slider-content">
+        <div class="card-slider" ng-repeat="item in listaFixa">
+          <div class="animated flipInX" style="display: inline-block;width: 140px; height: 160px; background-color: rgb(241, 241, 241);margin-left: 7px;margin-top:7px;border-radius: 7px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
+            <div style="position: absolute;width: 140px; height: 50px; background-color: {{item.corConv}};border-top-left-radius: 7px;border-top-right-radius: 7px;text-align: center; color: white;">
+              <div style="margin-top: 5px;font-size: 15px;">{{item.preco | currency:"R$"}}</div>
+              <div style="margin-top: 5px;">{{item.item}}</div>
             </div>
-            <div style="width: 130px; height: 27.5px;">
-              <i class="icon {{item.gastoConv}}"></i>
-              <span style="margin-left: 5px;">{{item.gasto}}</span>
-            </div>
-            <div style="width: 130px; height: 27.5px;">
-              <i class="icon ion-ios-calendar-outline"></i>
-              <span style="margin-left: 5px;">{{item.dia | date:'dd/MM/yy'}}</span>
-            </div>
-            <div style="width: 130px; height: 27.5px;">
-              <i class="icon ion-ios-clock-outline"></i>
-              <span style="margin-left: 5px;">{{item.hora | date:'HH:mm'}}</span>
-            </div>
-            <div style="top: 86px;right: 10px;font-size: 20px;position: absolute;" ng-click="desfixarItem(listaFixa[$index], listaFixa,lista)">
-              <i class="icon ion-pin"></i>
+            <div style="padding: 3px 5px 0 5px;position: absolute;height: 110px;margin-top: 50px;width: 140px;border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;">
+              <div style="width: 130px; height: 27.5px;">
+                <i class="icon ion-location" style="font-size: 20px;"></i>
+                <span style="margin-left: 5px;">{{item.localizacao}}</span>
+              </div>
+              <div style="width: 130px; height: 27.5px;">
+                <i class="icon {{item.gastoConv}}"></i>
+                <span style="margin-left: 5px;">{{item.gasto}}</span>
+              </div>
+              <div style="width: 130px; height: 27.5px;">
+                <i class="icon ion-ios-calendar-outline"></i>
+                <span style="margin-left: 5px;">{{item.dia | date:'dd/MM/yy'}}</span>
+              </div>
+              <div style="width: 130px; height: 27.5px;">
+                <i class="icon ion-ios-clock-outline"></i>
+                <span style="margin-left: 5px;">{{item.hora | date:'HH:mm'}}</span>
+              </div>
+              <div style="transform: rotate(40deg);top: 86px;right: 10px;font-size: 20px;position: absolute;" ng-click="desfixarItem(listaFixa[$index], listaFixa,lista)">
+                <i class="icon ion-pin"></i>
+              </div>
             </div>
           </div>
         </div>
-        <!-- {{item.item}}
-        {{item.preco}}
-        {{item.localizacao}}
-        <div style="font-size: 25px;">
-            <i class="icon ion-android-attach"></i>
-        </div> -->
-      </li>
-    </ul>
+      </div>
+    </div>
     <ul>
       <li ng-repeat="item in lista">
         <div id="{{item.id}}" ng-click="abrirComentario()" class="card-item animated flipInX" style="border-left: 5px solid {{item.corConv}};">
@@ -124,65 +120,69 @@
         </div>
       </div>
       <ion-content>
-          <div style="height: 72px;">
+          <div style="height: 71px;">
       
           </div>
-          <div ng-show="listaFixa != ''" class="list" style="margin-bottom: 0;">
+          <div ng-if="lista == '' && listaFixa == ''" style="text-align: center; margin-top: 30px; color: rgb(156, 155, 155);">
+              Não tem nenhum item adicionado.
+          </div>
+          <div ng-if="listaFixa != ''" class="list" style="margin-bottom: 0;">
               <div class="item item-divider" style="font-size: 13px;">
                 ITEM FIXADO
               </div>
           </div>            
           <ion-list can-swipe="listCanSwipe">
               <ion-item ng-repeat="item in listaFixa | filter : procurar" style="position: relative;">
-                <div style="border-left: 7px solid {{item.corConv}}; height: 90px;padding: 5px 0 0 5px;background-color: #f8f8f8 !important;">
-                  <div style="position: absolute;">
-                    <span style="color: rgb(156, 155, 155); font-size: 11px;">ITEM: </span>
-                  </div>
-                  <div style="position: absolute;top: 35px;">
-                    <span style="color: rgb(156, 155, 155); font-size: 11px;">PREÇO: </span>
-                  </div>
-                  <div style="position: absolute;top: 65px;">
-                    <span style="color: rgb(156, 155, 155); font-size: 11px;">LOCAL: </span>
-                  </div>
-                  <div style="position: absolute; width: 133px; height: 80px; margin-left: 39px;">
-                    <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
-                      {{item.item | uppercase}}
-                    </div>
-                    <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 130px;">
-                      {{item.preco | currency:"R$"}}
-                    </div>
-                    <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 130px;">
-                      {{item.localizacao | uppercase}}
-                    </div>
-                  </div>
-                </div>
-                <div style="top: 4px;position: absolute;height: 80px; left: 50%;border-left: 1px solid #e4e4e4; padding-left: 10px;">
-                  <div style="position: absolute;">
-                    <span style="color: rgb(156, 155, 155); font-size: 11px;">DATA: </span>
-                  </div>
-                  <div style="position: absolute;top: 30px;">
-                    <span style="color: rgb(156, 155, 155); font-size: 11px;">HORA: </span>
-                  </div>
-                  <div style="position: absolute;top: 60px;">
-                    <span style="color: rgb(156, 155, 155); font-size: 11px;">TIPO: </span>
-                  </div>
-                </div>
-                  <span style="display: none;">{{item.cor}}</span>
-                  <div style="top: 4px;position: absolute; width: 133px; height: 80px; right: 0;">
-                      <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
-                        {{item.dia | date:'dd/MM/yy'}}
+                  <div style="border-left: 7px solid {{item.corConv}}; height: 90px;padding: 5px 0 0 5px;background-color: #f8f8f8 !important;">
+                      <div style="position: absolute;">
+                        <span style="color: rgb(156, 155, 155); font-size: 11px;">ITEM: </span>
                       </div>
-                      <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 130px;">
-                        {{item.hora | date:'HH:mm'}}
+                      <div style="position: absolute;top: 35px;">
+                        <span style="color: rgb(156, 155, 155); font-size: 11px;">PREÇO: </span>
                       </div>
-                      <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 130px;">
-                        {{item.gasto | uppercase}}
+                      <div style="position: absolute;top: 65px;">
+                        <span style="color: rgb(156, 155, 155); font-size: 11px;">LOCAL: </span>
+                      </div>
+                      <div style="position: absolute; width: 54%; height: 80px;">
+                        <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 168px; right: 0;">
+                          <span style="font-weight: bold">{{item.item | uppercase}}</span>
+                        </div>
+                        <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 168px; right: 0;">
+                          {{item.preco | currency:"R$"}}
+                        </div>
+                        <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 168px; right: 0;">
+                          {{item.localizacao | uppercase}}
+                        </div>
                       </div>
                     </div>
-                <ion-option-button class="button-info" ng-click="deleteItemFixado($index)">Delete</ion-option-button>
+                    <div style="top: 4px;position: absolute;height: 80px; left: 58%;border-left: 1px solid #e4e4e4; padding-left: 10px;">
+                      <div style="position: absolute;">
+                        <span style="color: rgb(156, 155, 155); font-size: 11px;">DATA: </span>
+                      </div>
+                      <div style="position: absolute;top: 30px;">
+                        <span style="color: rgb(156, 155, 155); font-size: 11px;">HORA: </span>
+                      </div>
+                      <div style="position: absolute;top: 60px;">
+                        <span style="color: rgb(156, 155, 155); font-size: 11px;">TIPO: </span>
+                      </div>
+                    </div>
+                      <span style="display: none;">{{item.cor}}</span>
+                      <div style="top: 4px;position: absolute; width: 133px; height: 80px; right:5px">
+                          <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
+                            {{item.dia | date:'dd/MM/yy'}}
+                          </div>
+                          <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 130px;">
+                            {{item.hora | date:'HH:mm'}}
+                          </div>
+                          <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 130px;">
+                            {{item.gasto | uppercase}}
+                          </div>
+                        </div>
+                <ion-option-button class="button-info" ng-click="deleteItemFixado($index)">Excluir</ion-option-button>
+                <ion-option-button class="button-fixed" ng-click="desfixarItem(listaFixa[$index], listaFixa,lista)">Desafixar</ion-option-button>
               </ion-item>
             </ion-list>
-            <div class="list" style="margin-bottom: 0;">
+            <div ng-if="lista != ''" class="list" style="margin-bottom: 0;">
                 <div class="item item-divider" style="font-size: 13px;">
                   ITEM NÃO FIXADO
                 </div>
@@ -199,19 +199,19 @@
                   <div style="position: absolute;top: 65px;">
                     <span style="color: rgb(156, 155, 155); font-size: 11px;">LOCAL: </span>
                   </div>
-                  <div style="position: absolute; width: 133px; height: 80px; margin-left: 39px;">
-                    <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
-                      {{item.item | uppercase}}
+                  <div style="position: absolute; width: 54%; height: 80px;">
+                    <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 168px; right: 0;">
+                      <span style="font-weight: bold">{{item.item | uppercase}}</span>
                     </div>
-                    <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 130px;">
+                    <div style="position: absolute;top: 31px; font-size: 13px; text-align: right; width: 168px; right: 0;">
                       {{item.preco | currency:"R$"}}
                     </div>
-                    <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 130px;">
+                    <div style="position: absolute;top: 61px; font-size: 13px; text-align: right; width: 168px; right: 0;">
                       {{item.localizacao | uppercase}}
                     </div>
                   </div>
                 </div>
-                <div style="top: 4px;position: absolute;height: 80px; left: 50%;border-left: 1px solid #e4e4e4; padding-left: 10px;">
+                <div style="top: 4px;position: absolute;height: 80px; left: 58%;border-left: 1px solid #e4e4e4; padding-left: 10px;">
                   <div style="position: absolute;">
                     <span style="color: rgb(156, 155, 155); font-size: 11px;">DATA: </span>
                   </div>
@@ -223,7 +223,7 @@
                   </div>
                 </div>
                   <span style="display: none;">{{item.cor}}</span>
-                  <div style="top: 4px;position: absolute; width: 133px; height: 80px; right:0">
+                  <div style="top: 4px;position: absolute; width: 133px; height: 80px; right:5px">
                       <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 130px;">
                         {{item.dia | date:'dd/MM/yy'}}
                       </div>
@@ -234,7 +234,8 @@
                         {{item.gasto | uppercase}}
                       </div>
                     </div>
-                <ion-option-button class="button-info" ng-click="deleteItem($index)">Delete</ion-option-button>
+                <ion-option-button class="button-info" ng-click="deleteItem($index)">Excluir</ion-option-button>
+                <ion-option-button class="button-fixed" ng-click="fixarItem(lista[$index], lista,listaFixa)">Fixar</ion-option-button>
               </ion-item>
             </ion-list>
       </ion-content>
