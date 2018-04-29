@@ -32,7 +32,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         var idx=from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
-            to.push(item);      
+            to.unshift(item);      
         }
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
