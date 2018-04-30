@@ -1,20 +1,14 @@
 <ion-view ng-init="init()">
-  <script>
-    
-    $(function () {
-        $("#currency").maskMoney();
-    });
-    </script>
-    <div class="bar bar-header bar-stable" style="height: 55px;">
+    <div class="bar bar-header bar-stable" style="height: 73px;">
       <a ng-href="/#/tab/lista-item" style="z-index: 999; color: black;">
-        <div style="position: absolute; font-size: 22px; top: 22px; left: 5px;text-align: center; width: 30px; height: 25px;">
+        <div style="position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
           <i class="icon ion-chevron-left"></i>
         </div>
       </a>
-      <h1 class="title" style="margin-top: 10px;">Adicionar Gasto</h1>
+      <h1 class="title" style="margin-top: 27px;">Adicionar Gasto</h1>
     </div>
   <ion-content>
-    <div style="height: 50px;">
+    <div style="height: 72px;">
 
     </div>
     <form name="addForm" ng-submit="addItem()">
@@ -27,8 +21,7 @@
 
         <label class="item item-input item-stacked-label">
           <span class="input-label">Preço</span>
-          <input type="text" name="preco" placeholder="R$2.99" ng-model="data.preco" required>
-          <span ng-class="error" ng-show="addForm.preco.$error.required"></span>
+          <input type="text" name="preco" ng-model="data.preco" placeholder="R$2,99">
         </label>
 
         <!-- <label class="item item-input item-stacked-label">

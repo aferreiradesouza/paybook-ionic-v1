@@ -1,57 +1,63 @@
 app.controller('addItemCtrl', function ($scope, Util) {
     $scope.data = {};
     $scope.lista = [];
+    $scope.listaFixa = [];
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
+        var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
+
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
         }
+        if (listaAuxFixa != '') {
+            $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
+        }
     }
 
-    $scope.voltarIndex = function () {
-        setTimeout(function () {
-            window.location.href="#/tab/lista-item";
-        }, 100);
-    }
-
+    $(function() {
+      $('#currency').maskMoney();
+    })
+    
     $scope.addItem = function () {
         $scope.data.gastoConv = converterGasto($scope.data.gasto);
         $scope.data.corConv = converterCor($scope.data.cor);
         $scope.data.dia = new Date();
-        $scope.data.hora = convHora();
+        $scope.data.hora = new Date();
         $scope.data.preco = parseFloat($scope.data.preco);
-        // $scope.data.preco = precoConvertido($scope.data.preco);
-        console.log($scope.data);
+
 
         $scope.data.id = Util.criarGuid();
         $scope.lista.unshift($scope.data);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
 
-        $scope.voltarIndex();
+        voltarIndex();
     }
 
+     function voltarIndex() {
+        setTimeout(function () {
+            window.location.href = "#/tab/lista-item";
+        }, 100);
+    }
+    
     function convHora() {
         var h = new Date();
-        var hora = h.getHours() + ':' + h.getMinutes();
-        if (hora.length == 4) {
-            // var hora = h.getHours() + ':0' + h.getMinutes();
-            if (hora.charAt(0) != 0) {
-                var hora = '0' + h.getHours() + ':' + h.getMinutes();
-            }
-            if (hora.charAt(3) != 0) {
-                if(hora.charAt(0) == 0){
-                var hora = h.getHours() + '0:' + h.getMinutes();
-                }else{
-                var hora = h.getHours() + ':0' + h.getMinutes();
-                }
-            }
-        }
-        if (hora.length == 3) {
-            var hora = '0' + h.getHours() + ':0' + h.getMinutes();
-        }
-        return hora;
+        datetext = h.getHours() + ":" + h.getMinutes();
+        // var hora = h.getHours() + ':' + h.getMinutes();
+        // if (hora.length == 4) {
+        //     // var hora = h.getHours() + ':0' + h.getMinutes();
+        //     if (hora.charAt(0) != 0) {
+        //         var hora = '0' + h.getHours() + ':' + h.getMinutes();
+        //     }
+        //     if (hora.charAt(3) != 0) {
+        //         var hora = h.getHours() + ':0' + h.getMinutes();
+        //     }
+        // }
+        // if (hora.length == 3) {
+        //     var hora = '0' + h.getHours() + ':0' + h.getMinutes();
+        // }
+        return datetext;
     }
 
     // function formatarData(dado) {
