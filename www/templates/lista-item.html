@@ -18,7 +18,7 @@
         Itens fixados
       </div>
       <div style="position: absolute;top: 50%;transform: translate( 0,-50%);right: 0;">
-        <div class="btnLimparFixo">
+        <div class="btnLimparFixo" ng-if="listaFixa != ''">
           <i class="icon ion-close" id="xFixo"></i>
           <div class="btnSumirFixo" style="font-weight: 600" id="limparFixo" ng-click="limparListaFixa()">Limpar</div>
         </div>
@@ -70,7 +70,7 @@
           Itens adicionados
         </div>
         <div style="position: absolute;top: 50%;transform: translate( 0,-50%);right: 0;">
-          <div class="btnLimpar">
+          <div class="btnLimpar" ng-if="lista != ''">
             <i class="icon ion-close" id="x"></i>
             <div class="btnSumir" style="font-weight: 600" id="limpar" ng-click="limparLista()">Limpar</div>
           </div>
