@@ -1,6 +1,6 @@
 app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
-    $scope.lista = [];
     $scope.listaFixa = [];
+    $scope.lista = [];
 
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
@@ -16,6 +16,16 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         if (listaAuxFixa != '') {
             $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
         }
+    }
+
+    $scope.limparLista = function(){
+        $scope.lista = [];
+        Util.salvarObjeto('ItensDaLista', $scope.lista);
+    }
+
+    $scope.limparListaFixa = function(){
+        $scope.listaFixa = [];
+        Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
     }
 
     $scope.fixarItem = function(item, from, to) {
@@ -67,11 +77,32 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.listaFixa.splice(index, 1);
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
     }
-    // $(document).ready(function () {
-    //     $('.card-item').click(function () {
-    //         $('#comentario').toggleClass('comentarioHeight');
-    //     });
-    // });
+
+    $(document).ready(function () {
+        $('.btnLimpar').click(function () {
+            $('.btnLimpar').toggleClass('btnLimparAtivo');
+            $('#x').toggleClass('btnSumir');
+            $('#limpar').toggleClass('btnSumir');
+            setTimeout(function () {
+                $('.btnLimpar').removeClass('btnLimparAtivo');
+                $('#x').removeClass('btnSumir');
+                $('#limpar').addClass('btnSumir');
+            }, 2500);
+        });
+    });
+
+    $(document).ready(function () {
+        $('.btnLimparFixo').click(function () {
+            $('.btnLimparFixo').toggleClass('btnLimparAtivoFixo');
+            $('#xFixo').toggleClass('btnSumirFixo');
+            $('#limparFixo').toggleClass('btnSumirFixo');
+            setTimeout(function () {
+                $('.btnLimparFixo').removeClass('btnLimparAtivoFixo');
+                $('#xFixo').removeClass('btnSumirFixo');
+                $('#limparFixo').addClass('btnSumirFixo');
+            }, 2500);
+        });
+    });
 
     $ionicModal.fromTemplateUrl('my-modal.html', {
         scope: $scope,

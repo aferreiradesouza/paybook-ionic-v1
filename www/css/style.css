@@ -257,3 +257,54 @@ ion-header-bar {
 }
 
 .card-fixo .card {}
+
+.btnLimpar{
+    width: 23px;
+    height: 23px;
+    border: 1.5px solid black;
+    text-align: center;
+    border-radius: 25px;
+    color:black;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.btnLimparAtivo{
+    width: 80px !important;
+    transition: 0.5s;
+}
+
+.btnLimparDesativo{
+    width: 23px !important;
+    transition-delay: 5s;
+}
+
+.btnSumir{
+    display: none;
+}
+
+
+.btnLimparFixo{
+    width: 23px;
+    height: 23px;
+    border: 1.5px solid black;
+    text-align: center;
+    border-radius: 25px;
+    color:black;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.btnLimparAtivoFixo{
+    width: 80px !important;
+    transition: 0.5s;
+}
+
+.btnLimparDesativoFixo{
+    width: 23px !important;
+    transition-delay: 5s;
+}
+
+.btnSumirFixo{
+    display: none;
+}

@@ -13,8 +13,19 @@
     </div>
     <ion-refresher pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()">
     </ion-refresher>
-    <div ng-if="lista == '' && listaFixa == ''" style="text-align: center; margin-top: 30px; color: rgb(156, 155, 155);">
-      Não tem nenhum item adicionado.
+    <div style="position: relative;width: 90%; margin: 15px auto; border-bottom: 1px solid #ececec; margin-bottom: 0px;">
+      <div style="width: 110px; border-bottom: 3px solid black; font-size: 15px; padding-bottom: 5px;">
+        Itens fixados
+      </div>
+      <div style="position: absolute;top: 50%;transform: translate( 0,-50%);right: 0;">
+        <div class="btnLimparFixo">
+          <i class="icon ion-close" id="xFixo"></i>
+          <div class="btnSumirFixo" style="font-weight: 600" id="limparFixo" ng-click="limparListaFixa()">Limpar</div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="listaFixa == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
+      Não tem nenhum item fixado.
     </div>
     <div ng-if="listaFixa != ''" class="slider-wrapper card-slider-fixo">
       <div class="slider-content">
@@ -54,6 +65,20 @@
       </div>
     </div>
     <ul>
+      <div style="position: relative;width: 90%; margin: 15px auto; border-bottom: 1px solid #ececec; margin-bottom: 0px;">
+        <div style="width: 140px; border-bottom: 3px solid black; font-size: 15px; padding-bottom: 5px;">
+          Itens adicionados
+        </div>
+        <div style="position: absolute;top: 50%;transform: translate( 0,-50%);right: 0;">
+          <div class="btnLimpar">
+            <i class="icon ion-close" id="x"></i>
+            <div class="btnSumir" style="font-weight: 600" id="limpar" ng-click="limparLista()">Limpar</div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="lista == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
+        Não tem nenhum item adicionado.
+      </div>
       <li ng-repeat="item in lista">
         <div id="{{item.id}}" ng-click="abrirComentario()" class="card-item animated flipInX" style="border-left: 5px solid {{item.corConv}};">
           <div class="row" style="margin: 0;padding: 0;height: 100%;">
@@ -147,7 +172,7 @@
                       <div style="position: absolute;top: 65px;">
                         <span style="color: rgb(156, 155, 155); font-size: 11px;">LOCAL: </span>
                       </div>
-                      <div style="position: absolute; width: 54%; height: 80px;">
+                      <div style="position: absolute; width: 52.5%; height: 80px;">
                         <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 168px; right: 0;">
                           <span style="font-weight: bold">{{item.item | uppercase}}</span>
                         </div>
@@ -203,7 +228,7 @@
                   <div style="position: absolute;top: 65px;">
                     <span style="color: rgb(156, 155, 155); font-size: 11px;">LOCAL: </span>
                   </div>
-                  <div style="position: absolute; width: 54%; height: 80px;">
+                  <div style="position: absolute; width: 52.5%; height: 80px;">
                     <div style="position: absolute; font-size: 13px; top: 1px; text-align: right; width: 168px; right: 0;">
                       <span style="font-weight: bold">{{item.item | uppercase}}</span>
                     </div>

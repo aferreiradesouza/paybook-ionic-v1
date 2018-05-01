@@ -16,10 +16,10 @@ app.controller('addItemCtrl', function ($scope, Util) {
         }
     }
 
-    $(function() {
-      $('#currency').maskMoney();
+    $(function () {
+        $('#currency').maskMoney();
     })
-    
+
     $scope.addItem = function () {
         $scope.data.gastoConv = converterGasto($scope.data.gasto);
         $scope.data.corConv = converterCor($scope.data.cor);
@@ -29,35 +29,22 @@ app.controller('addItemCtrl', function ($scope, Util) {
 
 
         $scope.data.id = Util.criarGuid();
-        $scope.lista.unshift($scope.data);
-        Util.salvarObjeto('ItensDaLista', $scope.lista);
+
+        if ($scope.data.itemFixo == true) {
+            $scope.listaFixa.unshift($scope.data);
+            Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
+        } else {
+            $scope.lista.unshift($scope.data);
+            Util.salvarObjeto('ItensDaLista', $scope.lista);
+        }
 
         voltarIndex();
     }
 
-     function voltarIndex() {
+    function voltarIndex() {
         setTimeout(function () {
             window.location.href = "#/tab/lista-item";
         }, 100);
-    }
-    
-    function convHora() {
-        var h = new Date();
-        datetext = h.getHours() + ":" + h.getMinutes();
-        // var hora = h.getHours() + ':' + h.getMinutes();
-        // if (hora.length == 4) {
-        //     // var hora = h.getHours() + ':0' + h.getMinutes();
-        //     if (hora.charAt(0) != 0) {
-        //         var hora = '0' + h.getHours() + ':' + h.getMinutes();
-        //     }
-        //     if (hora.charAt(3) != 0) {
-        //         var hora = h.getHours() + ':0' + h.getMinutes();
-        //     }
-        // }
-        // if (hora.length == 3) {
-        //     var hora = '0' + h.getHours() + ':0' + h.getMinutes();
-        // }
-        return datetext;
     }
 
     // function formatarData(dado) {
