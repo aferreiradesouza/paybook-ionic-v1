@@ -18,6 +18,8 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         }
     }
 
+    $scope.platform = ionic.Platform.platform();
+
     $scope.limparLista = function(){
         $scope.lista = [];
         Util.salvarObjeto('ItensDaLista', $scope.lista);

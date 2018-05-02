@@ -11,6 +11,18 @@
     bottom: 49px !important;
 }
 
+.ajuste-title-android{
+    margin-top: 0px !important;
+}
+
+.ajuste-header-android{
+    height: 45px !important;
+}
+
+.ajuste-icon-modal-android{
+    top: 13px !important;
+}
+
 .info {
     padding: 5px !important;
 }
@@ -137,12 +149,43 @@ ion-header-bar {
     /* box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.41); */
 }
 
+.btn-add-android {
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    bottom: 10px;
+    border-radius: 25px;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    color: white;
+    background: -webkit-linear-gradient(-45deg, #31b3ff 0%, #258dc8 100%);
+    z-index: 999;
+    left: 0;
+    right: 0;
+    /* box-shadow: 10px 10px 5px -8px rgba(0,0,0,0.41); */
+}
+
 .status-total-pagar {
     width: calc(100vw - 55vw);
     min-width: 40vw;
     height: 35px;
     position: absolute;
     bottom: 55px;
+    border-radius: 25px;
+    text-align: left;
+    padding: 6px;
+    background-color: #f8f8f8;
+    border: 1px solid #b2b2b2;
+    margin-left: 20px;
+}
+
+.status-total-pagar-android {
+    width: calc(100vw - 55vw);
+    min-width: 40vw;
+    height: 35px;
+    position: absolute;
+    bottom: 15px;
     border-radius: 25px;
     text-align: left;
     padding: 6px;
@@ -173,6 +216,14 @@ ion-header-bar {
 
 .scroll-refresher {
     top: 10px;
+}
+
+.scroll-refresher-android {
+    top: -55px !important;
+}
+
+.div-sumir{
+    display: none;
 }
 
 .card-item.ng-enter {
