@@ -1,0 +1,127 @@
+<ion-view ng-init="init()">
+  <div class="bar bar-header bar-stable" ng-class="{'ajuste-header-android': platform == 'android'}" style="height: 73px;">
+    <h1 class="title" style="margin-top: 27px;" ng-class="{'ajuste-title-android': platform == 'android'}">Estatísticas</h1>
+  </div>
+  <ion-content>
+    <div style="height: 71px;" ng-class="{'div-sumir' : platform == 'android'}">
+
+    </div>
+    <ion-list>
+      <div class="list" style="margin-bottom: 0;">
+        <div class="item item-divider" style="font-size: 13px">
+          GERAL
+        </div>
+      </div>
+      <div class="GERAL">
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 16px; background-color: #f9f9f9;">
+          TOTAL DE ITENS FIXADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{listaFixa.length}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 16px; background-color: #f9f9f9;">
+          TOTAL DE ITENS ADICIONADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{lista.length}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 16px; background-color: #f9f9f9;">
+          TOTAL DE ITENS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{lista.length + listaFixa.length}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 16px; background-color: #f9f9f9;">
+          PREÇO DE ITENS FIXADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+          {{somarFixados() | currency:"R$"}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 16px; background-color: #f9f9f9;">
+          PREÇO DE ITENS ADICIONADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{somarAdc() | currency:"R$"}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 16px; background-color: #f9f9f9;">
+          PREÇO TOTAL
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{precoTotalSomado() | currency:"R$"}}
+          </div>
+        </ion-item>
+      </div>
+      <div class="list" style="margin-bottom: 0;">
+        <div class="item item-divider" style="font-size: 13px">
+          CATEGORIA DOS ITENS
+        </div>
+      </div>
+      <div class="COMIDA" ng-repeat="item in ListarStatsCategorias">
+        <div class="list" style="margin-bottom: 0;">
+          <div class="item item-divider" style="font-size: 13px; padding-left: 35px;">
+            {{item.categoria}}
+          </div>
+        </div>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          TOTAL DE ITENS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.totalDeItens}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          PORCENTAGEM DE ITENS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.porcentoItens}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          PORCENTAGEM DO PREÇO
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.porcentoPreco}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          PREÇO TOTAL
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            R${{item.precoTotal}}
+          </div>
+        </ion-item>
+      </div>
+      <div class="list" style="margin-bottom: 0;">
+        <div class="item item-divider" style="font-size: 13px">
+          COR DOS ITENS
+        </div>
+      </div>
+      <div class="VERMELHO" ng-repeat="item in ListarStatsCor">
+        <div class="list" style="margin-bottom: 0;border-left: 6px solid {{item.cor}};">
+          <div class="item item-divider" style="font-size: 13px; padding-left: 29px;">
+            {{item.categoria}}
+          </div>
+        </div>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          TOTAL DE ITENS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.totalDeItens}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          PORCENTAGEM DE ITENS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.porcentoItens}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          PORCENTAGEM DO PREÇO
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.porcentoPreco}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          PREÇO TOTAL
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            R${{item.precoTotal}}
+          </div>
+        </ion-item>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

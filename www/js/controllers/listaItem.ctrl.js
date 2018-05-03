@@ -68,7 +68,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         });
         total = totalLista + totalListaFixa;
         return "R$"+total.toFixed(2);
-      }
+    }
 
     $scope.deleteItem = function (index) {
         $scope.lista.splice(index, 1);

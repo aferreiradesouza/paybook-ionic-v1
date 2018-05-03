@@ -59,12 +59,12 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         }
       })
 
-      .state('tab.account', {
-        url: '/account',
+      .state('tab.estatisticas', {
+        url: '/estatisticas',
         views: {
-          'tab-account': {
-            templateUrl: 'templates/tab-account.html',
-            controller: 'AccountCtrl'
+          'tab-estatisticas': {
+            templateUrl: 'templates/estatisticas.html',
+            controller: 'statsCtrl'
           }
         }
       });
