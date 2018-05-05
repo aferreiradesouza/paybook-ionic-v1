@@ -5,7 +5,7 @@
         <i class="icon ion-chevron-left"></i>
       </div>
     </a>
-    <h1 class="title" style="margin-top: 27px;">Adicionar Gasto</h1>
+    <h1 class="title" style="margin-top: 27px;">Adicionar Item</h1>
   </div>
   <ion-content>
     <div style="height: 72px;">
@@ -36,12 +36,12 @@
           <span ng-class="error" ng-show="addForm.localizacao.$error.required"></span>
         </label>
 
-        <label class="item item-input item-select">
+        <label class="item item-input item-select" ng-click="showConfirm()">
           <div class="input-label">
             Tipo de gasto
           </div>
           <select name="tipo" ng-model="data.gasto" required>
-            <option>Comida</option>
+            <option selected>Comida</option>
             <option>Cinema</option>
             <option>Lanche</option>
             <option>Música</option>
@@ -82,7 +82,7 @@
             Cor do item
           </div>
           <select name="cor" ng-model="data.cor" required>
-            <option>Roxo</option>
+            <option selected>Roxo</option>
             <option>Vermelho</option>
             <option>Verde</option>
             <option>Laranja</option>
@@ -106,14 +106,14 @@
           <span ng-class="error" ng-show="addForm.cor.$error.required"></span>
         </label>
         <li class="item item-toggle">
-            Fixar item
-            <label class="toggle toggle-positive">
-              <input type="checkbox" ng-model="data.itemFixo">
-              <div class="track">
-                <div class="handle"></div>
-              </div>
-            </label>
-         </li>
+          Fixar item
+          <label class="toggle toggle-positive">
+            <input type="checkbox" ng-model="data.itemFixo">
+            <div class="track">
+              <div class="handle"></div>
+            </div>
+          </label>
+        </li>
         <!-- 
         <label class="item item-input">
           <textarea placeholder="Comentários" style="height: 100px;"></textarea>

@@ -1,8 +1,9 @@
-app.controller('addItemCtrl', function ($scope, Util) {
+app.controller('addItemCtrl', function ($scope, Util, $ionicPopup, $timeout) {
     $scope.data = {};
     $scope.lista = [];
     $scope.listaFixa = [];
 
+    
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
         var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
@@ -16,9 +17,28 @@ app.controller('addItemCtrl', function ($scope, Util) {
         }
     }
 
+    $scope.showConfirm = function() {
+        var confirmPopup = $ionicPopup.confirm({
+          title: 'Consume Ice Cream',
+          template: "<ion-list><ion-radio ng-model='choice' ng-value='A'>Choose A</ion-radio><ion-radio ng-model='choice' ng-value='B'>Choose B</ion-radio><ion-radio ng-model='choice' ng-value='A'>Choose A</ion-radio><ion-radio ng-model='choice' ng-value='A'>Choose A</ion-radio></ion-list>"
+        });
+     
+        confirmPopup.then(function(res) {
+          if(res) {
+            console.log('You are sure');
+          } else {
+            console.log('You are not sure');
+          }
+        });
+      };
+
     $(function () {
         $('#currency').maskMoney();
     })
+
+    window.addEventListener('native.keyboardshow', function () {
+        document.body.classList.add('keyboard-open');
+    });
 
     $scope.addItem = function () {
         $scope.data.gastoConv = converterGasto($scope.data.gasto);
@@ -34,6 +54,7 @@ app.controller('addItemCtrl', function ($scope, Util) {
             $scope.listaFixa.unshift($scope.data);
             Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         } else {
+            $scope.data.itemFixo == false;
             $scope.lista.unshift($scope.data);
             Util.salvarObjeto('ItensDaLista', $scope.lista);
         }

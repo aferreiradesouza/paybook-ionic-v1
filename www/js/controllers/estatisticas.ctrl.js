@@ -1,6 +1,8 @@
 app.controller('statsCtrl', function ($scope, Util) {
     $scope.listaFixa = [];
     $scope.lista = [];
+    $scope.ListarStatsCategorias = [];
+    $scope.ListarStatsCor = [];
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
@@ -12,29 +14,26 @@ app.controller('statsCtrl', function ($scope, Util) {
         if (listaAuxFixa != '') {
             $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
         }
+        /*LISTAS CATEGORIA*/
+        $scope.ObterTipoComida();
+        $scope.ObterTipoCinema();
+        $scope.ObterTipoLanche();
+        $scope.ObterTipoMusica();
+        $scope.ObterTipoEsportes();
+        $scope.ObterTipoJogos();
+        $scope.ObterTipoLivros();
+        $scope.ObterTipoCerveja();
+
+        /*LISTAS COR*/
+        $scope.ObterCorRoxo();
+        $scope.ObterCorVermelho();
+        $scope.ObterCorVerde();
+        $scope.ObterCorLaranja();
+        $scope.ObterCorAzul();
+
     }
 
     $scope.platform = ionic.Platform.platform();
-
-    $scope.ListarStatsCategorias = [
-        { categoria: 'COMIDA', totalDeItens: '5', porcentoItens: '62%', porcentoPreco: '47%', precoTotal: '500.00' },
-        { categoria: 'MÚSICA', totalDeItens: '5', porcentoItens: '62%', porcentoPreco: '47%', precoTotal: '500.00' },
-        { categoria: 'LANCHE', totalDeItens: '5', porcentoItens: '62%', porcentoPreco: '47%', precoTotal: '500.00' }
-    ];
-
-    $scope.ListarStatsCor = [
-        { categoria: 'VERMELHO', cor: '#c0392b', totalDeItens: '5', porcentoItens: '62%', porcentoPreco: '47%', precoTotal: '500.00' },
-        { categoria: 'LARANJA', cor: '#f39c12', totalDeItens: '5', porcentoItens: '62%', porcentoPreco: '47%', precoTotal: '500.00' },
-        { categoria: 'ROXO', cor: '#8e44ad', totalDeItens: '5', porcentoItens: '62%', porcentoPreco: '47%', precoTotal: '500.00' }
-    ];
-
-    /*SCOPES*/
-
-    /*SCOPES*/
-
-    /*VARIAVEIS*/
-
-    /*VARIAVEIS*/
 
     $scope.somarFixados = function () {
         var totalListaFixa = 0;
@@ -68,22 +67,483 @@ app.controller('statsCtrl', function ($scope, Util) {
         total = parseFloat(total);
         return total.toFixed(2);
     }
-    // $scope.totalItensComida = function () {
-    //     var contagem = 0;
-    //     angular.forEach($scope.lista, function (key, value) {
-    //         if (key.gasto == "Comida") {
-    //             contagem += 1;
-    //         }
-    //     });
-    //     angular.forEach($scope.listaFixa, function (key, value) {
-    //         if (key.gasto == "Comida") {
-    //             contagem += 1;
-    //         }
-    //     });
-    //     return contagem;
-    // }
+    /*Lista Categorias */
+    $scope.ObterTipoComida = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.gasto == "Comida") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.gasto == "Comida") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
 
-    // function ObterEstatisticasCategoria{
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
 
-    // }
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistente = { categoria: "Comida", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCategorias.push(itemExistente);
+        }
+    }
+
+    $scope.ObterTipoCinema = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.gasto == "Cinema") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.gasto == "Cinema") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistente = { categoria: "Cinema", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCategorias.push(itemExistente);
+        }
+    }
+
+    $scope.ObterTipoLanche = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.gasto == "Lanche") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.gasto == "Lanche") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistente = { categoria: "Lanche", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCategorias.push(itemExistente);
+        }
+    }
+
+    $scope.ObterTipoMusica = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.gasto == "Música") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.gasto == "Música") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistente = { categoria: "Música", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCategorias.push(itemExistente);
+        }
+    }
+
+    $scope.ObterTipoEsportes = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.gasto == "Esportes") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.gasto == "Esportes") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistente = { categoria: "Esportes", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCategorias.push(itemExistente);
+        }
+    }
+
+    $scope.ObterTipoJogos = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.gasto == "Jogos") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.gasto == "Jogos") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistente = { categoria: "Jogos", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCategorias.push(itemExistente);
+        }
+    }
+
+    $scope.ObterTipoLivros = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.gasto == "Livros") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.gasto == "Livros") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistente = { categoria: "Livros", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCategorias.push(itemExistente);
+        }
+    }
+
+    $scope.ObterTipoCerveja = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.gasto == "Cerveja") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.gasto == "Cerveja") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistente = { categoria: "Cerveja", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCategorias.push(itemExistente);
+        }
+    }
+
+    /*Lista Cores */
+
+    $scope.ObterCorVermelho = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Vermelho") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Vermelho") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistenteCor = { corDigitada: "Vermelho", totalDeItens: contagem, cor: "#c0392b", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
+    $scope.ObterCorRoxo = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Roxo") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Roxo") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistenteCor = { corDigitada: "Roxo", totalDeItens: contagem, cor: "#8e44ad", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
+    $scope.ObterCorVerde = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Verde") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Verde") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistenteCor = { corDigitada: "Verde", totalDeItens: contagem, cor: "#27ae60", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
+    $scope.ObterCorLaranja = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Laranja") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Laranja") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistenteCor = { corDigitada: "Laranja", totalDeItens: contagem, cor: "#f39c12", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
+    $scope.ObterCorAzul = function () {
+        var contagem = 0;
+        var precoTotalGasto = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Azul") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Azul") {
+                contagem += 1;
+                precoTotalGasto += key.preco;
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
+
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
+
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
+
+            var itemExistenteCor = { corDigitada: "Azul", totalDeItens: contagem, cor: "#2980b9", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
 })

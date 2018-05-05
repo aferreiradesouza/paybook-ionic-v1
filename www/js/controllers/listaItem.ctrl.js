@@ -20,31 +20,31 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
 
     $scope.platform = ionic.Platform.platform();
 
-    $scope.limparLista = function(){
+    $scope.limparLista = function () {
         $scope.lista = [];
         Util.salvarObjeto('ItensDaLista', $scope.lista);
     }
 
-    $scope.limparListaFixa = function(){
+    $scope.limparListaFixa = function () {
         $scope.listaFixa = [];
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
     }
 
-    $scope.fixarItem = function(item, from, to) {
-        var idx=from.indexOf(item);
+    $scope.fixarItem = function (item, from, to) {
+        var idx = from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
-            to.unshift(item);     
+            to.unshift(item);
         }
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
     };
 
-    $scope.desfixarItem = function(item, from, to) {
-        var idx=from.indexOf(item);
+    $scope.desfixarItem = function (item, from, to) {
+        var idx = from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
-            to.unshift(item);      
+            to.unshift(item);
         }
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         Util.salvarObjeto('ItensDaLista', $scope.lista);
@@ -56,18 +56,18 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         }, 1500);
     }
 
-    $scope.sum = function() {
+    $scope.sum = function () {
         var total = 0;
         var totalLista = 0;
         var totalListaFixa = 0;
-        angular.forEach($scope.lista, function(key, value) {
+        angular.forEach($scope.lista, function (key, value) {
             totalLista += key.preco;
         });
-        angular.forEach($scope.listaFixa, function(key, value) {
+        angular.forEach($scope.listaFixa, function (key, value) {
             totalListaFixa += key.preco;
         });
         total = totalLista + totalListaFixa;
-        return "R$"+total.toFixed(2);
+        return "R$" + total.toFixed(2);
     }
 
     $scope.deleteItem = function (index) {
@@ -109,13 +109,29 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
     $ionicModal.fromTemplateUrl('my-modal.html', {
         scope: $scope,
         animation: 'slide-in-right'
-      }).then(function(modal) {
+    }).then(function (modal) {
         $scope.modal = modal;
-      });
-      $scope.openModal = function() {
+    });
+    $scope.openModal = function () {
         $scope.modal.show();
-      };
-      $scope.closeModal = function() {
+    };
+    $scope.closeModal = function () {
         $scope.modal.hide();
-      };
+    };
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var contentItem = this.nextElementSibling;
+            if (contentItem.style.maxHeight) {
+                contentItem.style.maxHeight = "100px";
+            } else {
+                contentItem.style.maxHeight = "100px";
+            }
+        });
+    }
+
 })

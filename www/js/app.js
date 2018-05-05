@@ -49,6 +49,12 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         controller: 'addItemCtrl'
       })
 
+      .state('tutorial', {
+        url: '/tutorial',
+        templateUrl: 'templates/tutorial.html',
+        controller: 'tutorialCtrl'
+      })
+
       .state('tab.chat-detail', {
         url: '/chats/:chatId',
         views: {

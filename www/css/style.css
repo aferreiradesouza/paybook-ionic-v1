@@ -359,3 +359,40 @@ ion-header-bar {
 .btnSumirFixo{
     display: none;
 }
+
+.collapsible {
+    background-color: #f5f5f5;
+    color: black;
+    cursor: pointer;
+    padding: 8px 16px 8px 40px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 13px;
+    border-bottom: 1px solid #ddd;
+    font-weight: 500;
+}
+
+
+.collapsible:after {
+    content: '\002B';
+    color: black;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.active:after {
+    content: "\2212";
+    color: black;
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+}
