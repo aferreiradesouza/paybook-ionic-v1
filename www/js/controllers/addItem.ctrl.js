@@ -51,10 +51,11 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicPopup, $timeout) {
         $scope.data.id = Util.criarGuid();
 
         if ($scope.data.itemFixo == true) {
+            $scope.data.itemFixo = true;
             $scope.listaFixa.unshift($scope.data);
             Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         } else {
-            $scope.data.itemFixo == false;
+            $scope.data.itemFixo = false;
             $scope.lista.unshift($scope.data);
             Util.salvarObjeto('ItensDaLista', $scope.lista);
         }
@@ -105,29 +106,38 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicPopup, $timeout) {
     }
 
     function converterGasto(gasto) {
-        if (gasto == 'Comida') {
-            var tipoGasto = 'ion-pizza';
+        if (gasto == 'Lazer') {
+            var tipoGasto = 'lazer.png';
+        }
+        if (gasto == 'Café') {
+            var tipoGasto = 'cafe.png';
         }
         if (gasto == 'Lanche') {
-            var tipoGasto = 'ion-coffee';
+            var tipoGasto = 'lanche.png';
         }
-        if (gasto == 'Jogos') {
-            var tipoGasto = 'ion-ios-game-controller-a';
+        if (gasto == 'Essencial') {
+            var tipoGasto = 'essencial.png';
+        }
+        if (gasto == 'Infantil') {
+            var tipoGasto = 'infantil.png';
+        }
+        if (gasto == 'Presente') {
+            var tipoGasto = 'present.png';
         }
         if (gasto == 'Cinema') {
-            var tipoGasto = 'ion-ios-videocam';
+            var tipoGasto = 'cinema.png';
         }
-        if (gasto == 'Livros') {
-            var tipoGasto = 'ion-ios-book';
+        if (gasto == 'Mercado') {
+            var tipoGasto = 'mercado.png';
         }
-        if (gasto == 'Música') {
-            var tipoGasto = 'ion-headphone';
+        if (gasto == 'Roupa') {
+            var tipoGasto = 'roupa.png';
         }
-        if (gasto == 'Esportes') {
-            var tipoGasto = 'ion-ios-football';
+        if (gasto == 'Utilitários') {
+            var tipoGasto = 'utilitarios.png';
         }
-        if (gasto == 'Cerveja') {
-            var tipoGasto = 'ion-beer';
+        if (gasto == 'Restaurante') {
+            var tipoGasto = 'restaurante.png';
         }
         return tipoGasto;
     }

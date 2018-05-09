@@ -50,7 +50,10 @@
           </div>
         </ion-item>
       </div>
-      <div class="list" style="margin-bottom: 0;">
+
+
+      <!-- CATEGORIA DOS ITENS -->
+      <div ng-if="ListarStatsCor != '' && ListarStatsCategorias != ''" class="list" style="margin-bottom: 0;">
         <div class="item item-divider" style="font-size: 13px; border-bottom: 0px; background-color: rgb(237, 237, 237)">
           CATEGORIA DOS ITENS
         </div>
@@ -61,6 +64,18 @@
             {{item.categoria | uppercase}}
           </div>
         </div>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS ADICIONADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.itensAdicionados}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS FIXADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.itensFixados}}
+          </div>
+        </ion-item>
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
           TOTAL DE ITENS
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
@@ -85,19 +100,99 @@
             R${{item.precoTotal}}
           </div>
         </ion-item>
-      
+
+
+        <!--COR DOS ITENS -->
       </div>
-      <div class="list" style="margin-bottom: 0;">
+      <div ng-if="ListarStatsCor != '' && ListarStatsCategorias != ''" class="list" style="margin-bottom: 0;">
         <div class="item item-divider" style="font-size: 13px; background-color: rgb(237, 237, 237); border-bottom: 0px;">
           COR DOS ITENS
         </div>
       </div>
-      <div class="VERMELHO" ng-repeat="item in ListarStatsCor">
+      <div class="COR" ng-repeat="item in ListarStatsCor">
         <div class="list" style="margin-bottom: 0;border-left: 6px solid {{item.cor}};">
           <div class="item item-divider" style="font-size: 13px; padding-left: 29px; background-color: rgb(237, 237, 237);color: {{item.cor}}">
             {{item.corDigitada | uppercase}}
           </div>
         </div>
+        <ion-item ng-if="item.contagemTipoLazer != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO LAZER
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoLazer}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoLanche != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO LANCHE
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoLanche}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoRestaurante != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO RESTAURANTE
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoRestaurante}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoCinema != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO CINEMA
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoCinema}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoRoupa != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO ROUPA
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoRoupa}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoInfantil != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO INFANTIL
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoInfantil}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoPresente != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO PRESENTE
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoPresente}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoEssencial != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO ESSENCIAL
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoEssencial}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoUtilitarios != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO UTILITÁRIOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoUtilitarios}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoMercado != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO MERCADO
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoMercado}}
+          </div>
+        </ion-item>
+        <ion-item ng-if="item.contagemTipoCafe != 0" style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS TIPO CAFÉ
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemTipoCafe}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS ADICIONADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.itensAdicionados}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS FIXADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.itensFixados}}
+          </div>
+        </ion-item>
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
           TOTAL DE ITENS
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">

@@ -36,43 +36,55 @@
           <span ng-class="error" ng-show="addForm.localizacao.$error.required"></span>
         </label>
 
-        <label class="item item-input item-select" ng-click="showConfirm()">
+        <label class="item item-input item-select">
           <div class="input-label">
             Tipo de gasto
           </div>
           <select name="tipo" ng-model="data.gasto" required>
-            <option selected>Comida</option>
-            <option>Cinema</option>
+            <option selected>Lazer</option>
+            <option>Café</option>
             <option>Lanche</option>
-            <option>Música</option>
-            <option>Esportes</option>
-            <option>Jogos</option>
-            <option>Livros</option>
-            <option>Cerveja</option>
+            <option>Restaurante</option>
+            <option>Mercado</option>
+            <option>Cinema</option>
+            <option>Roupa</option>
+            <option>Infantil</option>
+            <option>Presente</option>
+            <option>Essencial</option>
+            <option>Utilitários</option>
           </select>
-          <div ng-show="data.gasto == 'Comida'">
-            <i class="icon ion-pizza" style="font-size: 20px;"></i>
+          <div ng-show="data.gasto == 'Lazer'">
+              <img src="../../img/icon/lazer.png" style="height: 20px;width: 20px">
           </div>
-          <div ng-show="data.gasto == 'Cinema'">
-            <i class="icon ion-ios-videocam" style="font-size: 20px;"></i>
-          </div>
-          <div ng-show="data.gasto == 'Jogos'">
-            <i class="icon ion-ios-game-controller-a" style="font-size: 20px;"></i>
-          </div>
-          <div ng-show="data.gasto == 'Livros'">
-            <i class="icon ion-ios-book" style="font-size: 20px;"></i>
-          </div>
-          <div ng-show="data.gasto == 'Cerveja'">
-            <i class="icon ion-beer" style="font-size: 20px;"></i>
-          </div>
-          <div ng-show="data.gasto == 'Esportes'">
-            <i class="icon ion-ios-football" style="font-size: 20px;"></i>
-          </div>
-          <div ng-show="data.gasto == 'Música'">
-            <i class="icon ion-headphone" style="font-size: 20px;"></i>
+          <div ng-show="data.gasto == 'Café'">
+              <img src="../../img/icon/cafe.png" style="height: 20px;width: 20px">
           </div>
           <div ng-show="data.gasto == 'Lanche'">
-            <i class="icon ion-coffee" style="font-size: 20px;"></i>
+              <img src="../../img/icon/lanche.png" style="height: 20px;width: 20px">
+          </div>
+          <div ng-show="data.gasto == 'Restaurante'">
+              <img src="../../img/icon/restaurante.png" style="height: 20px;width: 20px">
+          </div>
+          <div ng-show="data.gasto == 'Mercado'">
+              <img src="../../img/icon/mercado.png" style="height: 20px;width: 20px">
+          </div>
+          <div ng-show="data.gasto == 'Cinema'">
+              <img src="../../img/icon/cinema.png" style="height: 20px;width: 20px">
+          </div>
+          <div ng-show="data.gasto == 'Roupa'">
+              <img src="../../img/icon/roupa.png" style="height: 20px;width: 20px">
+          </div>
+          <div ng-show="data.gasto == 'Infantil'">
+              <img src="../../img/icon/infantil.png" style="height: 20px;width: 20px">
+          </div>
+          <div ng-show="data.gasto == 'Presente'">
+              <img src="../../img/icon/present.png" style="height: 20px;width: 20px">
+          </div>
+          <div ng-show="data.gasto == 'Essencial'">
+              <img src="../../img/icon/essencial.png" style="height: 20px;width: 20px">
+          </div>
+          <div ng-show="data.gasto == 'Utilitários'">
+              <img src="../../img/icon/utilitarios.png" style="height: 20px;width: 20px">
           </div>
           <span ng-class="error" ng-show="addForm.tipo.$error.required"></span>
         </label>

@@ -1,6 +1,7 @@
 app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.listaFixa = [];
     $scope.lista = [];
+    $scope.listaExcluir = [];
 
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
@@ -9,12 +10,16 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
         var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
+        var listaAuxExcluir = Util.obterObjeto('listaExcluir');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
         }
         if (listaAuxFixa != '') {
             $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
+        }
+        if (listaAuxExcluir != '') {
+            $scope.listaExcluir = Util.converterParaObjeto(listaAuxExcluir);
         }
     }
 
@@ -34,6 +39,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         var idx = from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
+            item.itemFixo = true;
             to.unshift(item);
         }
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
@@ -44,6 +50,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         var idx = from.indexOf(item);
         if (idx != -1) {
             from.splice(idx, 1);
+            item.itemFixo = false;
             to.unshift(item);
         }
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
@@ -68,6 +75,40 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         });
         total = totalLista + totalListaFixa;
         return "R$" + total.toFixed(2);
+    }
+
+    $scope.deletarItemLista = function (item, from, to) {
+        var idx = from.indexOf(item);
+        if (idx != -1) {
+            from.splice(idx, 1);
+            to.unshift(item);
+        }
+        Util.salvarObjeto('ItensDaLista', $scope.lista);
+        Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
+        Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
+
+    }
+
+    $scope.clickDesfazerLista = function (item, from, to) {
+        var idx = from.indexOf(item);
+        if (idx != -1) {
+            from.splice(idx, 1);
+            to.unshift(item);
+        }
+        Util.salvarObjeto('ItensDaLista', $scope.lista);
+        Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
+        Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
+    }
+
+    $scope.clickDesfazerListaFixa = function (item, from, to) {
+        var idx = from.indexOf(item);
+        if (idx != -1) {
+            from.splice(idx, 1);
+            to.unshift(item);
+        }
+        Util.salvarObjeto('ItensDaLista', $scope.lista);
+        Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
+        Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
     }
 
     $scope.deleteItem = function (index) {
@@ -119,19 +160,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.modal.hide();
     };
 
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var contentItem = this.nextElementSibling;
-            if (contentItem.style.maxHeight) {
-                contentItem.style.maxHeight = "100px";
-            } else {
-                contentItem.style.maxHeight = "100px";
-            }
-        });
+    $scope.limparDesfazer = function(){
+        $scope.listaExcluir = [];
     }
-
 })

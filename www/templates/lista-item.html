@@ -13,14 +13,14 @@
     </div>
     <ion-refresher pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()" ng-class="{'scroll-refresher-android' : platform == 'android'}">
     </ion-refresher>
-    <div style="position: relative;width: 90%; margin: 15px auto; border-bottom: 1px solid #ececec; margin-bottom: 0px;">
-      <div style="width: 110px; border-bottom: 3px solid black; font-size: 15px; padding-bottom: 5px;">
-        Itens fixados
+    <div style="position: relative;width: 90%; margin: 15px auto; border-bottom: 1px solid #e0e0e0; margin-bottom: 0px;">
+      <div style="width: 135px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
+        ITENS FIXADOS
       </div>
-      <div style="position: absolute;top: 50%;transform: translate( 0,-50%);right: 5.2px;">
-        <div class="btnLimparFixo" ng-if="listaFixa != ''">
-          <i class="icon ion-close" id="xFixo"></i>
-          <div class="btnSumirFixo" style="font-weight: 600" id="limparFixo" ng-click="limparListaFixa()">Limpar</div>
+      <div style="position: absolute;top: 43%;transform: translate( 0,-50%);right: 5.2px;">
+        <div class="btnLimparFixo">
+          <i class="icon  ion-ios-close-empty" id="xFixo" style="font-size: 21px; top: 50%; transform: translate(-50%, -47%); left: 50%; position: absolute; margin-top: -1px;"></i>
+          <div class="btnSumirFixo" style="font-size: 11px; letter-spacing:1px;" id="limparFixo" ng-click="limparListaFixa()">LIMPAR</div>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
             <div style="position: absolute;width: 140px; height: 50px;border-top-left-radius: 7px;border-top-right-radius: 7px;text-align: center; color: white; background-color: {{item.corConv}}">
               <div style="margin-top: 5px;font-size: 15px;">{{item.preco | currency:"R$"}}</div>
               <div style="margin-top: 5px;">{{item.item}}</div>
-              <div class="btn-delete" style="position: absolute;top: 4px;" ng-click="deleteItemFixado($index)">
+              <div class="btn-delete close" style="position: absolute;top: 4px;" ng-click="deletarItemLista(listaFixa[$index], listaFixa,listaExcluir)">
                 <i class="icon ion-close-circled" style="font-size: 20px;"></i>
               </div>
             </div>
@@ -44,8 +44,8 @@
                 <span style="margin-left: 5px;">{{item.localizacao}}</span>
               </div>
               <div style="width: 130px; height: 27.5px;">
-                <i class="icon {{item.gastoConv}}"></i>
-                <span style="margin-left: 5px;">{{item.gasto}}</span>
+                <div style="position: absolute; left: 2.5px;"><img src="../../img/icon/{{item.gastoConv}}" style="height: 15px"></div>
+                <span style="margin-left: 18.5px;">{{item.gasto}}</span>
               </div>
               <div style="width: 130px; height: 27.5px;">
                 <i class="icon ion-ios-calendar"></i>
@@ -65,14 +65,14 @@
       </div>
     </div>
     <ul>
-      <div style="position: relative;width: 90%; margin: 15px auto; border-bottom: 1px solid #ececec; margin-bottom: 0px;">
-        <div style="width: 140px; border-bottom: 3px solid black; font-size: 15px; padding-bottom: 5px;">
-          Itens adicionados
+      <div style="position: relative;width: 90%; margin: 15px auto; border-bottom: 1px solid #e0e0e0; margin-bottom: 0px;">
+        <div style="width: 165px;letter-spacing:2px; font-size: 12px; padding-bottom: 5px;">
+          ITENS ADICIONADOS
         </div>
-        <div style="position: absolute;top: 50%;transform: translate( 0,-50%);right: 5.2px;">
-          <div class="btnLimpar" ng-if="lista != ''">
-            <i class="icon ion-close" id="x"></i>
-            <div class="btnSumir" style="font-weight: 600" id="limpar" ng-click="limparLista()">Limpar</div>
+        <div style="position: absolute;top: 43%;transform: translate( 0,-50%);right: 5.2px;">
+          <div class="btnLimpar">
+            <i class="icon ion-ios-close-empty" id="x" style="font-size: 21px; top: 50%; transform: translate(-50%, -47%); left: 50%; position: absolute; margin-top: -1px;"></i>
+            <div class="btnSumir" style="font-size: 11px; letter-spacing:1px;" id="limpar" ng-click="limparLista()">LIMPAR</div>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
         Não tem nenhum item adicionado.
       </div>
       <li ng-repeat="item in lista">
-        <div id="{{item.id}}" ng-click="abrirComentario()" class="card-item animated flipInX" style="border-left: 5px solid {{item.corConv}};">
+        <div id="{{item.id}}" ng-click="abrirComentario()" class="card-item animated flipInX fadeOut" style="border-left: 5px solid {{item.corConv}};">
           <div class="row" style="margin: 0;padding: 0;height: 100%;">
             <div class="col col-33 info color" style="background-color: {{item.corConv}};">
               <div class="gasto">
@@ -92,12 +92,12 @@
               </div>
             </div>
             <div class="col col-75 descricao">
-              <div class="btn-delete" style="position: absolute;" ng-click="deleteItem($index)">
+              <div class="btn-delete close" style="position: absolute;" ng-click="deletarItemLista(lista[$index], lista,listaExcluir)">
                 <i class="icon ion-close-circled" style="font-size: 20px;"></i>
               </div>
               <div class="titulo-descricao">
-                <i class="icon {{item.gastoConv}}" style="font-size: 20px;"></i>
-                <span class="titulo">{{item.item}}</span>
+                  <div style="position: absolute; margin-top: 1px;"><img src="../../img/icon/{{item.gastoConv}}" style="height: 16px;width: 16px"></div>
+                <span class="titulo" style="margin-left: 20px;">{{item.item}}</span>
               </div>
               <div class="tipo">
                 TIPO: {{item.gasto | uppercase}}
@@ -114,16 +114,6 @@
         </div>
       </li>
     </ul>
-    <!-- <button class="collapsible">Open Collapsible</button>
-    <div class="content">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <button class="collapsible">Open Collapsible</button>
-    <div class="content">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div> -->
   </ion-content>
   <div class="bar-stable" ng-class="{'status-total-pagar-android': platform == 'android', 'status-total-pagar': platform != 'android'}">
     <span class="animated fadeIn" style="font-size: 11px">TOTAL: </span>
@@ -134,9 +124,11 @@
       <i class="icon ion-plus-round" style="font-size: 25px;"></i>
     </div>
   </a>
-  <!-- <div class="status-mes-passado bar-stable">
-    <span style="font-size: 11px">MES PASSADO:</span> R$ 1024,99
-  </div> -->
+  <div class="status-desfazer bar-stable" ng-class="{'status-desfazer-animation' : listaExcluir != ''}">
+    <span style="font-weight: bold;font-size: 13px;" ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)">DESFAZER</span>
+    <span style="font-weight: bold;font-size: 13px;" ng-if="listaExcluir[0].itemFixo == true" ng-click="clickDesfazerListaFixa(listaExcluir[0], listaExcluir,listaFixa)">DESFAZER</span>
+    <i class="icon ion-ios-close-outline" ng-click="limparDesfazer()" style="font-size: 20px; right: 10px;position: absolute;transform: translate(0%, -50%);top: 50%;"></i>
+  </div>
 
   <script id="my-modal.html" type="text/ng-template">
     <ion-modal-view>
