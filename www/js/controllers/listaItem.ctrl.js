@@ -162,5 +162,6 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
 
     $scope.limparDesfazer = function(){
         $scope.listaExcluir = [];
+        Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
     }
 })

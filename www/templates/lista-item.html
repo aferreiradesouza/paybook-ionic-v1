@@ -125,8 +125,9 @@
     </div>
   </a>
   <div class="status-desfazer bar-stable" ng-class="{'status-desfazer-animation' : listaExcluir != ''}">
-    <span style="font-weight: bold;font-size: 13px;" ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)">DESFAZER</span>
-    <span style="font-weight: bold;font-size: 13px;" ng-if="listaExcluir[0].itemFixo == true" ng-click="clickDesfazerListaFixa(listaExcluir[0], listaExcluir,listaFixa)">DESFAZER</span>
+    <!-- <div style="position: absolute;top: 0px;font-size: 10px;transform: translate(-50%,0); left: 50%; ">dwad</div> -->
+    <div style="font-weight: bold;font-size: 13px;" ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)">DESFAZER</div>
+    <div style="font-weight: bold;font-size: 13px;" ng-if="listaExcluir[0].itemFixo == true" ng-click="clickDesfazerListaFixa(listaExcluir[0], listaExcluir,listaFixa)">DESFAZER</div>
     <i class="icon ion-ios-close-outline" ng-click="limparDesfazer()" style="font-size: 20px; right: 10px;position: absolute;transform: translate(0%, -50%);top: 50%;"></i>
   </div>
 
