@@ -44,7 +44,9 @@
                 <span style="margin-left: 5px;">{{item.localizacao}}</span>
               </div>
               <div style="width: 130px; height: 27.5px;">
-                <div style="position: absolute; left: 2.5px;"><img src="../../img/icon/{{item.gastoConv}}" style="height: 15px"></div>
+                <div style="position: absolute; left: 2.5px;">
+                  <img src="../../img/icon/{{item.gastoConv}}" style="height: 15px">
+                </div>
                 <span style="margin-left: 18.5px;">{{item.gasto}}</span>
               </div>
               <div style="width: 130px; height: 27.5px;">
@@ -96,7 +98,9 @@
                 <i class="icon ion-close-circled" style="font-size: 20px;"></i>
               </div>
               <div class="titulo-descricao">
-                  <div style="position: absolute; margin-top: 1px;"><img src="../../img/icon/{{item.gastoConv}}" style="height: 16px;width: 16px"></div>
+                <div style="position: absolute; margin-top: 1px;">
+                  <img src="../../img/icon/{{item.gastoConv}}" style="height: 16px;width: 16px">
+                </div>
                 <span class="titulo" style="margin-left: 20px;">{{item.item}}</span>
               </div>
               <div class="tipo">
@@ -124,10 +128,50 @@
       <i class="icon ion-plus-round" style="font-size: 25px;"></i>
     </div>
   </a>
-  <div class="status-desfazer bar-stable" ng-class="{'status-desfazer-animation' : listaExcluir != ''}">
-    <!-- <div style="position: absolute;top: 0px;font-size: 10px;transform: translate(-50%,0); left: 50%; ">dwad</div> -->
-    <div style="font-weight: bold;font-size: 13px;" ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)">DESFAZER</div>
-    <div style="font-weight: bold;font-size: 13px;" ng-if="listaExcluir[0].itemFixo == true" ng-click="clickDesfazerListaFixa(listaExcluir[0], listaExcluir,listaFixa)">DESFAZER</div>
+  <div>
+
+  </div>
+  <div class="status-desfazer-android bar-stable" ng-class="{'status-desfazer-animation-android' : listaExcluir != ''}" ng-if="platform == 'android'">
+    <div ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)" style="position: absolute;top: 0px;font-size: 8px;transform: translate(-50%,0); left: 50%;overflow: hidden; width: 100%; ">
+      {{listaExcluir.length}}
+      <span ng-if="listaExcluir.length == 1">ITEM </span>
+      <span ng-if="listaExcluir.length > 1">ITENS </span>
+      <span ng-if="listaExcluir.length == 1">EXCLUÍDO</span>
+      <span ng-if="listaExcluir.length > 1">EXCLUÍDOS</span>
+    </div>
+    <div ng-if="listaExcluir[0].itemFixo == true" ng-click="clickDesfazerListaFixa(listaExcluir[0], listaExcluir,listaFixa)"
+      style="position: absolute;top: 0px;font-size: 8px;transform: translate(-50%,0); left: 50%;overflow: hidden; width: 100%; ">
+      {{listaExcluir.length}}
+      <span ng-if="listaExcluir.length == 1">ITEM </span>
+      <span ng-if="listaExcluir.length > 1">ITENS </span>
+      <span ng-if="listaExcluir.length == 1">EXCLUÍDO</span>
+      <span ng-if="listaExcluir.length > 1">EXCLUÍDOS</span>
+    </div>
+    <div style="font-weight: bold;font-size: 13px;margin-top: 4px;" ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)">DESFAZER</div>
+    <div style="font-weight: bold;font-size: 13px;margin-top: 4px;" ng-if="listaExcluir[0].itemFixo == true" ng-click="clickDesfazerListaFixa(listaExcluir[0], listaExcluir,listaFixa)">DESFAZER</div>
+    <i class="icon ion-ios-close-outline" ng-click="limparDesfazer()" style="font-size: 20px; right: 10px;position: absolute;transform: translate(0%, -50%);top: 50%;"></i>
+  </div>
+
+
+
+  <div class="status-desfazer bar-stable" ng-class="{'status-desfazer-animation' : listaExcluir != ''}" ng-if="platform != 'android'">
+    <div ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)" style="position: absolute;top: 0px;font-size: 8px;transform: translate(-50%,0); left: 50%;overflow: hidden; width: 100%; ">
+      {{listaExcluir.length}}
+      <span ng-if="listaExcluir.length == 1">ITEM </span>
+      <span ng-if="listaExcluir.length > 1">ITENS </span>
+      <span ng-if="listaExcluir.length == 1">EXCLUÍDO</span>
+      <span ng-if="listaExcluir.length > 1">EXCLUÍDOS</span>
+    </div>
+    <div ng-if="listaExcluir[0].itemFixo == true" ng-click="clickDesfazerListaFixa(listaExcluir[0], listaExcluir,listaFixa)"
+      style="position: absolute;top: 0px;font-size: 8px;transform: translate(-50%,0); left: 50%;overflow: hidden; width: 100%; ">
+      {{listaExcluir.length}}
+      <span ng-if="listaExcluir.length == 1">ITEM </span>
+      <span ng-if="listaExcluir.length > 1">ITENS </span>
+      <span ng-if="listaExcluir.length == 1">EXCLUÍDO</span>
+      <span ng-if="listaExcluir.length > 1">EXCLUÍDOS</span>
+    </div>
+    <div style="font-weight: bold;font-size: 13px;margin-top: 4px;" ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)">DESFAZER</div>
+    <div style="font-weight: bold;font-size: 13px;margin-top: 4px;" ng-if="listaExcluir[0].itemFixo == true" ng-click="clickDesfazerListaFixa(listaExcluir[0], listaExcluir,listaFixa)">DESFAZER</div>
     <i class="icon ion-ios-close-outline" ng-click="limparDesfazer()" style="font-size: 20px; right: 10px;position: absolute;transform: translate(0%, -50%);top: 50%;"></i>
   </div>
 

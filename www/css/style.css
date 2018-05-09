@@ -213,16 +213,34 @@ ion-header-bar {
     transition: 0.5s;
 }
 
+.status-desfazer-android{
+    width: 0px;
+    overflow: hidden;
+    height: 35px;
+    position: absolute;
+    bottom: 15px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    text-align: right;
+    padding: 8px;
+    background-color: #f8f8f8;
+    border: 1px solid #b2b2b2;
+    left: 50vw;
+    z-index: 1;
+    font-size: 11px;
+    text-align: center;
+    transition: 0.5s;
+}
+
 .status-desfazer-animation{
     width: 45vw !important;
     transition: 0.5s;
 }
 
-.status-desfazer-animation-instanted{
-    width: 0px !important;
+.status-desfazer-animation-android{
+    width: 45vw !important;
     transition: 0.5s;
 }
-
 .btn-delete {
     right: 8px;
 }
