@@ -12,6 +12,219 @@
 
     </div>
     <form name="addForm" ng-submit="addItem()">
+      <div style="border: 1px solid #ccc;width: 45vw; height: 35px; background-color:#f8f8f8; top: 82px;left: 3vw; position: absolute; border-radius: 25px;">
+        <div>
+          <i class="icon ion-cash" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
+        </div>
+        <input ng-model="data.preco" name="preco" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
+          placeholder="Preço" required>
+      </div>
+
+      <div style="border: 1px solid #ccc;width: 45vw; height: 35px; background-color:#f8f8f8; top: 82px;right: 3vw; position: absolute; border-radius: 25px;">
+        <div>
+          <i class="icon ion-location" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
+        </div>
+        <input ng-model="data.localizacao" name="localizacao" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
+          placeholder="Localização" required>
+      </div>
+
+      <div style="position: absolute; top: 130px;">
+        <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
+          <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.item != '' && data.item != null}">Título</div>
+          <input ng-class="{'ajusteInput-android' : platform == 'android'}" name="item" ng-model="data.item" style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+            placeholder="Título" required>
+
+
+          <div style="position: absolute; right: 0; width: 40vw; background-color:transparent; height: 40px; border-left: 1px solid #ccc;">
+            <div style="position: absolute; left: 5px;top: 11px; color: rgb(170, 170, 170);">Fixar item</div>
+            <label class="toggle toggle-positive" style="position: absolute; right: 0; top: 5px;">
+              <input type="checkbox" ng-model="data.itemFixo">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div style="top: 41px;position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
+          ng-click="openModalGasto()">
+          <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Categoria</div>
+          <input ng-model="data.gasto" name="tipo" style="position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+            disabled required>
+          <div ng-show="data.gasto == 'Lazer'">
+            <img src="../../img/icon/lazer.png" class="imgAddList" style="right: 70px">
+          </div>
+          <div ng-show="data.gasto == 'Café'">
+            <img src="../../img/icon/cafe.png" class="imgAddList" style="right: 65px">
+          </div>
+          <div ng-show="data.gasto == 'Lanche'">
+            <img src="../../img/icon/lanche.png" class="imgAddList" style="right: 85px">
+          </div>
+          <div ng-show="data.gasto == 'Restaurante'">
+            <img src="../../img/icon/restaurante.png" class="imgAddList" style="right: 110px">
+          </div>
+          <div ng-show="data.gasto == 'Mercado'">
+            <img src="../../img/icon/mercado.png" class="imgAddList" style="right: 90px">
+          </div>
+          <div ng-show="data.gasto == 'Cinema'">
+            <img src="../../img/icon/cinema.png" class="imgAddList" style="right: 80px">
+          </div>
+          <div ng-show="data.gasto == 'Roupa'">
+            <img src="../../img/icon/roupa.png" class="imgAddList" style="right: 75px">
+          </div>
+          <div ng-show="data.gasto == 'Infantil'">
+            <img src="../../img/icon/infantil.png" class="imgAddList" style="right: 85px">
+          </div>
+          <div ng-show="data.gasto == 'Presente'">
+            <img src="../../img/icon/present.png" class="imgAddList" style="right: 90px">
+          </div>
+          <div ng-show="data.gasto == 'Essencial'">
+            <img src="../../img/icon/essencial.png" class="imgAddList" style="right: 90px">
+          </div>
+          <div ng-show="data.gasto == 'Utilitários'">
+            <img src="../../img/icon/utilitarios.png" class="imgAddList" style="right: 100px">
+          </div>
+
+
+          <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+            <i class="icon ion-chevron-right"></i>
+          </div>
+        </div>
+
+
+        <div style="top: 83px;position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
+          ng-click="openModalCor()">
+          <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cor</div>
+          <input ng-model="data.cor" name="cor" style="position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+            disabled required>
+
+            <div ng-show="data.cor == 'Roxo'">
+                <i class="icon ion-ios-circle-filled iconAddList" style="color:#8e44ad;font-size: 19px; right: 65px"></i>
+              </div>
+              <div ng-show="data.cor == 'Vermelho'">
+                <i class="icon ion-ios-circle-filled iconAddList" style="color:#c0392b;font-size: 19px; right: 95px"></i>
+              </div>
+              <div ng-show="data.cor == 'Verde'">
+                <i class="icon ion-ios-circle-filled iconAddList" style="color:#27ae60;font-size: 19px; right: 70px"></i>
+              </div>
+              <div ng-show="data.cor == 'Laranja'">
+                <i class="icon ion-ios-circle-filled iconAddList" style="color:#f39c12;font-size: 19px; right: 80px"></i>
+              </div>
+              <div ng-show="data.cor == 'Azul'">
+                <i class="icon ion-ios-circle-filled iconAddList" style="color:#2980b9;font-size: 19px; right: 65px"></i>
+              </div>
+
+
+          <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+            <i class="icon ion-chevron-right"></i>
+          </div>
+        </div>
+      </div>
+      <div style="width: 90%; margin: 0 auto;">
+        <button class="button button-block button-positive" style="background-color: #387ef5 !important; top: 185px;" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+          Adicionar item
+        </button>
+      </div>
+    <script id="Gasto.html" type="text/ng-template">
+        <ion-modal-view>
+          <div class="bar bar-header bar-stable" style="height: 73px;">
+              <div  ng-click="closeModalGasto()" style="z-index: 999;position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
+                <i class="icon ion-chevron-left" style="font-size: 22px"></i>
+              </div>
+              <h1 class="title" style="margin-top: 27px;">Escolha uma tipo</h1>
+            </div>
+        <ion-content>
+            <div style="height: 71px;">
+  
+              </div>
+            <ion-list>
+                <ion-radio ng-model="data.gasto" ng-value="'Lazer'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/lazer.png" class="imgRadio">
+                  <span class="categoriaRadio">Lazer</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Café'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/cafe.png" class="imgRadio">
+                  <span class="categoriaRadio">Café</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Lanche'" ng-click="closeModalGasto()">
+                    <img src="../../img/icon/lanche.png" class="imgRadio">
+                    <span class="categoriaRadio">Lanche</span>
+                  </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Restaurante'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/restaurante.png" class="imgRadio">
+                  <span class="categoriaRadio">Restaurante</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Mercado'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/mercado.png" class="imgRadio">
+                  <span class="categoriaRadio">Mercado</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Cinema'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/cinema.png" class="imgRadio">
+                  <span class="categoriaRadio">Cinema</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Roupa'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/roupa.png" class="imgRadio">
+                  <span class="categoriaRadio">Roupa</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Infantil'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/infantil.png" class="imgRadio">
+                  <span class="categoriaRadio">Infantil</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Presente'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/present.png" class="imgRadio">
+                  <span class="categoriaRadio">Presente</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Essencial'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/essencial.png" class="imgRadio">
+                  <span class="categoriaRadio">Essencial</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Utilitários'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/utilitarios.png" class="imgRadio">
+                  <span class="categoriaRadio">Utilitários</span>
+                </ion-radio>
+            </ion-list>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    <script id="Cor.html" type="text/ng-template">
+      <ion-modal-view>
+          <div class="bar bar-header bar-stable" style="height: 73px;">
+              <div  ng-click="closeModalCor()" style="z-index: 999;position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
+                <i class="icon ion-chevron-left" style="font-size: 22px"></i>
+              </div>
+              <h1 class="title" style="margin-top: 27px;">Escolha uma cor</h1>
+            </div>
+        <ion-content>
+            <div style="height: 71px;">
+  
+              </div>
+            <ion-list>
+                <ion-radio ng-model="data.cor" ng-value="'Roxo'" ng-click="closeModalCor()">
+                    <i class="icon ion-ios-circle-filled iconRadio" style="color:#8e44ad;font-size: 18px;"></i>
+                  <span class="categoriaRadio">Roxo</span>
+                </ion-radio>
+                <ion-radio ng-model="data.cor" ng-value="'Vermelho'" ng-click="closeModalCor()">
+                    <i class="icon ion-ios-circle-filled iconRadio" style="color:#c0392b;font-size: 18px;"></i>
+                  <span class="categoriaRadio">Vermelho</span>
+                </ion-radio>
+                <ion-radio ng-model="data.cor" ng-value="'Verde'" ng-click="closeModalCor()">
+                    <i class="icon ion-ios-circle-filled iconRadio" style="color:#27ae60;font-size: 18px;"></i>
+                  <span class="categoriaRadio">Verde</span>
+                </ion-radio>
+                <ion-radio ng-model="data.cor" ng-value="'Laranja'" ng-click="closeModalCor()">
+                    <i class="icon ion-ios-circle-filled iconRadio" style="color:#f39c12;font-size: 18px;"></i>
+                  <span class="categoriaRadio">Laranja</span>
+                </ion-radio>
+                <ion-radio ng-model="data.cor" ng-value="'Azul'" ng-click="closeModalCor()">
+                    <i class="icon ion-ios-circle-filled iconRadio" style="color:#2980b9;font-size: 18px;"></i>
+                  <span class="categoriaRadio">Azul</span>
+                </ion-radio>
+            </ion-list>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+    </form>
+
+    <!-- <form name="addForm" ng-submit="addItem()">
       <div class="list">
         <label class="item item-input item-stacked-label">
           <span class="input-label">Descrição</span>
@@ -23,100 +236,193 @@
           <span class="input-label">Preço</span>
           <input type="text" name="preco" ng-model="data.preco" placeholder="R$2,99">
         </label>
-
-        <!-- <label class="item item-input item-stacked-label">
-          <span class="input-label">Data</span>
-          <input type="date" name="date" placeholder="dd/mm/aaaa" ng-model="data.data" required>
-          <span ng-class="error" ng-show="addForm.date.$error.required"></span>
-        </label> -->
-
         <label class="item item-input item-stacked-label">
           <span class="input-label">Localização</span>
           <input maxlength="15" type="text" name="localizacao" placeholder="Norte Shopping" ng-model="data.localizacao" required>
           <span ng-class="error" ng-show="addForm.localizacao.$error.required"></span>
         </label>
 
-        <label class="item item-input item-select">
+        <div class="item item-input" ng-click="openModalGasto()">
           <div class="input-label">
             Tipo de gasto
+            <input style="text-align: right;
+                                        border: 0;
+                                        background-color: white;
+                                        width: 125px; 
+                                        right: 35px; 
+                                        position: absolute;
+                                        height: 30px;
+                                        font-size: 18px;
+                                        color: black;
+                                        opacity: 1;
+                                        top: 50%; 
+                                        transform: translate(0%, -50%)" ng-model="data.gasto" name="tipo" disabled required>
+            <i class="icon ion-chevron-right" style="position: absolute;right: 15px;; font-size: 23px;top: 50%; transform: translate(0%, -50%)"></i>
+            <div ng-show="data.gasto == 'Lazer'">
+              <img src="../../img/icon/lazer.png" class="imgAddList">
+            </div>
+            <div ng-show="data.gasto == 'Café'">
+              <img src="../../img/icon/cafe.png" class="imgAddList" style="right: 100px">
+            </div>
+            <div ng-show="data.gasto == 'Lanche'">
+              <img src="../../img/icon/lanche.png" class="imgAddList">
+            </div>
+            <div ng-show="data.gasto == 'Restaurante'">
+              <img src="../../img/icon/restaurante.png" class="imgAddList" style="right: 160px">
+            </div>
+            <div ng-show="data.gasto == 'Mercado'">
+              <img src="../../img/icon/mercado.png" class="imgAddList" style="right: 140px">
+            </div>
+            <div ng-show="data.gasto == 'Cinema'">
+              <img src="../../img/icon/cinema.png" class="imgAddList" style="right: 120px">
+            </div>
+            <div ng-show="data.gasto == 'Roupa'">
+              <img src="../../img/icon/roupa.png" class="imgAddList">
+            </div>
+            <div ng-show="data.gasto == 'Infantil'">
+              <img src="../../img/icon/infantil.png" class="imgAddList" style="right: 120px">
+            </div>
+            <div ng-show="data.gasto == 'Presente'">
+              <img src="../../img/icon/present.png" class="imgAddList" style="right: 140px">
+            </div>
+            <div ng-show="data.gasto == 'Essencial'">
+              <img src="../../img/icon/essencial.png" class="imgAddList" style="right: 140px">
+            </div>
+            <div ng-show="data.gasto == 'Utilitários'">
+              <img src="../../img/icon/utilitarios.png" class="imgAddList" style="right: 140px">
+            </div>
           </div>
-          <select name="tipo" ng-model="data.gasto" required>
-            <option selected>Lazer</option>
-            <option>Café</option>
-            <option>Lanche</option>
-            <option>Restaurante</option>
-            <option>Mercado</option>
-            <option>Cinema</option>
-            <option>Roupa</option>
-            <option>Infantil</option>
-            <option>Presente</option>
-            <option>Essencial</option>
-            <option>Utilitários</option>
-          </select>
-          <div ng-show="data.gasto == 'Lazer'">
-              <img src="../../img/icon/lazer.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Café'">
-              <img src="../../img/icon/cafe.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Lanche'">
-              <img src="../../img/icon/lanche.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Restaurante'">
-              <img src="../../img/icon/restaurante.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Mercado'">
-              <img src="../../img/icon/mercado.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Cinema'">
-              <img src="../../img/icon/cinema.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Roupa'">
-              <img src="../../img/icon/roupa.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Infantil'">
-              <img src="../../img/icon/infantil.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Presente'">
-              <img src="../../img/icon/present.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Essencial'">
-              <img src="../../img/icon/essencial.png" style="height: 20px;width: 20px">
-          </div>
-          <div ng-show="data.gasto == 'Utilitários'">
-              <img src="../../img/icon/utilitarios.png" style="height: 20px;width: 20px">
-          </div>
-          <span ng-class="error" ng-show="addForm.tipo.$error.required"></span>
-        </label>
-
-        <label class="item item-input item-select">
+        </div>
+        <script id="Gasto.html" type="text/ng-template">
+          <ion-modal-view>
+              <div class="bar bar-header bar-stable" style="height: 73px;">
+                  <div  ng-click="closeModalGasto()" style="z-index: 999;position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
+                    <i class="icon ion-chevron-left" style="font-size: 22px"></i>
+                  </div>
+                  <h1 class="title" style="margin-top: 27px;">Escolha uma tipo</h1>
+                </div>
+            <ion-content>
+                <div style="height: 71px;">
+      
+                  </div>
+                <ion-list>
+                    <ion-radio ng-model="data.gasto" ng-value="'Lazer'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/lazer.png" class="imgRadio">
+                      <span class="categoriaRadio">Lazer</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Café'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/cafe.png" class="imgRadio">
+                      <span class="categoriaRadio">Café</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Restaurante'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/restaurante.png" class="imgRadio">
+                      <span class="categoriaRadio">Restaurante</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Mercado'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/mercado.png" class="imgRadio">
+                      <span class="categoriaRadio">Mercado</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Cinema'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/cinema.png" class="imgRadio">
+                      <span class="categoriaRadio">Cinema</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Roupa'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/roupa.png" class="imgRadio">
+                      <span class="categoriaRadio">Roupa</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Infantil'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/infantil.png" class="imgRadio">
+                      <span class="categoriaRadio">Infantil</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Presente'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/present.png" class="imgRadio">
+                      <span class="categoriaRadio">Presente</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Essencial'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/essencial.png" class="imgRadio">
+                      <span class="categoriaRadio">Essencial</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.gasto" ng-value="'Utilitários'" ng-click="closeModalGasto()">
+                      <img src="../../img/icon/utilitarios.png" class="imgRadio">
+                      <span class="categoriaRadio">Utilitários</span>
+                    </ion-radio>
+                </ion-list>
+            </ion-content>
+          </ion-modal-view>
+        </script>
+        <div class="item item-input" ng-click="openModalCor()">
           <div class="input-label">
             Cor do item
+            <input style="text-align: right;
+                          border: 0;
+                          background-color: white;
+                          width: 125px; 
+                          right: 35px; 
+                          position: absolute;
+                          height: 30px;
+                          font-size: 18px;
+                          color: black;
+                          opacity: 1;
+                          top: 50%; 
+                          transform: translate(0%, -50%)" ng-model="data.cor" name="cor" disabled required>
+            <i class="icon ion-chevron-right" style="position: absolute;right: 15px; font-size: 23px;top: 50%; transform: translate(0%, -50%)"></i>
+          
+            <div ng-show="data.cor == 'Roxo'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#8e44ad;font-size: 22px; right: 105px"></i>
+            </div>
+            <div ng-show="data.cor == 'Vermelho'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#c0392b;font-size: 22px; right: 140px"></i>
+            </div>
+            <div ng-show="data.cor == 'Verde'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#27ae60;font-size: 22px;"></i>
+            </div>
+            <div ng-show="data.cor == 'Laranja'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#f39c12;font-size: 22px; right: 125px"></i>
+            </div>
+            <div ng-show="data.cor == 'Azul'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#2980b9;font-size: 22px; right: 100px"></i>
+            </div>
+          
           </div>
-          <select name="cor" ng-model="data.cor" required>
-            <option selected>Roxo</option>
-            <option>Vermelho</option>
-            <option>Verde</option>
-            <option>Laranja</option>
-            <option>Azul</option>
-          </select>
-          <div ng-show="data.cor == 'Roxo'">
-            <i class="icon ion-ios-circle-filled" style="color:#8e44ad;font-size: 22px;"></i>
-          </div>
-          <div ng-show="data.cor == 'Vermelho'">
-            <i class="icon ion-ios-circle-filled" style="color:#c0392b;font-size: 22px;"></i>
-          </div>
-          <div ng-show="data.cor == 'Verde'">
-            <i class="icon ion-ios-circle-filled" style="color:#27ae60;font-size: 22px;"></i>
-          </div>
-          <div ng-show="data.cor == 'Laranja'">
-            <i class="icon ion-ios-circle-filled" style="color:#f39c12;font-size: 22px;"></i>
-          </div>
-          <div ng-show="data.cor == 'Azul'">
-            <i class="icon ion-ios-circle-filled" style="color:#2980b9;font-size: 22px;"></i>
-          </div>
-          <span ng-class="error" ng-show="addForm.cor.$error.required"></span>
-        </label>
+        </div>
+        <script id="Cor.html" type="text/ng-template">
+          <ion-modal-view>
+              <div class="bar bar-header bar-stable" style="height: 73px;">
+                  <div  ng-click="closeModalCor()" style="z-index: 999;position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
+                    <i class="icon ion-chevron-left" style="font-size: 22px"></i>
+                  </div>
+                  <h1 class="title" style="margin-top: 27px;">Escolha uma cor</h1>
+                </div>
+            <ion-content>
+                <div style="height: 71px;">
+      
+                  </div>
+                <ion-list>
+                    <ion-radio ng-model="data.cor" ng-value="'Roxo'" ng-click="closeModalCor()">
+                        <i class="icon ion-ios-circle-filled iconRadio" style="color:#8e44ad;font-size: 22px;"></i>
+                      <span class="categoriaRadio">Roxo</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.cor" ng-value="'Vermelho'" ng-click="closeModalCor()">
+                        <i class="icon ion-ios-circle-filled iconRadio" style="color:#c0392b;font-size: 22px;"></i>
+                      <span class="categoriaRadio">Vermelho</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.cor" ng-value="'Verde'" ng-click="closeModalCor()">
+                        <i class="icon ion-ios-circle-filled iconRadio" style="color:#27ae60;font-size: 22px;"></i>
+                      <span class="categoriaRadio">Verde</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.cor" ng-value="'Laranja'" ng-click="closeModalCor()">
+                        <i class="icon ion-ios-circle-filled iconRadio" style="color:#f39c12;font-size: 22px;"></i>
+                      <span class="categoriaRadio">Laranja</span>
+                    </ion-radio>
+                    <ion-radio ng-model="data.cor" ng-value="'Azul'" ng-click="closeModalCor()">
+                        <i class="icon ion-ios-circle-filled iconRadio" style="color:#2980b9;font-size: 22px;"></i>
+                      <span class="categoriaRadio">Azul</span>
+                    </ion-radio>
+                </ion-list>
+            </ion-content>
+          </ion-modal-view>
+        </script>
+        <span ng-class="error" ng-show="addForm.cor.$error.required"></span>
         <li class="item item-toggle">
           Fixar item
           <label class="toggle toggle-positive">
@@ -126,17 +432,12 @@
             </div>
           </label>
         </li>
-        <!-- 
-        <label class="item item-input">
-          <textarea placeholder="Comentários" style="height: 100px;"></textarea>
-        </label> -->
-
       </div>
       <div style="width: 90%; margin: 0 auto;">
         <button class="button button-block button-positive" style="background-color: #387ef5 !important;" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
           Adicionar
         </button>
       </div>
-    </form>
+    </form> -->
   </ion-content>
 </ion-view>

@@ -11,15 +11,15 @@
     bottom: 49px !important;
 }
 
-.ajuste-title-android{
+.ajuste-title-android {
     margin-top: 0px !important;
 }
 
-.ajuste-header-android{
+.ajuste-header-android {
     height: 45px !important;
 }
 
-.ajuste-icon-modal-android{
+.ajuste-icon-modal-android {
     top: 13px !important;
 }
 
@@ -132,6 +132,69 @@ ion-header-bar {
     top: 55px !important;
 }
 
+.imgRadio {
+    height: 18px;
+    width: 18px;
+    left: 15px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
+.iconRadio {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translate(0%, -50%);
+}
+
+.categoriaRadio {
+    position: absolute;
+    left: 45px;
+    top: 50%;
+    transform: translate(0%, -50%);
+    font-size: 16px;
+}
+
+.item.activated {
+    background-color: white !important;
+    border-color: #ddd !important;
+}
+
+.imgAddList {
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 50%;
+    right: 115px;
+    transform: translate(0%, -50%);
+}
+
+.iconAddList {
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    right: 115px;
+    transform: translate(0%, -50%);
+}
+
+.item-radio .radio-icon {
+    font-size: 20px !important;
+    position: absolute !important;
+    top: 64% !important;
+    transform: translate(0%, -50%) !important;
+    right: 13px !important;
+    padding: 0 !important;
+}
+
+.disable-pointer-events {
+    height: 40px !important;
+}
+
+.radio-content {
+    height: 40px !important;
+}
+
 .btn-add {
     width: 45px;
     height: 45px;
@@ -213,7 +276,7 @@ ion-header-bar {
     transition: 0.5s;
 }
 
-.status-desfazer-android{
+.status-desfazer-android {
     width: 0px;
     overflow: hidden;
     height: 35px;
@@ -232,15 +295,16 @@ ion-header-bar {
     transition: 0.5s;
 }
 
-.status-desfazer-animation{
+.status-desfazer-animation {
     width: 45vw !important;
     transition: 0.5s;
 }
 
-.status-desfazer-animation-android{
+.status-desfazer-animation-android {
     width: 45vw !important;
     transition: 0.5s;
 }
+
 .btn-delete {
     right: 8px;
 }
@@ -253,7 +317,7 @@ ion-header-bar {
     top: -55px !important;
 }
 
-.div-sumir{
+.div-sumir {
     display: none;
 }
 
@@ -340,54 +404,71 @@ ion-header-bar {
 
 .card-fixo .card {}
 
-.btnLimpar{
+.btnLimpar {
     width: 20px;
     height: 20px;
     border: 0.5px solid black;
     text-align: center;
     border-radius: 25px;
-    color:black;
+    color: black;
     transition: 0.5s;
     overflow: hidden;
 }
 
-.btnLimparAtivo{
+.btnLimparAtivo {
     width: 80px !important;
     transition: 0.5s;
 }
 
-.btnLimparDesativo{
+.btnLimparDesativo {
     width: 23px !important;
     transition-delay: 5s;
 }
 
-.btnSumir{
+.btnSumir {
     display: none;
 }
 
-
-.btnLimparFixo{
+.btnLimparFixo {
     width: 20px;
     height: 20px;
     border: 0.5px solid black;
     text-align: center;
     border-radius: 25px;
-    color:black;
+    color: black;
     transition: 0.5s;
     overflow: hidden;
     font-size: 13px;
 }
 
-.btnLimparAtivoFixo{
+.btnLimparAtivoFixo {
     width: 80px !important;
     transition: 0.5s;
 }
 
-.btnLimparDesativoFixo{
+.btnLimparDesativoFixo {
     width: 23px !important;
     transition-delay: 5s;
 }
 
-.btnSumirFixo{
+.btnSumirFixo {
     display: none;
+}
+
+.normalForm{
+    top: 0;
+    opacity: 0;
+    transition: 0.5s;
+    color: black;
+}
+
+.formActive{
+    top: -5px !important;
+    opacity: 1 !important;
+    transition: 0.5s !important;
+    color: black;
+}
+
+.ajusteInput-android{
+    left: 0 !important;
 }

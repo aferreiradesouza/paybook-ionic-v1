@@ -1,9 +1,35 @@
-app.controller('addItemCtrl', function ($scope, Util, $ionicPopup, $timeout) {
+app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.data = {};
     $scope.lista = [];
     $scope.listaFixa = [];
 
-    
+    $ionicModal.fromTemplateUrl('Gasto.html', {
+        scope: $scope,
+        animation: 'slide-in-right'
+    }).then(function (modal) {
+        $scope.modalGasto = modal;
+    });
+    $scope.openModalGasto = function () {
+        $scope.modalGasto.show();
+    };
+    $scope.closeModalGasto  = function () {
+        $scope.modalGasto.hide();
+    };
+
+    $ionicModal.fromTemplateUrl('Cor.html', {
+        scope: $scope,
+        animation: 'slide-in-right'
+    }).then(function (modal) {
+        $scope.modalCor = modal;
+    });
+    $scope.openModalCor = function () {
+        $scope.modalCor.show();
+    };
+    $scope.closeModalCor = function () {
+        $scope.modalCor.hide();
+    };
+
+
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
         var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
@@ -16,21 +42,8 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
         }
     }
-
-    $scope.showConfirm = function() {
-        var confirmPopup = $ionicPopup.confirm({
-          title: 'Consume Ice Cream',
-          template: "<ion-list><ion-radio ng-model='choice' ng-value='A'>Choose A</ion-radio><ion-radio ng-model='choice' ng-value='B'>Choose B</ion-radio><ion-radio ng-model='choice' ng-value='A'>Choose A</ion-radio><ion-radio ng-model='choice' ng-value='A'>Choose A</ion-radio></ion-list>"
-        });
-     
-        confirmPopup.then(function(res) {
-          if(res) {
-            console.log('You are sure');
-          } else {
-            console.log('You are not sure');
-          }
-        });
-      };
+    
+    $scope.platform = ionic.Platform.platform();
 
     $(function () {
         $('#currency').maskMoney();
