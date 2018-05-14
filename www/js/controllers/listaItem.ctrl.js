@@ -5,7 +5,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
 
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
-    $scope.listCanSwipe = true
+    $scope.listCanSwipe = true;
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
@@ -21,6 +21,25 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         if (listaAuxExcluir != '') {
             $scope.listaExcluir = Util.converterParaObjeto(listaAuxExcluir);
         }
+    }
+    $scope.activeCard = $scope.lista[0];
+
+    $scope.setActive = function (cardItem) {
+        $scope.activeCard = cardItem
+    }
+
+    $scope.setDesactive = function() {
+        $scope.activeCard = 'nada';
+    }
+
+    $scope.activeCardFixo = $scope.listaFixa[0];
+
+    $scope.setActiveFixo = function (cardItem) {
+        $scope.activeCardFixo = cardItem
+    }
+
+    $scope.setDesactiveFixo = function() {
+        $scope.activeCardFixo = 'nada';
     }
 
     $scope.platform = ionic.Platform.platform();
@@ -160,7 +179,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.modal.hide();
     };
 
-    $scope.limparDesfazer = function(){
+    $scope.limparDesfazer = function () {
         $scope.listaExcluir = [];
         Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
     }

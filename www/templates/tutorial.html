@@ -1,24 +1,67 @@
 <ion-view>
-    <ion-content direction="x">
-        <ion-header-bar>
-            dawd
-            </ion-header-bar>
-            <div style="height: 10vh;"></div>
-        <ion-slide-box on-slide-changed="slideHasChanged($index)" style="width: 100vw; height: 90vh;">
+    <ion-content direction="">
+        <ion-slide-box on-slide-changed="slideHasChanged($index)" style="width: 100vw; height: 95vh; margin-top: 5vh;">
+
             <ion-slide>
-                <div class="box blue">
-                    <h1>BLUE</h1>
+                <div class="" style="">
+                    <!-- <h1>ADD ITEM</h1> -->
+                    <div style="position: absolute; top: 10vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px;font-size: 20px; width: 100vw; text-align: center;">ADICIONE SEUS GASTOS</div>
+                    <div style="position: absolute; top: 18vh; left: 50%; transform: translate(-50%, 0%); width: 35vw; border-bottom: 1px solid black;"></div>
+                    <div style="position: absolute; top: 27vh; left: 50%; transform: translate(-50%, 0%);">
+                        <img src="img/addItemImage.png">
+                    </div>
+                    <div style="position: absolute; top: 55vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px; width: 100vw; text-align: center;">REGISTRE TODOS SEUS GASTOS PARA TOTAL CONTROLE</div>
                 </div>
             </ion-slide>
             <ion-slide>
-                <div class="box yellow">
-                    <h1>YELLOW</h1>
+                <div class="">
+                    <!-- <h1>FIXAR ITEM</h1> -->
+                    <div style="position: absolute; top: 10vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px;font-size: 20px; width: 100vw; text-align: center;">FIXE SEUS PRINCIPAIS GASTOS</div>
+                    <div style="position: absolute; top: 23vh; left: 50%; transform: translate(-50%, 0%); width: 35vw; border-bottom: 1px solid black;"></div>
+                    <div style="position: absolute; top: 27vh; left: 50%; transform: translate(-50%, 0%);">
+                        <img src="img/fixarItemImage.png">
+                    </div>
+                    <div style="position: absolute; top: 55vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px; width: 100vw; text-align: center;">FIXE TODOS OS SEUS GASTOS MAIS IMPORTANTES, ELES SEMPRE FICARÃO NO TOPO</div>
                 </div>
             </ion-slide>
             <ion-slide>
-                <div class="box pink">
-                    <h1>PINK</h1>
+                <div class="">
+                    <!-- <h1>FILTRAR ITEM</h1> -->
+                    <div style="position: absolute; top: 10vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px;font-size: 20px; width: 100vw; text-align: center;">BUSQUE SEUS ITENS</div>
+                    <div style="position: absolute; top: 18vh; left: 50%; transform: translate(-50%, 0%); width: 35vw; border-bottom: 1px solid black;"></div>
+                    <div style="position: absolute; top: 27vh; left: 50%; transform: translate(-50%, 0%);">
+                        <img src="img/filtroItemImage.png">
+                    </div>
+                    <div style="position: absolute; top: 55vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px; width: 100vw; text-align: center;">BUSQUE AQUELE GASTO IMPORTANTE</div>
                 </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="">
+                    <!-- <h1>CORES ITEM</h1> -->
+                    <div style="position: absolute; top: 10vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px;font-size: 20px; width: 100vw; text-align: center;">ORGANIZE POR CORES</div>
+                    <div style="position: absolute; top: 18vh; left: 50%; transform: translate(-50%, 0%); width: 35vw; border-bottom: 1px solid black;"></div>
+                    <div style="position: absolute; top: 27vh; left: 50%; transform: translate(-50%, 0%);">
+                        <img src="img/coresItemImage.png">
+                    </div>
+                    <div style="position: absolute; top: 55vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px; width: 100vw; text-align: center;">CRIE SEU ORGANIZAÇÃO PERSONALIZADA! COLOQUE CORES DE ACORDO COM SEU GOSTO</div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="">
+                    <!-- <h1>ESTATISTICAS</h1> -->
+                    <div style="position: absolute; top: 10vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px;font-size: 20px; width: 100vw; text-align: center;">ESTATISTICAS DOS SEUS GASTOS</div>
+                    <div style="position: absolute; top: 23vh; left: 50%; transform: translate(-50%, 0%); width: 35vw; border-bottom: 1px solid black;"></div>
+                    <div style="position: absolute; top: 27vh; left: 50%; transform: translate(-50%, 0%);">
+                        <img src="img/statsItemImage.png">
+                    </div>
+                    <div style="position: absolute; top: 55vh; left: 50%; transform: translate(-50%, 0%); letter-spacing:2px; width: 100vw; text-align: center;">VEJA TODAS AS ESTATÍSTICAS DE SEUS GASTOS, E TOME ATITUDES</div>
+                </div>
+                <div style="width: 90%;position: absolute; bottom: 10vh; left: 50%; transform: translate(-50%, 0%);">
+                    <button class="button button-block button-positive" style="background-color: #387ef5 !important;">
+                        COMEÇAR
+                    </button>
+                </div>
+            </ion-slide>
             </ion-slide>
         </ion-slide-box>
     </ion-content>

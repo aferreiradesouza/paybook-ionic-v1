@@ -7,6 +7,49 @@
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 }
 
+.detalhes {
+    width: 0%;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: 0.3s;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.detalhes-click{
+    transition: 0.3s !important;
+    width: 100% !important;
+    overflow: hidden;
+    opacity: 1;
+}
+
+.detalhesFixo {
+    width: 140px;
+    height: 0px;
+    position: absolute;
+    left: 7px;
+    top: 11px;
+    border-radius: 7px;
+    transition: 0.3s;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.detalhes-clickFixo{
+    transition: 0.3s !important;
+    height: 156px !important;
+    overflow: hidden;
+    opacity: 1;
+}
+
+.animated.ng-leave {
+    display: none;
+}
+
 .platform-ios .bar-footer {
     bottom: 49px !important;
 }
@@ -159,6 +202,10 @@ ion-header-bar {
 .item.activated {
     background-color: white !important;
     border-color: #ddd !important;
+}
+
+.ac {
+    background-color: blue !important;
 }
 
 .imgAddList {
@@ -455,20 +502,20 @@ ion-header-bar {
     display: none;
 }
 
-.normalForm{
+.normalForm {
     top: 0;
     opacity: 0;
     transition: 0.5s;
     color: black;
 }
 
-.formActive{
+.formActive {
     top: -5px !important;
     opacity: 1 !important;
     transition: 0.5s !important;
     color: black;
 }
 
-.ajusteInput-android{
+.ajusteInput-android {
     left: 0 !important;
 }

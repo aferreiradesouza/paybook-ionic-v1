@@ -22,23 +22,12 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
       templateUrl: 'templates/tabs.html'
     })
 
-
       .state('tab.lista-item', {
         url: '/lista-item',
         views: {
           'tab-lista-item': {
             templateUrl: 'templates/lista-item.html',
             controller: 'listaItemCtrl'
-          }
-        }
-      })
-
-      .state('tab.add-item', {
-        url: '/add-item',
-        views: {
-          'tab-add-item': {
-            templateUrl: 'templates/add-item.html',
-            controller: 'addItemCtrl'
           }
         }
       })
@@ -53,16 +42,6 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         url: '/tutorial',
         templateUrl: 'templates/tutorial.html',
         controller: 'tutorialCtrl'
-      })
-
-      .state('tab.chat-detail', {
-        url: '/chats/:chatId',
-        views: {
-          'tab-chats': {
-            templateUrl: 'templates/chat-detail.html',
-            controller: 'ChatDetailCtrl'
-          }
-        }
       })
 
       .state('tab.estatisticas', {

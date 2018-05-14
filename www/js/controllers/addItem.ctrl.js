@@ -3,6 +3,19 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.lista = [];
     $scope.listaFixa = [];
 
+    $scope.init = function () {
+        var listaAux = Util.obterObjeto('ItensDaLista');
+        var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
+
+
+        if (listaAux != '') {
+            $scope.lista = Util.converterParaObjeto(listaAux);
+        }
+        if (listaAuxFixa != '') {
+            $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
+        }
+    }
+
     $ionicModal.fromTemplateUrl('Gasto.html', {
         scope: $scope,
         animation: 'slide-in-right'
@@ -12,7 +25,7 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.openModalGasto = function () {
         $scope.modalGasto.show();
     };
-    $scope.closeModalGasto  = function () {
+    $scope.closeModalGasto = function () {
         $scope.modalGasto.hide();
     };
 
@@ -29,25 +42,9 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.modalCor.hide();
     };
 
+    $("#preco").maskMoney();
 
-    $scope.init = function () {
-        var listaAux = Util.obterObjeto('ItensDaLista');
-        var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
-
-
-        if (listaAux != '') {
-            $scope.lista = Util.converterParaObjeto(listaAux);
-        }
-        if (listaAuxFixa != '') {
-            $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
-        }
-    }
-    
     $scope.platform = ionic.Platform.platform();
-
-    $(function () {
-        $('#currency').maskMoney();
-    })
 
     window.addEventListener('native.keyboardshow', function () {
         document.body.classList.add('keyboard-open');
@@ -58,6 +55,7 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.data.corConv = converterCor($scope.data.cor);
         $scope.data.dia = new Date();
         $scope.data.hora = new Date();
+        // $scope.data.preco = parseFloat($scope.data.preco);
         $scope.data.preco = parseFloat($scope.data.preco);
 
 

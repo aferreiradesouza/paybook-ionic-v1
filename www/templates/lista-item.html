@@ -17,7 +17,7 @@
       <div style="width: 135px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
         ITENS FIXADOS
       </div>
-      <div style="position: absolute;top: 43%;transform: translate( 0,-50%);right: 5.2px;">
+      <div style="position: absolute;top: 32%;transform: translate( 0,-50%);right: 5.2px;">
         <div class="btnLimparFixo">
           <i class="icon  ion-ios-close-empty" id="xFixo" style="font-size: 21px; top: 50%; transform: translate(-50%, -47%); left: 50%; position: absolute; margin-top: -1px;"></i>
           <div class="btnSumirFixo" style="font-size: 11px; letter-spacing:1px;" id="limparFixo" ng-click="limparListaFixa()">LIMPAR</div>
@@ -32,6 +32,9 @@
         <div class="card-slider" ng-repeat="item in listaFixa">
           <div class="animated flipInX" style="display: inline-block;width: 140px; height: 160px; background-color: rgb(241, 241, 241);margin-left: 7px;margin-top:7px;border-radius: 7px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
             <div style="position: absolute;width: 140px; height: 50px;border-top-left-radius: 7px;border-top-right-radius: 7px;text-align: center; color: white; background-color: {{item.corConv}}">
+              <div style="position: absolute; left: 5px; top: 6px; width: 20px; height: 20px; text-align: center;" ng-click="setActiveFixo(item)">
+                <i class="icon ion-chevron-down" style="font-size: 15px; "></i>
+              </div>
               <div style="margin-top: 5px;font-size: 15px;">{{item.preco | currency:"R$"}}</div>
               <div style="margin-top: 5px;">{{item.item}}</div>
               <div class="btn-delete close" style="position: absolute;top: 4px;" ng-click="deletarItemLista(listaFixa[$index], listaFixa,listaExcluir)">
@@ -63,6 +66,23 @@
               </div>
             </div>
           </div>
+
+
+
+          <div class="detalhesFixo" style="background-color: {{item.corConv}}" ng-class="{'detalhes-clickFixo' : activeCardFixo === item}">
+            <div ng-click="setDesactiveFixo()" style="width: 20px;height: 20px;position: absolute; right: 3px; top: 3px; color: white; font-size: 14px; text-align: center;">
+              <i class="icon ion-close"></i>
+            </div>
+            <div style="position: absolute; top: 4px; left: 5px; color: white; font-size: 13px;">DESCRIÇÃO</div>
+            <div style="width: 130px; position: absolute; top: 28px; left: 5px; height: 125px; color: white; font-size: 12px;">
+              <div style="width: 100%; height: 100%;white-space: normal">
+                {{item.descricao}}
+                <div ng-if="item.descricao == '' || item.descricao == null" style="opacity: 0.8">
+                  Sem registro.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -71,7 +91,7 @@
         <div style="width: 165px;letter-spacing:2px; font-size: 12px; padding-bottom: 5px;">
           ITENS ADICIONADOS
         </div>
-        <div style="position: absolute;top: 43%;transform: translate( 0,-50%);right: 5.2px;">
+        <div style="position: absolute;top: 32%;transform: translate( 0,-50%);right: 5.2px;">
           <div class="btnLimpar">
             <i class="icon ion-ios-close-empty" id="x" style="font-size: 21px; top: 50%; transform: translate(-50%, -47%); left: 50%; position: absolute; margin-top: -1px;"></i>
             <div class="btnSumir" style="font-size: 11px; letter-spacing:1px;" id="limpar" ng-click="limparLista()">LIMPAR</div>
@@ -81,16 +101,19 @@
       <div ng-if="lista == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
         Não tem nenhum item adicionado.
       </div>
-      <li ng-repeat="item in lista">
-        <div id="{{item.id}}" ng-click="abrirComentario()" class="card-item animated flipInX fadeOut" style="border-left: 5px solid {{item.corConv}};">
+      <div ng-repeat="item in lista">
+        <div id="{{item.id}}" class="card-item animated flipInX fadeOut" style="border-left: 5px solid {{item.corConv}};">
           <div class="row" style="margin: 0;padding: 0;height: 100%;">
             <div class="col col-33 info color" style="background-color: {{item.corConv}};">
               <div class="gasto">
                 {{item.preco | currency:"R$"}}
               </div>
-              <div class="tempo">
+              <div class="tempo" style="position: relative;">
                 <div class="hora" style="margin-top: -5px;">{{item.hora | date:'HH:mm'}}</div>
                 <div class="dia" style="margin-top: 5px;">{{item.dia | date:'dd/MM/yy'}}</div>
+                <div style="position: absolute;right: 0px; top: 18px; width: 20px; height: 20px; text-align: center;" ng-click="setActive(item)">
+                  <i class="icon ion-chevron-right" style="font-size: 18px;"></i>
+                </div>
               </div>
             </div>
             <div class="col col-75 descricao">
@@ -115,9 +138,25 @@
               </div>
             </div>
           </div>
+
+
+          <div class="detalhes" style="background-color: {{item.corConv}}" ng-class="{'detalhes-click' : activeCard === item}">
+            <i class="icon ion-close" style="position: absolute; right: 7px; top: 4px; color: white; font-size: 18px;" ng-click="setDesactive()"></i>
+            <div style="position: absolute; top: 5px; left: 0; color: white; font-weight: 500;">DESCRIÇÃO</div>
+            <div style="width: 327px; position: absolute; top: 28px; left: 0; height: 67px; color: white; font-size: 12px;">
+              {{item.descricao}}
+              <div ng-if="item.descricao == '' || item.descricao == null" style="opacity: 0.8">
+                Sem registro.
+              </div>
+            </div>
+          </div>
         </div>
-      </li>
+      </div>
     </ul>
+
+    <div style="height: 65px; width: 100%;">
+
+    </div>
   </ion-content>
   <div class="bar-stable" ng-class="{'status-total-pagar-android': platform == 'android', 'status-total-pagar': platform != 'android'}">
     <span class="animated fadeIn" style="font-size: 11px">TOTAL: </span>
@@ -197,7 +236,7 @@
           </div>
           <div ng-if="listaFixa != ''" class="list" style="margin-bottom: 0;">
               <div class="item item-divider" style="font-size: 13px;">
-                ITEM FIXADO
+                ITENS FIXADOS
               </div>
           </div>            
           <ion-list can-swipe="listCanSwipe">
@@ -253,7 +292,7 @@
             </ion-list>
             <div ng-show="lista != ''" class="list" style="margin-bottom: 0;">
                 <div class="item item-divider" style="font-size: 13px;">
-                  ITEM NÃO FIXADO
+                  ITENS ADICIONADOS
                 </div>
             </div>
           <ion-list can-swipe="listCanSwipe">
