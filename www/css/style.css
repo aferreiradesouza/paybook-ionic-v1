@@ -21,7 +21,7 @@
 }
 
 .detalhes-click{
-    transition: 0.3s !important;
+    transition: 0.3s;
     width: 100% !important;
     overflow: hidden;
     opacity: 1;

@@ -1,4 +1,4 @@
-var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular.filter', 'ngAnimate'])
+var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular.filter', 'ngAnimate', 'ui.utils.masks'])
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {

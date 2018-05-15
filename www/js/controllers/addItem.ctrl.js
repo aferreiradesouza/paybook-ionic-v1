@@ -42,8 +42,6 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.modalCor.hide();
     };
 
-    $("#preco").maskMoney();
-
     $scope.platform = ionic.Platform.platform();
 
     window.addEventListener('native.keyboardshow', function () {

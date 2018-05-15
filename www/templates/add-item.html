@@ -18,7 +18,7 @@
         <div>
           <i class="icon ion-cash" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
         </div>
-        <input ng-model="data.preco" name="preco" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
+        <input ui-money-mask ng-model="data.preco" name="preco" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
           placeholder="Preço" required>
       </div>
 
@@ -128,7 +128,7 @@
         </div>
       </div>
       <div style="width: 90%; margin: 0 auto;">
-        <button class="button button-block button-positive" style="background-color: #387ef5 !important; top: 225px;" ng-disabled="addForm.item.$invalid || addForm.preco.$invalid || addForm.date.$invalid || addForm.localizacao.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+        <button class="button button-block button-positive" style="background-color: #387ef5 !important; top: 225px;" ng-disabled="addForm.item.$invalid || addForm.localizacao.$invalid || addForm.preco.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
           Adicionar item
         </button>
       </div>

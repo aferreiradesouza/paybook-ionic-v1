@@ -17,9 +17,9 @@
       <div style="width: 135px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
         ITENS FIXADOS
       </div>
-      <div style="position: absolute;top: 32%;transform: translate( 0,-50%);right: 5.2px;">
+      <div style="position: absolute;top: 32%;transform: translate( 0,-50%);right: 7.4px;">
         <div class="btnLimparFixo">
-          <i class="icon  ion-ios-close-empty" id="xFixo" style="font-size: 21px; top: 50%; transform: translate(-50%, -47%); left: 50%; position: absolute; margin-top: -1px;"></i>
+          <i class="icon  ion-ios-close-empty" id="xFixo" style="font-size: 21px; top: 50%; transform: translate(-45%, -44%); left: 50%; position: absolute; margin-top: -1px;"></i>
           <div class="btnSumirFixo" style="font-size: 11px; letter-spacing:1px;" id="limparFixo" ng-click="limparListaFixa()">LIMPAR</div>
         </div>
       </div>
@@ -91,9 +91,9 @@
         <div style="width: 165px;letter-spacing:2px; font-size: 12px; padding-bottom: 5px;">
           ITENS ADICIONADOS
         </div>
-        <div style="position: absolute;top: 32%;transform: translate( 0,-50%);right: 5.2px;">
+        <div style="position: absolute;top: 32%;transform: translate( 0,-50%);right: 7.4px;">
           <div class="btnLimpar">
-            <i class="icon ion-ios-close-empty" id="x" style="font-size: 21px; top: 50%; transform: translate(-50%, -47%); left: 50%; position: absolute; margin-top: -1px;"></i>
+            <i class="icon ion-ios-close-empty" id="x" style="font-size: 21px; top: 50%; transform: translate(-45%, -44%); left: 50%; position: absolute; margin-top: -1px;"></i>
             <div class="btnSumir" style="font-size: 11px; letter-spacing:1px;" id="limpar" ng-click="limparLista()">LIMPAR</div>
           </div>
         </div>
@@ -104,9 +104,12 @@
       <div ng-repeat="item in lista">
         <div id="{{item.id}}" class="card-item animated flipInX fadeOut" style="border-left: 5px solid {{item.corConv}};">
           <div class="row" style="margin: 0;padding: 0;height: 100%;">
-            <div class="col col-33 info color" style="background-color: {{item.corConv}};">
-              <div class="gasto">
+            <div class="col col-33 info color" style="position:relative;background-color: {{item.corConv}};">
+              <div class="gasto" style="white-space: nowrap; overflow: hidden;">
                 {{item.preco | currency:"R$"}}
+                <div ng-show="lista[$index].preco >= '1000'" style="width: 20px; height: 20px; position: absolute; top: 4.5px; right:0;background: linear-gradient(to right, rgba(125,185,232,0) 0%,{{item.corConv}} 100%);">
+
+                </div>
               </div>
               <div class="tempo" style="position: relative;">
                 <div class="hora" style="margin-top: -5px;">{{item.hora | date:'HH:mm'}}</div>

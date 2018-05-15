@@ -584,7 +584,7 @@ app.controller('statsCtrl', function ($scope, Util) {
         angular.forEach($scope.listaFixa, function (key, value) {
             if (key.cor == "Vermelho") {
                 contagem += 1;
-                contagemAdicionados += 1;
+                contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Lazer") {
                     contagemTipoLazer += 1;
@@ -707,7 +707,7 @@ app.controller('statsCtrl', function ($scope, Util) {
         angular.forEach($scope.listaFixa, function (key, value) {
             if (key.cor == "Roxo") {
                 contagem += 1;
-                contagemAdicionados += 1;
+                contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Lazer") {
                     contagemTipoLazer += 1;
@@ -830,7 +830,7 @@ app.controller('statsCtrl', function ($scope, Util) {
         angular.forEach($scope.listaFixa, function (key, value) {
             if (key.cor == "Verde") {
                 contagem += 1;
-                contagemAdicionados += 1;
+                contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Lazer") {
                     contagemTipoLazer += 1;
@@ -953,7 +953,7 @@ app.controller('statsCtrl', function ($scope, Util) {
         angular.forEach($scope.listaFixa, function (key, value) {
             if (key.cor == "Laranja") {
                 contagem += 1;
-                contagemAdicionados += 1;
+                contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Lazer") {
                     contagemTipoLazer += 1;
@@ -1076,7 +1076,7 @@ app.controller('statsCtrl', function ($scope, Util) {
         angular.forEach($scope.listaFixa, function (key, value) {
             if (key.cor == "Azul") {
                 contagem += 1;
-                contagemAdicionados += 1;
+                contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Lazer") {
                     contagemTipoLazer += 1;

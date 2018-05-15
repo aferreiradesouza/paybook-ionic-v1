@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ionic/pro": "1.0.20",
+    "angular-input-masks": "^4.1.0",
     "ionic-native-transitions": "^1.0.3"
   }
 }
