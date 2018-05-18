@@ -2,15 +2,14 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.listaFixa = [];
     $scope.lista = [];
     $scope.listaExcluir = [];
+    $scope.listaCartao = [];
 
-    $scope.shouldShowDelete = false;
-    $scope.shouldShowReorder = false;
-    $scope.listCanSwipe = true;
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
         var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
         var listaAuxExcluir = Util.obterObjeto('listaExcluir');
+        var listaAuxCartao = Util.obterObjeto('listaCartao');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
@@ -21,7 +20,15 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         if (listaAuxExcluir != '') {
             $scope.listaExcluir = Util.converterParaObjeto(listaAuxExcluir);
         }
+        if (listaAuxCartao != '') {
+            $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
+        }
     }
+
+    $scope.shouldShowDelete = false;
+    $scope.shouldShowReorder = false;
+    $scope.listCanSwipe = true;
+
     $scope.activeCard = $scope.lista[0];
 
     $scope.setActive = function (cardItem) {

@@ -1,0 +1,123 @@
+<ion-view ng-init="init()">
+    <div class="bar bar-header bar-stable" ng-class="{'ajuste-header-android': platform == 'android'}" style="height: 73px;">
+        <h1 class="title" style="margin-top: 27px;" ng-class="{'ajuste-title-android': platform == 'android'}">Gerênciar Cartões</h1>
+    </div>
+    <ion-content overflow-scroll="true">
+        <div style="height: 75px;" ng-class="{'div-sumir' : platform == 'android'}">
+        </div>
+        <div style="position: relative;width: 90%; margin: 5px auto; border-bottom: 1px solid #e0e0e0; margin-bottom: 0px;">
+            <div style="width: 135px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
+                MEUS CARTÕES
+            </div>
+            <a ng-href="/#/add-cartao">
+                <div style="color: black;text-align: center;font-size: 11px;position: absolute; width: 90px; height: 20px; border: 1px solid black; border-radius: 25px;right: 0; top: 0;">
+                    ADICIONAR</i>
+                </div>
+            </a>
+        </div>
+        <div ng-if="listaCartao == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
+            Não tem nenhum cartão registrado.
+        </div>
+        <div ng-if="listaCartao != ''" class="slider-wrapper-cartao card-slider-fixo-cartao">
+            <div class="slider-content-cartao">
+                <div class="card-slider-cartao" ng-repeat="item in listaCartao">
+                    <div style="width: 75vw; height: 150px; padding: 5px;">
+                        <div style="width: 100%; height: 100%; border-radius: 10px; position: relative; background-color:{{item.corCartaoConvertida}}">
+                            <div style="position: absolute; top: 15px; left: 15px; font-size: 20px; color: white;">
+                                {{item.nomeCartao}}
+                            </div>
+                            <div class="btn-delete close" style="color:white;top: 5px;position: absolute;" ng-click="deleteCartao($index)">
+                                <i class="icon ion-close-circled" style="font-size: 20px;"></i>
+                            </div>
+                            <div style="letter-spacing: 3px;position: absolute; bottom: 60px; left: 15px;font-size: 15px; color: white;">
+                                **** **** **** {{item.digitos}}
+                            </div>
+                            <div style="opacity: 0.6;position: absolute; bottom:30px; left: 15px;font-size: 10px; color: white;">
+                                NOME
+                            </div>
+                            <div style="letter-spacing: 1px;position: absolute; bottom:10px; left: 15px;font-size: 13px; color: white;">
+                                {{item.pNome | uppercase}} {{item.uNome | uppercase}}
+                            </div>
+                            <div style="position: absolute; bottom:10px; right: 15px;">
+                                <img src="img/{{item.bandeiraConv}}" width="40px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 75vw; height: 72px; padding: 0 15px; margin-top: 10px;">
+                        <div style="width: 100%; height: 100%;border: 1px solid #ccc; background-color: #f8f8f8;position: relative; border-radius: 5px;">
+                            <div style="position: absolute; left: 0; top: 50%; transform: translate(0%, -50%);width: 125px; height: 44px;">
+                                <div style="letter-spacing: 1px;position: absolute; top: 0; left: 5px; font-size: 12px;">
+                                    LIMITE
+                                </div>
+                                <div style="position: absolute; top: 20px; left: 5px; font-size: 19px; font-weight: 450;">
+                                    {{item.limite | currency:"R$"}}
+                                </div>
+                            </div>
+                            <div style="position: absolute; width: 46%; height: 60px;top: 5px; right: 0; border-left: 1px solid #ccc">
+                                <div style="position: absolute; width: 100%; height: 50%; top: 0; left: 0; border-bottom: 1px solid #ccc">
+                                    <div style=" font-size: 8px; position: absolute; top: -5px; right: 5px;"> FATURA ATUAL </div>
+                                    <div style=" font-size: 15px; position: absolute; bottom: 0px; right: 5px;"> R$484.50 </div>
+                                </div>
+                                <div style="position: absolute; width: 100%; height: 50%; bottom: 0; left: 0;">
+                                    <div style=" font-size: 8px; position: absolute; top: 0px; right: 5px;"> TOTAL DE ITENS </div>
+                                    <div style=" font-size: 15px; position: absolute; bottom: -3px; right: 5px;"> 12 </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position: relative;width: 90%; margin: 10px auto; border-bottom: 1px solid #e0e0e0; margin-bottom: 0px;">
+            <div style="width: 180px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
+                GASTOS COM CARTÃO
+            </div>
+        </div>
+        <div style="margin-top: 15px;">
+            <div ng-show="listaFixa != ''" class="list" style="margin-bottom: 0;">
+                <div class="item item-divider" style="font-size: 13px; border-bottom: 1px solid transparent">
+                    ITENS FIXADOS
+                </div>
+            </div>
+            <ion-list>
+                <ion-item ng-repeat="item in listaFixa" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
+                    <div style="position: relative;width: 15vw;height: 50px; border-left: 6px solid #632080; border-right: 1px solid #ccc;">
+                        <img src="img/icon/{{item.gastoConv}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+                    </div>
+                    <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">
+                        <div style="font-size: 15px; padding: 0px 5px; position: absolute; left: 0; top: 0; width: 100%;">
+                            <div style="position: absolute;left: 5px;top: 5px">{{item.item}}</div>
+                            <div style="position: absolute;right: 5px;top: 5px">{{item.preco | currency:"R$"}}</div>
+                        </div>
+                        <div style="height: 100%;font-size: 12px; padding: 0px 5px; position: relative; left: 0; bottom: 0px; width: 100%; opacity: 0.5">
+                            <div style="position: absolute;left: 5px;bottom: 5px">{{item.gasto | uppercase}}</div>
+                            <div style="position: absolute;right: 5px;bottom: 5px">{{item.dia | date:'dd/MM/yy'}}</div>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+            <div ng-show="lista != ''" class="list" style="margin-bottom: 0;">
+                <div class="item item-divider" style="font-size: 13px; border: 1px solid transparent">
+                    ITENS ADICIONADOS
+                </div>
+            </div>
+            <ion-list>
+                <ion-item ng-repeat="item in lista" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
+                    <div style="position: relative;width: 15vw;height: 50px; border-left: 6px solid #632080; border-right: 1px solid #ccc;">
+                        <img src="img/icon/{{item.gastoConv}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+                    </div>
+                    <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">
+                        <div style="font-size: 15px; padding: 0px 5px; position: absolute; left: 0; top: 0; width: 100%;">
+                            <div style="position: absolute;left: 5px;top: 5px">{{item.item}}</div>
+                            <div style="position: absolute;right: 5px;top: 5px">{{item.preco | currency:"R$"}}</div>
+                        </div>
+                        <div style="height: 100%;font-size: 12px; padding: 0px 5px; position: relative; left: 0; bottom: 0px; width: 100%; opacity: 0.5">
+                            <div style="position: absolute;left: 5px;bottom: 5px">{{item.gasto | uppercase}}</div>
+                            <div style="position: absolute;right: 5px;bottom: 5px">{{item.dia | date:'dd/MM/yy'}}</div>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-list>
+        </div>
+    </ion-content>
+</ion-view>

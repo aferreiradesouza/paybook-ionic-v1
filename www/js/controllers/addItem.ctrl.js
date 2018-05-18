@@ -2,11 +2,15 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.data = {};
     $scope.lista = [];
     $scope.listaFixa = [];
+    $scope.listaExcluir = [];
+    $scope.listaCartao = [];
+
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
         var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
-
+        var listaAuxExcluir = Util.obterObjeto('listaExcluir');
+        var listaAuxCartao = Util.obterObjeto('listaCartao');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
@@ -14,34 +18,13 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         if (listaAuxFixa != '') {
             $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
         }
+        if (listaAuxExcluir != '') {
+            $scope.listaExcluir = Util.converterParaObjeto(listaAuxExcluir);
+        }
+        if (listaAuxCartao != '') {
+            $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
+        }
     }
-
-    $ionicModal.fromTemplateUrl('Gasto.html', {
-        scope: $scope,
-        animation: 'slide-in-right'
-    }).then(function (modal) {
-        $scope.modalGasto = modal;
-    });
-    $scope.openModalGasto = function () {
-        $scope.modalGasto.show();
-    };
-    $scope.closeModalGasto = function () {
-        $scope.modalGasto.hide();
-    };
-
-    $ionicModal.fromTemplateUrl('Cor.html', {
-        scope: $scope,
-        animation: 'slide-in-right'
-    }).then(function (modal) {
-        $scope.modalCor = modal;
-    });
-    $scope.openModalCor = function () {
-        $scope.modalCor.show();
-    };
-    $scope.closeModalCor = function () {
-        $scope.modalCor.hide();
-    };
-
     $scope.platform = ionic.Platform.platform();
 
     window.addEventListener('native.keyboardshow', function () {
@@ -72,28 +55,50 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         voltarIndex();
     }
 
+    $ionicModal.fromTemplateUrl('Gasto.html', {
+        scope: $scope,
+        animation: 'slide-in-right'
+    }).then(function (modal) {
+        $scope.modalGasto = modal;
+    });
+    $scope.openModalGasto = function () {
+        $scope.modalGasto.show();
+    };
+    $scope.closeModalGasto = function () {
+        $scope.modalGasto.hide();
+    };
+
+    $ionicModal.fromTemplateUrl('Cor.html', {
+        scope: $scope,
+        animation: 'slide-in-right'
+    }).then(function (modal) {
+        $scope.modalCor = modal;
+    });
+    $scope.openModalCor = function () {
+        $scope.modalCor.show();
+    };
+    $scope.closeModalCor = function () {
+        $scope.modalCor.hide();
+    };
+
+    $ionicModal.fromTemplateUrl('Cartao.html', {
+        scope: $scope,
+        animation: 'slide-in-right'
+    }).then(function (modal) {
+        $scope.modalCartao = modal;
+    });
+    $scope.openModalCartao = function () {
+        $scope.modalCartao.show();
+    };
+    $scope.closeModalCartao = function () {
+        $scope.modalCartao.hide();
+    };
+
     function voltarIndex() {
         setTimeout(function () {
             window.location.href = "#/tab/lista-item";
         }, 100);
     }
-
-    // function formatarData(dado) {
-    //     var data = dado;
-    //     var dia = data.getDate();
-
-    //     if (dia.toString().length == 1) {
-    //         dia = "0" + dia;
-    //     }
-    //     var mes = data.getMonth() + 1;
-
-    //     if (mes.toString().length == 1) {
-    //         mes = "0" + mes;
-    //     }
-    //     var ano = data.getFullYear();
-
-    //     return dia + "/" + mes;
-    // }
 
     function converterCor(cor) {
         if (cor == 'Vermelho') {
@@ -150,11 +155,4 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         }
         return tipoGasto;
     }
-
-    // function precoConvertido(gasto){
-    //     if(gasto.charAt(1) == "."){
-    //         gasto.charAt(1) = ",";
-    //         return gasto;
-    //     }
-    // }
 })

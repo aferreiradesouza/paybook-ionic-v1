@@ -519,3 +519,36 @@ ion-header-bar {
 .ajusteInput-android {
     left: 0 !important;
 }
+
+/*CARTAO*/
+.slider-wrapper-cartao {
+    overflow: hidden;
+    height: 237px !important;
+}
+
+.slider-content-cartao {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: 5px;
+    height: calc(100% + 10px);
+    max-height: calc(100% + 10px);
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.card-slider-cartao {
+    display: inline-block;
+    position: relative;
+}
+
+.card-slider-fixo-cartao {
+    height: 210px;
+}
+
+.ajustesBorder{
+    border-top: 1px solid transparent !important;
+}

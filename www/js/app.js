@@ -38,6 +38,13 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         controller: 'addItemCtrl'
       })
 
+      .state('add-cartao', {
+        url: '/add-cartao',
+        templateUrl: 'templates/add-cartao.html',
+        controller: 'addCartaoCtrl'
+      })
+      
+
       .state('tutorial', {
         url: '/tutorial',
         templateUrl: 'templates/tutorial.html',
@@ -50,6 +57,16 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
           'tab-estatisticas': {
             templateUrl: 'templates/estatisticas.html',
             controller: 'statsCtrl'
+          }
+        }
+      })
+      
+      .state('tab.cartao', {
+        url: '/cartao',
+        views: {
+          'tab-cartao': {
+            templateUrl: 'templates/cartao.html',
+            controller: 'cartaoCtrl'
           }
         }
       });

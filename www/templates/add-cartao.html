@@ -1,0 +1,170 @@
+<ion-view ng-init="init()">
+    <div class="bar bar-header bar-stable" style="height: 73px;">
+        <a ng-href="/#/tab/cartao" style="z-index: 999; color: black;">
+            <div style="position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
+                <i class="icon ion-chevron-left"></i>
+            </div>
+        </a>
+        <h1 class="title" style="margin-top: 27px;">Adicionar Cartão</h1>
+    </div>
+    <ion-content>
+        <div style="height: 72px;">
+
+        </div>
+        <form name="addC" ng-submit="addCartao()">
+
+            <!-- NOME -->
+            <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 82px;left: 3vw; position: absolute; border-radius: 25px;">
+                <div class="normalForm" style="position: absolute; font-size: 10px;left: 15px;" ng-class="{'formActive' : data.pNome != '' && data.pNome != null}">Primeiro nome</div>
+                <input ng-model="data.pNome" name="preco" type="text" style="height: 30px; top: 5px;position: absolute; width: 100%; background-color: transparent;left: 15px;"
+                    placeholder="Primeiro nome" required>
+            </div>
+
+            <!-- ULTIMO NOME -->
+            <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 82px;right: 3vw; position: absolute; border-radius: 25px;">
+                <div class="normalForm" style="position: absolute; font-size: 10px;left: 15px;" ng-class="{'formActive' : data.uNome != '' && data.uNome != null}">Último nome</div>
+                <input maxlength="16" ng-model="data.uNome" name="localizacao" type="text" style="height: 30px; top: 5px;position: absolute; width: 100%; background-color: transparent;left: 15px;"
+                    placeholder="Último nome" required>
+            </div>
+            <!-- Nome / limite -->
+            <div style="position: absolute; top: 130px;">
+                <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
+                    <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.nomeCartao != '' && data.nomeCartao != null}">Nome do Cartão</div>
+                    <input ng-class="{'ajusteInput-android' : platform == 'android'}" type="text" name="item" ng-model="data.nomeCartao" style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+                        placeholder="Nome do Cartão" required>
+
+
+                    <div style="position: absolute; right: 0; width: 50vw; background-color:transparent; height: 40px; border-left: 1px solid #ccc;">
+                        <div class="normalForm" style="position: absolute; font-size: 10px; left: 7px" ng-class="{'formActive' : data.limite != '' && data.limite != null}">Limite do Cartão</div>
+                        <input ui-money-mask ng-class="{'ajusteInput-android' : platform == 'android'}" type="text" name="item" ng-model="data.limite" style="left: 0px;position: absolute; width: 100%; background-color:transparent;border: 0; height: 33px;top: 7px; "
+                            placeholder="Limite do Cartão" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Ultimos 4 dig / Cor -->
+            <div style="position: absolute; top: 170px;">
+                <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
+                    <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.digitos != '' && data.digitos != null}">Últimos 4 dígitos</div>
+                    <input type="text" maxlength="4" pattern="[0-9]*" ng-class="{'ajusteInput-android' : platform == 'android'}" name="item" ng-model="data.digitos"
+                        style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+                        placeholder="Últimos 4 dígitos" required>
+
+
+                    <div ng-click="openModalCorCartao()" style="position: absolute; right: 0; width: 50vw; background-color:transparent; height: 40px; border-left: 1px solid #ccc;">
+                        <div style="position: absolute; width: 44vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170);left: 5px; ">Cor</div>
+                        
+                        <input type="text" ng-model="data.corCartao" name="corCartao" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+                        disabled>
+
+
+                        <div ng-show="data.corCartao == 'Preto'">
+                            <i class="icon ion-ios-circle-filled iconAddList" style="color:#3d3d3d;font-size: 19px; right: 65px"></i>
+                        </div>
+                        <div ng-show="data.corCartao == 'Azul'">
+                            <i class="icon ion-ios-circle-filled iconAddList" style="color:#192a56;font-size: 19px; right: 60px"></i>
+                        </div>
+                        <div ng-show="data.corCartao == 'Cinza'">
+                            <i class="icon ion-ios-circle-filled iconAddList" style="color:#718093;font-size: 19px; right: 65px"></i>
+                        </div>
+                        <div ng-show="data.corCartao == 'Roxo'">
+                            <i class="icon ion-ios-circle-filled iconAddList" style="color:#632080;font-size: 19px; right: 60px"></i>
+                        </div>
+                        <div ng-show="data.corCartao == 'Laranja'">
+                            <i class="icon ion-ios-circle-filled iconAddList" style="color:#f0932b;font-size: 19px; right: 75px"></i>
+                        </div>
+                        <div ng-show="data.corCartao == 'Vermelho'">
+                            <i class="icon ion-ios-circle-filled iconAddList" style="color:#ff3838;font-size: 19px; right: 85px"></i>
+                        </div>
+
+
+                        <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+                            <i class="icon ion-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bandeira -->
+            <div style="position: absolute; top: 210px;">
+                <div ng-click="openModalBandeira()" style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
+                    <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Bandeira do cartão</div>
+                    
+                    <input type="text" ng-model="data.bandeira" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+                        disabled>
+
+                    <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+                        <i class="icon ion-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 90%; margin: 0 auto;">
+                <button class="button button-block button-positive" style="background-color: #387ef5 !important; top: 180px;">
+                    Adicionar Cartão
+                </button>
+            </div>
+
+            <script id="CorCartao.html" type="text/ng-template">
+                <ion-modal-view>
+                    <div class="bar bar-header bar-stable" style="height: 73px;">
+                        <div  ng-click="closeModalCorCartao()" style="z-index: 999;position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
+                          <i class="icon ion-chevron-left" style="font-size: 22px"></i>
+                        </div>
+                        <h1 class="title" style="margin-top: 27px;">Escolha uma cor</h1>
+                      </div>
+                  <ion-content>
+                      <div style="height: 71px;">
+            
+                        </div>
+                      <ion-list>
+                          <ion-radio ng-model="data.corCartao" ng-value="'Preto'" ng-click="closeModalCorCartao()">
+                              <i class="icon ion-ios-circle-filled iconRadio" style="color:#3d3d3d;font-size: 18px;"></i>
+                            <span class="categoriaRadio">Preto</span>
+                          </ion-radio>
+                          <ion-radio ng-model="data.corCartao" ng-value="'Vermelho'" ng-click="closeModalCorCartao()">
+                              <i class="icon ion-ios-circle-filled iconRadio" style="color:#ff3838;font-size: 18px;"></i>
+                            <span class="categoriaRadio">Vermelho</span>
+                          </ion-radio>
+                          <ion-radio ng-model="data.corCartao" ng-value="'Azul'" ng-click="closeModalCorCartao()">
+                              <i class="icon ion-ios-circle-filled iconRadio" style="color:#192a56;font-size: 18px;"></i>
+                            <span class="categoriaRadio">Azul</span>
+                          </ion-radio>
+                          <ion-radio ng-model="data.corCartao" ng-value="'Cinza'" ng-click="closeModalCorCartao()">
+                              <i class="icon ion-ios-circle-filled iconRadio" style="color:#718093;font-size: 18px;"></i>
+                            <span class="categoriaRadio">Cinza</span>
+                          </ion-radio>
+                          <ion-radio ng-model="data.corCartao" ng-value="'Roxo'" ng-click="closeModalCorCartao()">
+                              <i class="icon ion-ios-circle-filled iconRadio" style="color:#632080;font-size: 18px;"></i>
+                            <span class="categoriaRadio">Roxo</span>
+                          </ion-radio>
+                          <ion-radio ng-model="data.corCartao" ng-value="'Laranja'" ng-click="closeModalCorCartao()">
+                              <i class="icon ion-ios-circle-filled iconRadio" style="color:#f0932b;font-size: 18px;"></i>
+                            <span class="categoriaRadio">Laranja</span>
+                          </ion-radio>
+                      </ion-list>
+                  </ion-content>
+                </ion-modal-view>
+            </script>
+
+            <script id="Bandeira.html" type="text/ng-template">
+                <ion-modal-view>
+                    <div class="bar bar-header bar-stable" style="height: 73px;">
+                        <div  ng-click="closeModalBandeira()" style="z-index: 999;position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
+                          <i class="icon ion-chevron-left" style="font-size: 22px"></i>
+                        </div>
+                        <h1 class="title" style="margin-top: 27px;">Escolha a bandeira</h1>
+                    </div>
+                  <ion-content>
+                      <div style="height: 71px;"></div>
+                      <ion-list>
+                          <ion-radio ng-model="data.bandeira" ng-value="'Mastercard'" ng-click="closeModalBandeira()">
+                            <span class="categoriaRadio">Mastercard</span>
+                          </ion-radio>
+                          <ion-radio ng-model="data.bandeira" ng-value="'Visa'" ng-click="closeModalBandeira()">
+                            <span class="categoriaRadio">Visa</span>
+                          </ion-radio>
+                      </ion-list>
+                  </ion-content>
+                </ion-modal-view>
+            </script>
+        </form>
+    </ion-content>
+</ion-view>
