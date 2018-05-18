@@ -262,7 +262,7 @@
               </div>
             <ion-list>
                 <ion-radio ng-repeat="item in listaCartao" ng-model="data.cartao" ng-value="'{{item.nomeCartao}}'" ng-click="closeModalCartao()">
-                    <i class="icon ion-ios-circle-filled iconRadio" style="color:#8e44ad;font-size: 18px;"></i>
+                    <i class="icon ion-ios-circle-filled iconRadio" style="font-size: 18px;color:{{item.corCartaoConvertida}};"></i>
                   <span class="categoriaRadio">{{item.nomeCartao}}</span>
                 </ion-radio>
             </ion-list>
