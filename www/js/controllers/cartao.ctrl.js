@@ -29,4 +29,9 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         $scope.listaCartao.splice(index, 1);
         Util.salvarObjeto('listaCartao', $scope.listaCartao);
     }
+
+    $scope.downUp = true;
+    $scope.abrirFiltro = function(){
+        $scope.downUp = !$scope.downUp;
+    }
 })

@@ -11,7 +11,7 @@
             </div>
             <a ng-href="/#/add-cartao">
                 <div style="color: black;text-align: center;font-size: 11px;position: absolute; width: 90px; height: 20px; border: 1px solid black; border-radius: 25px;right: 0; top: 0;">
-                    ADICIONAR</i>
+                    ADICIONAR
                 </div>
             </a>
         </div>
@@ -72,8 +72,17 @@
             <div style="width: 180px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
                 GASTOS COM CARTÃO
             </div>
+            <div ng-click="abrirFiltro()" style="border: 0.5px solid #ccc; background-color: #f8f8f8; color: black;text-align: right;font-size: 11px;position: absolute;right: 0; top: 0;width: 35vw;">
+                <input disabled style="width: 100%;position: absolute; background-color: transparent; right: 15px;bottom: 21px; border: 0; text-align: right">
+                <span>TODOS</span><i class="icon" ng-class="{'ion-chevron-down' : downUp, 'ion-chevron-up' : !downUp}" style="margin-left: 6px;"></i>
+                <div class="filtroCartao" ng-class="{'filtroCartaoOpen' : !downUp}">
+                    <div ng-repeat="item in listaCartao">
+                        <span style="right: 15px; position: relative;">{{item.nomeCartao | uppercase}}</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div style="margin-top: 15px;">
+        <div style="margin-top: 15px;z-index: -1;">
             <div ng-show="listaFixa != ''" class="list" style="margin-bottom: 0;">
                 <div class="item item-divider" style="font-size: 13px; border-bottom: 1px solid transparent">
                     ITENS FIXADOS

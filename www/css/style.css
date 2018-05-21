@@ -552,3 +552,17 @@ ion-header-bar {
 .ajustesBorder{
     border-top: 1px solid transparent !important;
 }
+
+.filtroCartao{
+    height: 0px;
+    overflow: hidden;
+    transition: 0.25s;
+    z-index: 999;
+}
+
+.filtroCartaoOpen{
+    height: 100% !important;
+    overflow: hidden !important;
+    transition: 0.25s !important;
+    z-index: 999;
+}
