@@ -23,11 +23,11 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         }
         if (listaAuxCartao != '') {
             $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
-            angular.forEach($cope.listaExcluir, function (item) {
-                if(item.id == null){
-                    item.id = Util.criarGuid();
+            $scope.listaCartao.forEach(element => {
+                if (element.id == null) {
+                    element.id = Util.criarGuid();
                 }
-            })
+            });
         }
 
         $scope.data.filtro = 'TODOS';
