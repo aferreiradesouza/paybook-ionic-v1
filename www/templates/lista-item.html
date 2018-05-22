@@ -104,7 +104,7 @@
       <div ng-repeat="item in lista track by item.id">
         <div id="{{item.id}}" class="card-item animated flipInX fadeOut" style="border-left: 5px solid {{item.corConv}};">
           <div class="row" style="margin: 0;padding: 0;height: 100%;">
-            <div class="col col-33 info color" style="position:relative;background-color: {{item.corConv}};">
+            <div class="col col-33 info color" style="position:relative;background-color: {{item.corConv}};" ng-click="setActive(item)">
               <div class="gasto" style="white-space: nowrap; overflow: hidden;">
                 {{item.preco | currency:"R$"}}
                 <div ng-show="lista[$index].preco >= '1000'" style="width: 20px; height: 20px; position: absolute; top: 4.5px; right:0;background: linear-gradient(to right, rgba(125,185,232,0) 0%,{{item.corConv}} 100%);">
@@ -114,7 +114,7 @@
               <div class="tempo" style="position: relative;">
                 <div class="hora" style="margin-top: -5px;">{{item.hora | date:'HH:mm'}}</div>
                 <div class="dia" style="margin-top: 5px;">{{item.dia | date:'dd/MM/yy'}}</div>
-                <div style="position: absolute;right: 0px; top: 18px; width: 20px; height: 20px; text-align: center;" ng-click="setActive(item)">
+                <div style="position: absolute;right: 0px; top: 18px; width: 20px; height: 20px; text-align: center;">
                   <i class="icon ion-chevron-right" style="font-size: 18px;"></i>
                 </div>
               </div>
@@ -145,8 +145,8 @@
 
           <div class="detalhes" style="background-color: {{item.corConv}}" ng-class="{'detalhes-click' : activeCard === item}">
             <i class="icon ion-chevron-left" style="position: absolute; left: 0px; top: 4px; color: white; font-size: 17px;" ng-click="setDesactive()"></i>
-            <div style="position: absolute; top: 5px; left: 18px; color: white; font-weight: 500;">DESCRIÇÃO</div>
-            <div ng-class="{'descAct' : cartaoListaAbrir}" style="padding-left: 5px;transition: 1s;width: 100%;color: white; line-height: 14px;height: 60px; position: absolute;top: 35px; font-size: 11px;">
+            <div ng-click="setDesactive()" style="position: absolute; top: 5px; left: 18px; color: white; font-weight: 500;">DESCRIÇÃO</div>
+            <div ng-class="{'descAct' : cartaoListaAbrir}" ng-click="setDesactive()" style="padding-left: 5px;transition: 1s;width: 100%;color: white; line-height: 14px;height: 60px; position: absolute;top: 35px; font-size: 11px;">
               {{item.descricao}}
               <div ng-if="item.descricao == '' || item.descricao == null" style="opacity: 0.8">
                 Sem registro.
@@ -158,7 +158,7 @@
                   <i class="icon" style="margin-left: 5px;" ng-class="{'ion-chevron-up': cartaoListaAbrir, 'ion-chevron-down': !cartaoListaAbrir}"></i></span>
                 </div>
         
-                <div ng-class="{'cartaoDesc' : cartaoListaAbrir, 'cartaoDescOff' : !cartaoListaAbrir}" style="position: absolute; right:0; height: 0px; background-color: rgb(241, 241, 241); width: 100%;top: 0px;opacity: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px;overflow: hidden">
+                <div ng-click="abrirCartao()" ng-class="{'cartaoDesc' : cartaoListaAbrir, 'cartaoDescOff' : !cartaoListaAbrir}" style="position: absolute; right:0; height: 0px; background-color: rgb(241, 241, 241); width: 100%;top: 0px;opacity: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px;overflow: hidden">
                   <div style=" top: 33px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
                     <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">CARTÃO</span> <span style="position: absolute; right: 3px; font-size: 12px;">NUBANK</span>
                   </div>

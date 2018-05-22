@@ -23,9 +23,9 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         }
         if (listaAuxCartao != '') {
             $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
-            $scope.listaCartao.forEach(element => {
-                if (element.id == null) {
-                    element.id = Util.criarGuid();
+            $scope.listaCartao.forEach(item => {
+                if (item.id == null) {
+                    item.id = Util.criarGuid();
                 }
             });
         }
@@ -57,8 +57,4 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
     $scope.closeModalFiltro = function () {
         $scope.modalFiltro.hide();
     };
-
-    angular.forEach($scope.lista, function (key, value) {
-
-    });
 })
