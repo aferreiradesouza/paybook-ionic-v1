@@ -1,4 +1,4 @@
-<ion-view ng-init="init()">
+<ion-view ng-init="init()" ng-cloak>
   <div class="bar bar-header bar-stable" ng-class="{'ajuste-header-android': platform == 'android'}" style="height: 73px;">
     <h1 class="title" style="margin-top: 27px;" ng-class="{'ajuste-title-android': platform == 'android'}">Paybook</h1>
     <a style="z-index: 999; color: black;">
@@ -11,9 +11,9 @@
     <div style="height: 75px;" ng-class="{'div-sumir' : platform == 'android'}">
 
     </div>
-    <ion-refresher pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()" ng-class="{'scroll-refresher-android' : platform == 'android'}">
+    <ion-refresher ng-if="refresher" pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()" ng-class="{'scroll-refresher-android' : platform == 'android'}">
     </ion-refresher>
-    <div style="position: relative;width: 90%; margin: 15px auto; border-bottom: 1px solid #e0e0e0; margin-bottom: 0px;">
+    <div style="position: relative;width: 90%; margin: 5px auto; border-bottom: 1px solid #e0e0e0; margin-bottom: 0px;">
       <div style="width: 135px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
         ITENS FIXADOS
       </div>
@@ -29,7 +29,7 @@
     </div>
     <div ng-if="listaFixa != ''" class="slider-wrapper card-slider-fixo">
       <div class="slider-content">
-        <div class="card-slider" ng-repeat="item in listaFixa">
+        <div class="card-slider" ng-repeat="item in listaFixa track by item.id" my-touchstart="touchStart()" my-touchend="touchEnd()">
           <div class="animated flipInX" style="display: inline-block;width: 140px; height: 160px; background-color: rgb(241, 241, 241);margin-left: 7px;margin-top:7px;border-radius: 7px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
             <div style="position: absolute;width: 140px; height: 50px;border-top-left-radius: 7px;border-top-right-radius: 7px;text-align: center; color: white; background-color: {{item.corConv}}">
               <div style="position: absolute; left: 5px; top: 6px; width: 20px; height: 20px; text-align: center;" ng-click="setActiveFixo(item)">
@@ -48,7 +48,7 @@
               </div>
               <div style="width: 130px; height: 27.5px;">
                 <div style="position: absolute; left: 2.5px;">
-                  <img src="../../img/icon/{{item.gastoConv}}" style="height: 15px">
+                  <img ng-src="../../img/icon/{{item.gastoConv}}" style="height: 15px">
                 </div>
                 <span style="margin-left: 18.5px;">{{item.gasto}}</span>
               </div>
@@ -101,7 +101,7 @@
       <div ng-if="lista == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
         Não tem nenhum item adicionado.
       </div>
-      <div ng-repeat="item in lista">
+      <div ng-repeat="item in lista track by item.id">
         <div id="{{item.id}}" class="card-item animated flipInX fadeOut" style="border-left: 5px solid {{item.corConv}};">
           <div class="row" style="margin: 0;padding: 0;height: 100%;">
             <div class="col col-33 info color" style="position:relative;background-color: {{item.corConv}};">
@@ -125,7 +125,7 @@
               </div>
               <div class="titulo-descricao">
                 <div style="position: absolute; margin-top: 1px;">
-                  <img src="../../img/icon/{{item.gastoConv}}" style="height: 16px;width: 16px">
+                  <img ng-src="../../img/icon/{{item.gastoConv}}" style="height: 16px;width: 16px">
                 </div>
                 <span class="titulo" style="margin-left: 20px;">{{item.item}}</span>
               </div>
@@ -144,29 +144,32 @@
 
 
           <div class="detalhes" style="background-color: {{item.corConv}}" ng-class="{'detalhes-click' : activeCard === item}">
-            <i class="icon ion-close" style="position: absolute; right: 7px; top: 4px; color: white; font-size: 18px;" ng-click="setDesactive()"></i>
-            <div style="position: absolute; top: 5px; left: 0; color: white; font-weight: 500;">DESCRIÇÃO</div>
-            <div style="border-right: 1px solid white;width: 55%; position: absolute; top: 28px; left: 0; height: 67px; color: white; font-size: 12px;">
+            <i class="icon ion-chevron-left" style="position: absolute; left: 0px; top: 4px; color: white; font-size: 17px;" ng-click="setDesactive()"></i>
+            <div style="position: absolute; top: 5px; left: 18px; color: white; font-weight: 500;">DESCRIÇÃO</div>
+            <div ng-class="{'descAct' : cartaoListaAbrir}" style="padding-left: 5px;transition: 1s;width: 100%;color: white; line-height: 14px;height: 60px; position: absolute;top: 35px; font-size: 11px;">
               {{item.descricao}}
               <div ng-if="item.descricao == '' || item.descricao == null" style="opacity: 0.8">
                 Sem registro.
               </div>
             </div>
-            <div style="width: 43%; position: absolute; right: 0; height: 67px; top: 28px; color: white;">
-              
-              <div style="left: 0; position: absolute; top: 0; font-size: 8px; opacity: 0.7">
-                  PAGAMENTO
+            <div style="position: absolute; right: 0px; top: 0; width: 35vw; height: 100%">
+                <div style="width: 100%;z-index: 999;position: absolute; right: 0; top: 4px; color: white;padding: 2px;transition: 0.25s; background-color: transparent;"
+                  ng-class="{'cartaoItem' : cartaoListaAbrir}" ng-click="abrirCartao()"><span style="position: absolute; right: 7px; font-weight: 500;">CARTÃO
+                  <i class="icon" style="margin-left: 5px;" ng-class="{'ion-chevron-up': cartaoListaAbrir, 'ion-chevron-down': !cartaoListaAbrir}"></i></span>
+                </div>
+        
+                <div ng-class="{'cartaoDesc' : cartaoListaAbrir, 'cartaoDescOff' : !cartaoListaAbrir}" style="position: absolute; right:0; height: 0px; background-color: rgb(241, 241, 241); width: 100%;top: 0px;opacity: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px;overflow: hidden">
+                  <div style=" top: 33px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
+                    <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">CARTÃO</span> <span style="position: absolute; right: 3px; font-size: 12px;">NUBANK</span>
+                  </div>
+                  <div style=" top: 55px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
+                      <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">FINAL</span> <span style="position: absolute; right: 3px; font-size: 12px;">4169</span>
+                  </div>
+                  <div style=" top: 75px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
+                      <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">BANDEIRA</span> <span style="position: absolute; right: 3px; font-size: 12px;">VISA</span>
+                  </div>
+                </div>
               </div>
-              <div style="right: 5px; position: absolute; top: -2px; font-size: 12px;">
-                  CARTÃO
-              </div>
-              <div style="left: 0; position: absolute; top: 20px; font-size: 8px; opacity: 0.7">
-                  CARTÃO
-              </div>
-              <div style="right: 5px; position: absolute; top: 18px; font-size: 12px;">
-                  BANCO INTER
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -180,7 +183,7 @@
     <span class="animated fadeIn" style="font-size: 11px">TOTAL: </span>
     <span class="animated fadeIn" ng-bind="sum()" style="font-weight: bold;"></span>
   </div>
-  <a ng-href="/#/add-item">
+  <a ng-href="/#!/add-item">
     <div ng-class="{'btn-add-android': platform == 'android', 'btn-add': platform != 'android'}">
       <i class="icon ion-plus-round" style="font-size: 25px;"></i>
     </div>
@@ -188,7 +191,7 @@
   <div>
 
   </div>
-  <div class="status-desfazer-android bar-stable" ng-class="{'status-desfazer-animation-android' : listaExcluir != ''}" ng-if="platform == 'android'">
+  <div class="status-desfazer-android bar-stable" ng-class="{'status-desfazer-animation-android' : listaExcluir != null && listaExcluir.length != 0}" ng-if="platform == 'android'">
     <div ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)" style="position: absolute;top: 0px;font-size: 8px;transform: translate(-50%,0); left: 50%;overflow: hidden; width: 100%; ">
       {{listaExcluir.length}}
       <span ng-if="listaExcluir.length == 1">ITEM </span>
@@ -209,7 +212,7 @@
     <i class="icon ion-ios-close-outline" ng-click="limparDesfazer()" style="font-size: 20px; right: 10px;position: absolute;transform: translate(0%, -50%);top: 50%;"></i>
   </div>
 
-  <div class="status-desfazer bar-stable" ng-class="{'status-desfazer-animation' : listaExcluir != ''}" ng-if="platform != 'android'">
+  <div class="status-desfazer bar-stable" ng-class="{'status-desfazer-animation' : listaExcluir != null && listaExcluir.length != 0}" ng-if="platform != 'android'">
     <div ng-if="listaExcluir[0].itemFixo == false" ng-click="clickDesfazerLista(listaExcluir[0], listaExcluir,lista)" style="position: absolute;top: 0px;font-size: 8px;transform: translate(-50%,0); left: 50%;overflow: hidden; width: 100%; ">
       {{listaExcluir.length}}
       <span ng-if="listaExcluir.length == 1">ITEM </span>

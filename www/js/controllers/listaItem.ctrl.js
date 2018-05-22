@@ -3,7 +3,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.lista = [];
     $scope.listaExcluir = [];
     $scope.listaCartao = [];
-
+    $scope.refresher = true;
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
@@ -25,6 +25,11 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         }
     }
 
+    $scope.cartaoListaAbrir = false;
+    $scope.abrirCartao = function () {
+        $scope.cartaoListaAbrir = !$scope.cartaoListaAbrir;
+    }
+
     $scope.shouldShowDelete = false;
     $scope.shouldShowReorder = false;
     $scope.listCanSwipe = true;
@@ -35,7 +40,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.activeCard = cardItem
     }
 
-    $scope.setDesactive = function() {
+    $scope.setDesactive = function () {
         $scope.activeCard = 'nada';
     }
 
@@ -45,7 +50,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.activeCardFixo = cardItem
     }
 
-    $scope.setDesactiveFixo = function() {
+    $scope.setDesactiveFixo = function () {
         $scope.activeCardFixo = 'nada';
     }
 
@@ -112,7 +117,6 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         Util.salvarObjeto('ItensDaLista', $scope.lista);
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
-
     }
 
     $scope.clickDesfazerLista = function (item, from, to) {
@@ -189,5 +193,13 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.limparDesfazer = function () {
         $scope.listaExcluir = [];
         Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
+    }
+
+    $scope.touchStart = function () {
+        $scope.refresher = false;
+    }
+
+    $scope.touchEnd = function () {
+        $scope.refresher = true;
     }
 })

@@ -1,7 +1,7 @@
 .card-item {
     background-color: rgb(241, 241, 241);
-    width: 90%;
-    margin: 0 auto;
+    width: calc(100% - 40px);
+    margin: 0 20px;
     border-radius: 5px;
     margin-top: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
@@ -246,7 +246,7 @@ ion-header-bar {
     width: 45px;
     height: 45px;
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
     border-radius: 25px;
     text-align: center;
     padding: 10px;
@@ -263,7 +263,7 @@ ion-header-bar {
     width: 45px;
     height: 45px;
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     border-radius: 25px;
     text-align: center;
     padding: 10px;
@@ -281,7 +281,7 @@ ion-header-bar {
     min-width: 40vw;
     height: 35px;
     position: absolute;
-    bottom: 55px;
+    bottom: 65px;
     border-radius: 25px;
     text-align: left;
     padding: 6px;
@@ -295,7 +295,7 @@ ion-header-bar {
     min-width: 40vw;
     height: 35px;
     position: absolute;
-    bottom: 15px;
+    bottom: 25px;
     border-radius: 25px;
     text-align: left;
     padding: 6px;
@@ -309,7 +309,7 @@ ion-header-bar {
     overflow: hidden;
     height: 35px;
     position: absolute;
-    bottom: 55px;
+    bottom: 65px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
     text-align: right;
@@ -328,7 +328,7 @@ ion-header-bar {
     overflow: hidden;
     height: 35px;
     position: absolute;
-    bottom: 15px;
+    bottom: 25px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
     text-align: right;
@@ -434,6 +434,7 @@ ion-header-bar {
     padding: 5px;
     height: calc(100% + 10px);
     max-height: calc(100% + 10px);
+    padding-left: 13px;
 }
 
 ::-webkit-scrollbar {
@@ -566,3 +567,29 @@ ion-header-bar {
     transition: 0.25s !important;
     z-index: 999;
 }
+
+.cartaoItem{
+    background-color: transparent !important;
+    color: black !important;
+    transition: 0.25s;
+}
+
+.cartaoDesc{
+    height: 100px !important;
+    transition: 0.5s;
+    opacity: 1 !important;
+}
+
+.cartaoDescOff{
+    height: 0px !important;
+    transition: 0.25s !important;
+}
+.descAct{
+    width: 53vw !important;
+    transition: 0.1s;
+}
+
+.black{
+    color: black !important;
+}
+

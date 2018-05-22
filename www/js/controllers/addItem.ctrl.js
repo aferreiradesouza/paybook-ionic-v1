@@ -96,7 +96,7 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
 
     function voltarIndex() {
         setTimeout(function () {
-            window.location.href = "#/tab/lista-item";
+            window.location.href = "#!/tab/lista-item";
         }, 100);
     }
 

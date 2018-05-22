@@ -1,4 +1,10 @@
 <ion-view ng-init="init()">
+    <style>
+        input[type="text"][disabled] {
+            color: black;
+            opacity: 1;
+        }
+    </style>
     <div class="bar bar-header bar-stable" ng-class="{'ajuste-header-android': platform == 'android'}" style="height: 73px;">
         <h1 class="title" style="margin-top: 27px;" ng-class="{'ajuste-title-android': platform == 'android'}">Gerênciar Cartões</h1>
     </div>
@@ -9,7 +15,7 @@
             <div style="width: 135px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
                 MEUS CARTÕES
             </div>
-            <a ng-href="/#/add-cartao">
+            <a ng-href="/#!/add-cartao">
                 <div style="color: black;text-align: center;font-size: 11px;position: absolute; width: 90px; height: 20px; border: 1px solid black; border-radius: 25px;right: 0; top: 0;">
                     ADICIONAR
                 </div>
@@ -20,8 +26,8 @@
         </div>
         <div ng-if="listaCartao != ''" class="slider-wrapper-cartao card-slider-fixo-cartao">
             <div class="slider-content-cartao">
-                <div class="card-slider-cartao" ng-repeat="item in listaCartao">
-                    <div style="width: 75vw; height: 150px; padding: 5px;">
+                <div class="card-slider-cartao" ng-repeat="item in listaCartao track by item.id">
+                    <div style="width: 240px; height: 150px; padding: 5px;">
                         <div style="width: 100%; height: 100%; border-radius: 10px; position: relative; background-color:{{item.corCartaoConvertida}}">
                             <div style="position: absolute; top: 15px; left: 15px; font-size: 20px; color: white;">
                                 {{item.nomeCartao}}
@@ -39,17 +45,17 @@
                                 {{item.pNome | uppercase}} {{item.uNome | uppercase}}
                             </div>
                             <div style="position: absolute; bottom:10px; right: 15px;">
-                                <img src="img/{{item.bandeiraConv}}" width="40px;">
+                                <img ng-src="img/{{item.bandeiraConv}}" width="40px;">
                             </div>
                         </div>
                     </div>
-                    <div style="width: 75vw; height: 72px; padding: 0 15px; margin-top: 10px;">
+                    <div style="width: 240px; height: 72px; padding: 0 15px; margin-top: 10px;">
                         <div style="width: 100%; height: 100%;border: 1px solid #ccc; background-color: #f8f8f8;position: relative; border-radius: 5px;">
                             <div style="position: absolute; left: 0; top: 50%; transform: translate(0%, -50%);width: 125px; height: 44px;">
                                 <div style="letter-spacing: 1px;position: absolute; top: 0; left: 5px; font-size: 12px;">
                                     LIMITE
                                 </div>
-                                <div style="position: absolute; top: 20px; left: 5px; font-size: 19px; font-weight: 450;">
+                                <div style="position: absolute; top: 20px; left: 5px; font-size: 16px; font-weight: 450;">
                                     {{item.limite | currency:"R$"}}
                                 </div>
                             </div>
@@ -72,13 +78,11 @@
             <div style="width: 180px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
                 GASTOS COM CARTÃO
             </div>
-            <div ng-click="abrirFiltro()" style="border: 0.5px solid #ccc; background-color: #f8f8f8; color: black;text-align: right;font-size: 11px;position: absolute;right: 0; top: 0;width: 35vw;">
-                <input disabled style="width: 100%;position: absolute; background-color: transparent; right: 15px;bottom: 21px; border: 0; text-align: right">
-                <span>TODOS</span><i class="icon" ng-class="{'ion-chevron-down' : downUp, 'ion-chevron-up' : !downUp}" style="margin-left: 6px;"></i>
-                <div class="filtroCartao" ng-class="{'filtroCartaoOpen' : !downUp}">
-                    <div ng-repeat="item in listaCartao">
-                        <span style="right: 15px; position: relative;">{{item.nomeCartao | uppercase}}</span>
-                    </div>
+            <div ng-click="abrirFiltro()" style="text-align: center;font-size: 11px;position: absolute; width: 90px; height: 20px; right: 0; top: 0;">
+                <div style="height: 21px;" ng-click="openModalFiltro()">
+                    <input type="text" ng-model="data.filtro" class="colorBlack" style="background-color:transparent; border: 1px; right: 13px; position: absolute;top: -6px; text-align: right"
+                        disabled="disabled">
+                    <i class="icon ion-chevron-right" style="margin-left: 10px; position: absolute; right: 0; color: #000"></i>
                 </div>
             </div>
         </div>
@@ -91,7 +95,7 @@
             <ion-list>
                 <ion-item ng-repeat="item in listaFixa" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
                     <div style="position: relative;width: 15vw;height: 50px; border-left: 6px solid #632080; border-right: 1px solid #ccc;">
-                        <img src="img/icon/{{item.gastoConv}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+                        <img ng-src="img/icon/{{item.gastoConv}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
                     </div>
                     <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">
                         <div style="font-size: 15px; padding: 0px 5px; position: absolute; left: 0; top: 0; width: 100%;">
@@ -113,7 +117,7 @@
             <ion-list>
                 <ion-item ng-repeat="item in lista" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
                     <div style="position: relative;width: 15vw;height: 50px; border-left: 6px solid #632080; border-right: 1px solid #ccc;">
-                        <img src="img/icon/{{item.gastoConv}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+                        <img ng-src="img/icon/{{item.gastoConv}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
                     </div>
                     <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">
                         <div style="font-size: 15px; padding: 0px 5px; position: absolute; left: 0; top: 0; width: 100%;">
@@ -128,5 +132,24 @@
                 </ion-item>
             </ion-list>
         </div>
+
+        <script id="filtro.html" type="text/ng-template">
+            <ion-modal-view>
+                <div class="bar bar-header bar-stable" style="height: 73px;">
+                    <div  ng-click="closeModalFiltro()" style="z-index: 999;position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
+                      <i class="icon ion-chevron-left" style="font-size: 22px"></i>
+                    </div>
+                    <h1 class="title" style="margin-top: 27px;">Filtre um cartão</h1>
+                </div>
+              <ion-content>
+                  <div style="height: 71px;"></div>
+                  <ion-list>
+                      <ion-radio ng-repeat="item in listaCartao" ng-model="data.filtro" ng-value="'{{item.nomeCartao}}'" ng-click="closeModalFiltro()">
+                        <span class="categoriaRadio">{{item.nomeCartao}}</span>
+                      </ion-radio>
+                  </ion-list>
+              </ion-content>
+            </ion-modal-view>
+        </script>
     </ion-content>
 </ion-view>

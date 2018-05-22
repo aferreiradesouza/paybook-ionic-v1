@@ -33,16 +33,20 @@ app.controller('addCartaoCtrl', function ($scope, Util, $ionicModal) {
         $scope.data.bandeiraConv = ObterImagemBandeira($scope.data.bandeira);
         $scope.data.corCartaoConvertida = ObterCorConvertida($scope.data.corCartao);
 
+        $scope.data.id = Util.criarGuid();
+
         $scope.listaCartao.unshift($scope.data);
         Util.salvarObjeto('listaCartao', $scope.listaCartao);
+
+
 
         voltarIndexCartao();
     }
 
     function voltarIndexCartao() {
         setTimeout(function () {
-            window.location.href = "#/tab/cartao";
-        }, );
+            window.location.href = "#!/tab/cartao";
+        }, 100);
     }
 
     $ionicModal.fromTemplateUrl('CorCartao.html', {
