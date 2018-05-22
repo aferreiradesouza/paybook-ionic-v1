@@ -23,6 +23,8 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         if (listaAuxCartao != '') {
             $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
         }
+
+        $scope.sum();
     }
 
     $scope.cartaoListaAbrir = false;
@@ -105,7 +107,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
             totalListaFixa += key.preco;
         });
         total = totalLista + totalListaFixa;
-        return "R$" + total.toFixed(2);
+        $scope.totalSoma = total.toFixed(2);
     }
 
     $scope.deletarItemLista = function (item, from, to) {

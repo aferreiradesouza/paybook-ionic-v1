@@ -181,7 +181,7 @@
   </ion-content>
   <div class="bar-stable" ng-class="{'status-total-pagar-android': platform == 'android', 'status-total-pagar': platform != 'android'}">
     <span class="animated fadeIn" style="font-size: 11px">TOTAL: </span>
-    <span class="animated fadeIn" ng-bind="sum()" style="font-weight: bold;"></span>
+    <span class="animated fadeIn" style="font-weight: bold;">{{totalSoma | currency:"R$"}}</span>
   </div>
   <a ng-href="/#!/add-item">
     <div ng-class="{'btn-add-android': platform == 'android', 'btn-add': platform != 'android'}">

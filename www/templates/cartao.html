@@ -87,15 +87,15 @@
             </div>
         </div>
         <div style="margin-top: 15px;z-index: -1;">
-            <div ng-show="listaFixa != ''" class="list" style="margin-bottom: 0;">
+            <div ng-show="listaCartaoItemFixados != ''" class="list" style="margin-bottom: 0;">
                 <div class="item item-divider" style="font-size: 13px; border-bottom: 1px solid transparent">
                     ITENS FIXADOS
                 </div>
             </div>
             <ion-list>
-                <ion-item ng-repeat="item in listaFixa" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
+                <ion-item ng-repeat="item in listaCartaoItemFixados" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
                     <div style="position: relative;width: 15vw;height: 50px; border-left: 6px solid #632080; border-right: 1px solid #ccc;">
-                        <img ng-src="img/icon/{{item.gastoConv}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+                        <img ng-src="img/icon/{{item.gastoImg}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
                     </div>
                     <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">
                         <div style="font-size: 15px; padding: 0px 5px; position: absolute; left: 0; top: 0; width: 100%;">
@@ -109,15 +109,15 @@
                     </div>
                 </ion-item>
             </ion-list>
-            <div ng-show="lista != ''" class="list" style="margin-bottom: 0;">
+            <div ng-show="listaCartaoItemAdicionados != ''" class="list" style="margin-bottom: 0;">
                 <div class="item item-divider" style="font-size: 13px; border: 1px solid transparent">
                     ITENS ADICIONADOS
                 </div>
             </div>
             <ion-list>
-                <ion-item ng-repeat="item in lista" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
+                <ion-item ng-repeat="item in listaCartaoItemAdicionados" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
                     <div style="position: relative;width: 15vw;height: 50px; border-left: 6px solid #632080; border-right: 1px solid #ccc;">
-                        <img ng-src="img/icon/{{item.gastoConv}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+                        <img ng-src="img/icon/{{item.gastoImg}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
                     </div>
                     <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">
                         <div style="font-size: 15px; padding: 0px 5px; position: absolute; left: 0; top: 0; width: 100%;">
@@ -144,6 +144,9 @@
               <ion-content>
                   <div style="height: 71px;"></div>
                   <ion-list>
+                      <ion-radio ng-model="data.filtro" ng-value="'TODOS'" ng-click="closeModalFiltro()">
+                            <span class="categoriaRadio">TODOS</span>
+                      </ion-radio>
                       <ion-radio ng-repeat="item in listaCartao" ng-model="data.filtro" ng-value="'{{item.nomeCartao}}'" ng-click="closeModalFiltro()">
                         <span class="categoriaRadio">{{item.nomeCartao}}</span>
                       </ion-radio>

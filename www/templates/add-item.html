@@ -1,4 +1,10 @@
 <ion-view ng-init="init()">
+    <style>
+        input[type="text"][disabled] {
+            color: black;
+            opacity: 1;
+        }
+    </style>
   <div class="bar bar-header bar-stable" style="height: 73px;">
     <a ng-href="/#/tab/lista-item" style="z-index: 999; color: black;">
       <div style="position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
@@ -51,7 +57,7 @@
         <div style="top: 41px;position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
           ng-click="openModalGasto()">
           <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Categoria</div>
-          <input ng-model="data.gasto" name="tipo" style="color: black;position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+          <input ng-model="data.gasto" type="text" name="tipo" style="color: black;position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
             disabled required>
           <div ng-show="data.gasto == 'Lazer'">
             <img src="../../img/icon/lazer.png" class="imgAddList" style="right: 70px">
@@ -98,7 +104,7 @@
           ng-click="openModalCor()">
           <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cor</div>
 
-          <input ng-model="data.cor" name="cor" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+          <input ng-model="data.cor" type="text" name="cor" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
             disabled required>
 
           <div ng-show="data.cor == 'Roxo'">
@@ -122,30 +128,63 @@
             <i class="icon ion-chevron-right"></i>
           </div>
         </div>
-        <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 127px;">
-          <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.descricao != '' && data.descricao != null}">Descrição(opcional)</div>
-          <input maxlength="72" ng-class="{'ajusteInput-android' : platform == 'android'}" name="descricao" ng-model="data.descricao"
-            style="left: -7px;position: absolute; width: 98vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
-            placeholder="Descrição (opcional)">
+
+
+        <div ng-click="abrirAddCompraCartao()" style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 127px;">
+          <div style="top: 50%;position: absolute; transform: translate(0%, -50%); letter-spacing: 2px;">INFORMAÇÕES ADICIONAIS
+            <span style="font-size: 10px; letter-spacing: 0px; opacity: 0.5">(OPCIONAL)</span>
+          </div>
+          <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+            <i class="icon ion-chevron-down" ng-class="{'ion-chevron-up': abrirCompraCartao, 'ion-chevron-down' : !abrirCompraCartao}"></i>
+          </div>
         </div>
 
-        <div style="top: 168px;position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
-          ng-click="openModalCartao()">
-          <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cartao</div>
+        <div ng-class="{'abrirAddCompraCartao transition': abrirCompraCartao}" style="transition: 0.5s;overflow: hidden;height: 0px;background-color: transparent;width: 100vw;top: 166px;position: absolute;">
 
-          <input ng-model="data.cartao" name="cartao" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
-            disabled>
+          <div ng-class="{'itemCartaoAtivo transition' : data.itemCartao}" style="transition: 0.5s;top: 0px;position: relative; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
+            <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cartão</div>
 
-          <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
-            <i class="icon ion-chevron-right"></i>
+            <div ng-class="{'ajusteRight': data.itemCartao}" style="position: absolute; right: 0px;top: -1px; color: rgb(170, 170, 170);">
+              <label ng-click="limparCartao()" class="toggle toggle-positive" style="position: absolute; right: 0; top: 5px;">
+                <input type="checkbox" ng-model="data.itemCartao">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div ng-class="{'itemCartaoAtivo transition itemCartaoAtivoBorder' : data.itemCartao}" style="overflow: hidden;top: 0px;position: absolute; right: 2.5vw; width: 0vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
+            ng-click="openModalCartao()">
+            <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170);left: 7px; ">Qual?</div>
+
+            <input ng-model="data.cartao" type="text" name="cartao" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+              disabled required>
+
+            <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+              <i class="icon ion-chevron-right"></i>
+            </div>
+          </div>
+
+          <div style="position: relative; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 0px;">
+            <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.descricao != '' && data.descricao != null}">Descrição(opcional)</div>
+            <input maxlength="72" ng-class="{'ajusteInput-android' : platform == 'android'}" name="descricao" ng-model="data.descricao"
+              style="left: -7px;position: absolute; width: 98vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+              placeholder="Descrição (opcional)">
           </div>
         </div>
       </div>
       <!-- <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 300px">
         
       </div> -->
-      <div style="width: 90%; margin: 0 auto;">
-        <button class="button button-block button-positive" style="background-color: #387ef5 !important; top: 265px;" ng-disabled="addForm.item.$invalid || addForm.localizacao.$invalid || addForm.preco.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+      <div ng-if="!data.itemCartao" style="width: 90%; margin: 0 auto;">
+        <button ng-class="{'btnCartaoAtivo transition' : abrirCompraCartao}" class="button button-block button-positive" style="transition: 0.5s;background-color: #387ef5 !important; top: 223px;"
+          ng-disabled="addForm.item.$invalid || addForm.localizacao.$invalid || addForm.preco.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+          Adicionar item
+        </button>
+      </div>
+      <div ng-if="data.itemCartao" style="width: 90%; margin: 0 auto;">
+        <button ng-class="{'btnCartaoAtivo transition' : abrirCompraCartao}" class="button button-block button-positive" style="transition: 0.5s;background-color: #387ef5 !important; top: 223px;"
+          ng-disabled="addForm.item.$invalid || addForm.localizacao.$invalid || addForm.preco.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid || addForm.cartao.$invalid">
           Adicionar item
         </button>
       </div>

@@ -4,6 +4,8 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
     $scope.listaFixa = [];
     $scope.listaExcluir = [];
     $scope.listaCartao = [];
+    $scope.listaCartaoItemFixados = [];
+    $scope.listaCartaoItemAdicionados = [];
 
 
     $scope.init = function () {
@@ -29,8 +31,11 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
                 }
             });
         }
-
         $scope.data.filtro = 'TODOS';
+
+        $scope.ObterListaGastosCartao();
+        $scope.ObterListaFixaGastosCartao();
+
     }
 
     $scope.platform = ionic.Platform.platform();
@@ -56,5 +61,43 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
     };
     $scope.closeModalFiltro = function () {
         $scope.modalFiltro.hide();
+        $scope.ObterListaGastosCartao();
+        $scope.ObterListaFixaGastosCartao();
     };
+
+    $scope.ObterListaGastosCartao = function () {
+        $scope.listaCartaoItemAdicionados = [];
+        $scope.lista.forEach(item => {
+            if (item.itemCartao == true) {
+                if ($scope.data.filtro == 'TODOS') {
+                    var item = { item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                    $scope.listaCartaoItemAdicionados.push(item);
+
+                } else {
+                    if (item.cartao == $scope.data.filtro) {
+                        var item = { item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                        $scope.listaCartaoItemAdicionados.push(item);
+                    }
+                }
+            }
+        });
+    }
+
+    $scope.ObterListaFixaGastosCartao = function () {
+        $scope.listaCartaoItemFixados = [];
+        $scope.listaFixa.forEach(item => {
+            if (item.itemCartao == true) {
+                if ($scope.data.filtro == 'TODOS') {
+                    var item = { item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                    $scope.listaCartaoItemFixados.push(item);
+
+                } else {
+                    if (item.cartao == $scope.data.filtro) {
+                        var item = { item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                        $scope.listaCartaoItemFixados.push(item);
+                    }
+                }
+            }
+        });
+    }
 })

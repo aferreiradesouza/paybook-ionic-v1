@@ -593,3 +593,29 @@ ion-header-bar {
     color: black !important;
 }
 
+.transition{
+    transition: 0.5s !important;
+}
+
+.abrirAddCompraCartao{
+    height: 80px !important;
+}
+.itemCartaoAtivo{
+    width: 47.5vw !important;
+    transition-delay: 0.2s !important;
+}
+
+.itemCartaoAtivoBorder{
+    border-left: 1px solid #ccc !important;
+}
+
+.btnCartaoAtivo{
+    top: 302px !important;
+}
+
+.ajusteRight{
+    right: 10px !important;
+    transition-delay: 0.2s !important;
+    transition: 0.5s !important;
+}
+

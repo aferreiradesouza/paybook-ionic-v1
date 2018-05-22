@@ -27,6 +27,21 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     }
     $scope.platform = ionic.Platform.platform();
 
+    $scope.abrirCompraCartao = false;
+    $scope.abrirAddCompraCartao = function(){
+        $scope.abrirCompraCartao = !$scope.abrirCompraCartao;
+        if ($scope.data.itemCartao == true){
+            $scope.data.itemCartao = false;
+            $scope.data.cartao = '';
+        }
+    }
+
+    $scope.limparCartao = function(){
+        if($scope.data.itemCartao == false){
+            $scope.data.cartao = '';
+        }
+    }
+
     window.addEventListener('native.keyboardshow', function () {
         document.body.classList.add('keyboard-open');
     });
@@ -38,6 +53,16 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.data.hora = new Date();
         // $scope.data.preco = parseFloat($scope.data.preco);
         $scope.data.preco = parseFloat($scope.data.preco);
+
+        if($scope.data.itemCartao == true){
+            $scope.data.itemCartao = true;
+        }else{
+            $scope.data.itemCartao = false;
+        }
+
+        if($scope.data.cartao != ''){
+            $scope.data.cartao = $scope.data.cartao;
+        }
 
 
         $scope.data.id = Util.criarGuid();
