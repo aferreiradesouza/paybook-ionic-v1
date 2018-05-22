@@ -23,20 +23,25 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         }
         if (listaAuxCartao != '') {
             $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
+            angular.forEach($cope.listaExcluir, function (item) {
+                if(item.id == null){
+                    item.id = Util.criarGuid();
+                }
+            })
         }
 
         $scope.data.filtro = 'TODOS';
     }
 
     $scope.platform = ionic.Platform.platform();
-    
+
     $scope.deleteCartao = function (index) {
         $scope.listaCartao.splice(index, 1);
         Util.salvarObjeto('listaCartao', $scope.listaCartao);
     }
 
     $scope.downUp = true;
-    $scope.abrirFiltro = function(){
+    $scope.abrirFiltro = function () {
         $scope.downUp = !$scope.downUp;
     }
 
@@ -54,6 +59,6 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
     };
 
     angular.forEach($scope.lista, function (key, value) {
-        
+
     });
 })
