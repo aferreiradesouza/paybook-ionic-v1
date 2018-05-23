@@ -571,7 +571,8 @@ ion-header-bar {
 .cartaoItem{
     background-color: transparent !important;
     color: black !important;
-    transition: 0.25s;
+    transition: 1s;
+    bottom: 58px !important;
 }
 
 .cartaoDesc{
@@ -598,7 +599,10 @@ ion-header-bar {
 }
 
 .abrirAddCompraCartao{
-    height: 80px !important;
+    height: 82px !important;
+}
+.abrirAddCompraCartaoDescricao{
+    height: 132px !important;
 }
 .itemCartaoAtivo{
     width: 47.5vw !important;
@@ -613,9 +617,36 @@ ion-header-bar {
     top: 302px !important;
 }
 
+.btnCartaoAtivoDescricao{
+    top: 350px !important;
+}
+
 .ajusteRight{
     right: 10px !important;
     transition-delay: 0.2s !important;
     transition: 0.5s !important;
+}
+
+.abrirDescricaoCartao{
+    height: 50px !important;
+    opacity: 1 !important;
+    transition: 0.5s !important;
+}
+
+.cartaoDescFixo{
+    width: 100% !important;
+    transition: 0.5s;
+    opacity: 1 !important;
+}
+
+.cartaoDescOffFixo{
+    width: 0px !important;
+    transition: 0.25s !important;
+}
+
+.ativarCartaoFixo{
+    height: 53% !important;
+    transition: 0.5s !important;
+    z-index: 0 !important;
 }
 

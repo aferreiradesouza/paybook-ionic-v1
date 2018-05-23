@@ -1,4 +1,5 @@
 app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
+    $scope.data = {};
     $scope.listaFixa = [];
     $scope.lista = [];
     $scope.listaExcluir = [];
@@ -24,12 +25,19 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
             $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
         }
 
+        $scope.ObterDescricaoCartao();
+
         $scope.sum();
     }
 
     $scope.cartaoListaAbrir = false;
     $scope.abrirCartao = function () {
         $scope.cartaoListaAbrir = !$scope.cartaoListaAbrir;
+    }
+
+    $scope.cartaoListaFixaAbrir = false;
+    $scope.abrirCartaoListaFixa = function () {
+        $scope.cartaoListaFixaAbrir = !$scope.cartaoListaFixaAbrir;
     }
 
     $scope.shouldShowDelete = false;
@@ -178,6 +186,15 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
             }, 2500);
         });
     });
+
+    $scope.ObterDescricaoCartao = function () {
+        $scope.listaCartao.forEach(item => {
+            if ($scope.data.cartao == item.nomeCartao) {
+                $scope.finalDigitos = item.digitos;
+                $scope.finalBandeira = item.bandeira;
+            }
+        });
+    }
 
     $ionicModal.fromTemplateUrl('my-modal.html', {
         scope: $scope,

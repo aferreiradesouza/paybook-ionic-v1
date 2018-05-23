@@ -31,10 +31,11 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
                 }
             });
         }
-        $scope.data.filtro = 'TODOS';
+        $scope.data.filtro = 'Todos';
 
         $scope.ObterListaGastosCartao();
         $scope.ObterListaFixaGastosCartao();
+        $scope.calculoPreco();
 
     }
 
@@ -69,7 +70,7 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         $scope.listaCartaoItemAdicionados = [];
         $scope.lista.forEach(item => {
             if (item.itemCartao == true) {
-                if ($scope.data.filtro == 'TODOS') {
+                if ($scope.data.filtro == 'Todos') {
                     var item = { corCartaoItem: item.corCartaoItem, item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
                     $scope.listaCartaoItemAdicionados.push(item);
 
@@ -87,7 +88,7 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         $scope.listaCartaoItemFixados = [];
         $scope.listaFixa.forEach(item => {
             if (item.itemCartao == true) {
-                if ($scope.data.filtro == 'TODOS') {
+                if ($scope.data.filtro == 'Todos') {
                     var item = { corCartaoItem: item.corCartaoItem, item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
                     $scope.listaCartaoItemFixados.push(item);
 
@@ -100,4 +101,17 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
             }
         });
     }
+
+
+    // $scope.calculoPreco = function () {
+    //     $scope.listaCartao.forEach(item => {
+    //         $scope.lista.forEach(itemLista => {
+    //             var contagemPreco = 0;
+    //             if (item.nomeCartao == itemLista.cartao) {
+    //                 contagemPreco += itemLista.preco;
+    //             }
+    //             $scope.fatura = contagemPreco;
+    //         });
+    //     });
+    // }
 })

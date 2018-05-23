@@ -56,6 +56,8 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
 
         if ($scope.data.itemCartao == true) {
             $scope.data.itemCartao = true;
+            $scope.data.digitoCartao = $scope.digitoCartaoEscolhido;
+            $scope.data.bandeiraCartao = $scope.bandeiraCartaoEscolhido;
         } else {
             $scope.data.itemCartao = false;
         }
@@ -63,6 +65,7 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         if ($scope.data.cartao != '') {
             $scope.data.cartao = $scope.data.cartao;
         }
+
 
         $scope.data.corCartaoItem = $scope.ObterCorItemCartao();
 
@@ -129,12 +132,25 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     };
     $scope.closeModalCartao = function () {
         $scope.modalCartao.hide();
+        $scope.ObterDescricaoCartao();
     };
 
     function voltarIndex() {
         setTimeout(function () {
             window.location.href = "#!/tab/lista-item";
         }, 100);
+    }
+
+    $scope.ObterDescricaoCartao = function () {
+        $scope.listaCartao.forEach(item => {
+            if ($scope.data.cartao == item.nomeCartao) {
+                $scope.corCartaoEscolhido = item.corCartaoConvertida;
+                $scope.digitoCartaoEscolhido = item.digitos;
+                $scope.limiteCartaoEscolhido = item.limite;
+                $scope.bandeiraCartaoEscolhido = item.bandeira;
+                $scope.nomeCartaoEscolhido = item.pNome;
+            }
+        });
     }
 
     function converterCor(cor) {
