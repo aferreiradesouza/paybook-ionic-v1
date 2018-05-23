@@ -28,16 +28,16 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.platform = ionic.Platform.platform();
 
     $scope.abrirCompraCartao = false;
-    $scope.abrirAddCompraCartao = function(){
+    $scope.abrirAddCompraCartao = function () {
         $scope.abrirCompraCartao = !$scope.abrirCompraCartao;
-        if ($scope.data.itemCartao == true){
+        if ($scope.data.itemCartao == true) {
             $scope.data.itemCartao = false;
             $scope.data.cartao = '';
         }
     }
 
-    $scope.limparCartao = function(){
-        if($scope.data.itemCartao == false){
+    $scope.limparCartao = function () {
+        if ($scope.data.itemCartao == false) {
             $scope.data.cartao = '';
         }
     }
@@ -54,15 +54,17 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         // $scope.data.preco = parseFloat($scope.data.preco);
         $scope.data.preco = parseFloat($scope.data.preco);
 
-        if($scope.data.itemCartao == true){
+        if ($scope.data.itemCartao == true) {
             $scope.data.itemCartao = true;
-        }else{
+        } else {
             $scope.data.itemCartao = false;
         }
 
-        if($scope.data.cartao != ''){
+        if ($scope.data.cartao != '') {
             $scope.data.cartao = $scope.data.cartao;
         }
+
+        $scope.data.corCartaoItem = $scope.ObterCorItemCartao();
 
 
         $scope.data.id = Util.criarGuid();
@@ -78,6 +80,16 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
         }
 
         voltarIndex();
+    }
+
+    $scope.ObterCorItemCartao = function () {
+        var n;
+        $scope.listaCartao.forEach(item => {
+            if ($scope.data.cartao == item.nomeCartao) {
+                n = item.corCartaoConvertida;
+            }
+        });
+        return n;
     }
 
     $ionicModal.fromTemplateUrl('Gasto.html', {

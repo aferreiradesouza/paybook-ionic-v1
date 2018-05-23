@@ -94,7 +94,7 @@
             </div>
             <ion-list>
                 <ion-item ng-repeat="item in listaCartaoItemFixados" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
-                    <div style="position: relative;width: 15vw;height: 50px; border-left: 6px solid #632080; border-right: 1px solid #ccc;">
+                    <div style="position: relative;width: 15vw;height: 50px; border-right: 1px solid #ccc; border-left: 6px solid {{item.corCartaoItem}};">
                         <img ng-src="img/icon/{{item.gastoImg}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
                     </div>
                     <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">
@@ -116,7 +116,7 @@
             </div>
             <ion-list>
                 <ion-item ng-repeat="item in listaCartaoItemAdicionados" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
-                    <div style="position: relative;width: 15vw;height: 50px; border-left: 6px solid #632080; border-right: 1px solid #ccc;">
+                        <div style="position: relative;width: 15vw;height: 50px; border-right: 1px solid #ccc; border-left: 6px solid {{item.corCartaoItem}};">
                         <img ng-src="img/icon/{{item.gastoImg}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
                     </div>
                     <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">

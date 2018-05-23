@@ -70,12 +70,12 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         $scope.lista.forEach(item => {
             if (item.itemCartao == true) {
                 if ($scope.data.filtro == 'TODOS') {
-                    var item = { item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                    var item = { corCartaoItem: item.corCartaoItem, item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
                     $scope.listaCartaoItemAdicionados.push(item);
 
                 } else {
                     if (item.cartao == $scope.data.filtro) {
-                        var item = { item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                        var item = { corCartaoItem: item.corCartaoItem, item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
                         $scope.listaCartaoItemAdicionados.push(item);
                     }
                 }
@@ -88,15 +88,15 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         $scope.listaFixa.forEach(item => {
             if (item.itemCartao == true) {
                 if ($scope.data.filtro == 'TODOS') {
-                    var item = { item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                    var item = { corCartaoItem: item.corCartaoItem, item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
                     $scope.listaCartaoItemFixados.push(item);
 
-                } else {
-                    if (item.cartao == $scope.data.filtro) {
-                        var item = { item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
-                        $scope.listaCartaoItemFixados.push(item);
-                    }
                 }
+                if (item.cartao == $scope.data.filtro) {
+                    var item = { corCartaoItem: corCartaoItem, item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                    $scope.listaCartaoItemFixados.push(item);
+                }
+
             }
         });
     }
