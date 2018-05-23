@@ -93,7 +93,7 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
 
                 }
                 if (item.cartao == $scope.data.filtro) {
-                    var item = { corCartaoItem: corCartaoItem, item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
+                    var item = { corCartaoItem: item.corCartaoItem, item: item.item, gasto: item.gasto, gastoImg: item.gastoConv, dia: item.hora, preco: item.preco }
                     $scope.listaCartaoItemFixados.push(item);
                 }
 
