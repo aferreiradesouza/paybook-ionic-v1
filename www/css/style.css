@@ -680,7 +680,6 @@ ion-header-bar {
 .divFecharAviso{
     z-index: 999 !important;
     opacity: 1 !important;
-    display: block !important;
     transition: 0.5s;
     background-color: rgba(0,0,0,0.2) !important;
 }
