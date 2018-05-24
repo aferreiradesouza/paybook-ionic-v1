@@ -650,3 +650,22 @@ ion-header-bar {
     z-index: 0 !important;
 }
 
+.deletarBackCartaoAtivar{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.deletarCartaoAtivar{
+    width: 170px !important;
+    height: 83px !important;
+    transition: 0.5s;
+    transition-delay: 0.2s;
+    opacity: 1 !important;
+}
+
+.deletarCartaoDesativar{
+    width: 0px !important;
+    height: 83px !important;
+    transition: 0.5s !important;
+}
+

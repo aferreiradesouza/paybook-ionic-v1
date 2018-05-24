@@ -32,7 +32,10 @@
                             <div style="position: absolute; top: 15px; left: 15px; font-size: 20px; color: white;">
                                 {{item.nomeCartao}}
                             </div>
-                            <div class="btn-delete close" style="color:white;top: 5px;position: absolute;" ng-click="deleteCartao($index)">
+                            <!-- <div class="btn-delete close" style="color:white;top: 5px;position: absolute;" ng-click="deleteCartao($index)">
+                                <i class="icon ion-close-circled" style="font-size: 20px;"></i>
+                            </div> -->
+                            <div class="btn-delete close" style="color:white;top: 5px;position: absolute;" ng-click="setActive(item)">
                                 <i class="icon ion-close-circled" style="font-size: 20px;"></i>
                             </div>
                             <div style="letter-spacing: 3px;position: absolute; bottom: 60px; left: 15px;font-size: 15px; color: white;">
@@ -46,6 +49,20 @@
                             </div>
                             <div style="position: absolute; bottom:10px; right: 15px;">
                                 <img ng-src="img/{{item.bandeiraConv}}" width="40px;">
+                            </div>
+                            <div ng-class="{'deletarBackCartaoAtivar' : activeDelete === item}" style="position: absolute; width: 0; height: 0;background-color: rgba(0,0,0,0.5); border-radius: 7px; overflow: hidden;">
+                                <div ng-class="{'deletarCartaoAtivar' : activeDelete === item}" style="opacity: 0;transition: 0.5s; position: absolute;background: linear-gradient(to right, rgb(241, 241, 241) 0%,rgb(214, 214, 214) 100%); width: 0px; height: 83px; right: 0; top: 50%; transform: translate(0%, -50%); overflow: hidden;">
+                                    <div style="overflow: hidden; position: absolute; width: 100%; height: 70%; font-size: 12px; line-height: 14px; text-align: center; padding: 4px;">
+                                        <span style="font-weight: bold; letter-spacing: 1px;">DESEJA EXCLUIR?</span>
+                                        <br>Todos os itens desse cartão<br> também serão excluídos.
+                                    </div>
+                                    <div style="overflow: hidden; position: absolute; bottom: 4px; height: 30%; background-color: #ccc; width: 47%;left: 4px; border-radius: 4px;">
+                                        <span style="font-size: 11px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: black;" ng-click="setDesactive()">CANCELAR</span>
+                                    </div>
+                                    <div style="overflow: hidden; position: absolute; bottom: 4px; height: 30%; background-color: #d32714; width: 47%;right: 4px; border-radius: 4px;">
+                                        <span style="font-size: 11px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;" ng-click="deleteCartao($index)">EXCLUIR</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,9 +103,9 @@
                 </div>
             </div>
         </div>
-      <div ng-if="listaCartaoItemFixados == 0 && listaCartaoItemAdicionados == 0" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
-        Nenhum gasto com o cartão.
-      </div>
+        <div ng-if="listaCartaoItemFixados == 0 && listaCartaoItemAdicionados == 0" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
+            Nenhum gasto com o cartão.
+        </div>
         <div style="margin-top: 15px;z-index: -1;">
             <div ng-show="listaCartaoItemFixados != ''" class="list" style="margin-bottom: 0;">
                 <div class="item item-divider" style="font-size: 13px; border-bottom: 1px solid transparent">
@@ -119,7 +136,7 @@
             </div>
             <ion-list>
                 <ion-item ng-repeat="item in listaCartaoItemAdicionados" style="padding: 0; border-color: #ccc; background-color:#f8f8f8">
-                        <div style="position: relative;width: 15vw;height: 50px; border-right: 1px solid #ccc; border-left: 6px solid {{item.corCartaoItem}};">
+                    <div style="position: relative;width: 15vw;height: 50px; border-right: 1px solid #ccc; border-left: 6px solid {{item.corCartaoItem}};">
                         <img ng-src="img/icon/{{item.gastoImg}}" width="20px" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
                     </div>
                     <div style="position: absolute;width: 85vw;height: 50px;top: 0; right: 0;">

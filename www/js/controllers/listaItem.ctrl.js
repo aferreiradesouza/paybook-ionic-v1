@@ -45,7 +45,6 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
     $scope.listCanSwipe = true;
 
     $scope.activeCard = $scope.lista[0];
-
     $scope.setActive = function (cardItem) {
         $scope.activeCard = cardItem
     }

@@ -35,14 +35,29 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
 
         $scope.ObterListaGastosCartao();
         $scope.ObterListaFixaGastosCartao();
-        $scope.calculoPreco();
 
+    }
+
+    $scope.activeDelete = $scope.listaCartao[0];
+    $scope.setActive = function (cardItem) {
+        $scope.activeDelete = cardItem
+    }
+
+    $scope.setDesactive = function () {
+        $scope.activeDelete = 'nada';
     }
 
     $scope.platform = ionic.Platform.platform();
 
+
     $scope.deleteCartao = function (index) {
+        $scope.lista.forEach(item => {
+            if (item.cartao == $scope.listaCartao[index].cartao) {
+                $scope.lista.splice(index, 1);
+            }
+        });
         $scope.listaCartao.splice(index, 1);
+        Util.salvarObjeto('ItensDaLista', $scope.lista);
         Util.salvarObjeto('listaCartao', $scope.listaCartao);
     }
 
