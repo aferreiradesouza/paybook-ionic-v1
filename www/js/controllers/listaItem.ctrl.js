@@ -30,12 +30,12 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.sum();
     }
 
-    $scope.cartaoListaAbrir = false;
+    $scope.cartaoListaAbrir = true;
     $scope.abrirCartao = function () {
         $scope.cartaoListaAbrir = !$scope.cartaoListaAbrir;
     }
 
-    $scope.cartaoListaFixaAbrir = false;
+    $scope.cartaoListaFixaAbrir = true;
     $scope.abrirCartaoListaFixa = function () {
         $scope.cartaoListaFixaAbrir = !$scope.cartaoListaFixaAbrir;
     }

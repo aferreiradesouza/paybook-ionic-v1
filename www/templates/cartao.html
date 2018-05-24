@@ -50,20 +50,22 @@
                             <div style="position: absolute; bottom:10px; right: 15px;">
                                 <img ng-src="img/{{item.bandeiraConv}}" width="40px;">
                             </div>
-                            <div ng-class="{'deletarBackCartaoAtivar' : activeDelete === item}" style="position: absolute; width: 0; height: 0;background-color: rgba(0,0,0,0.5); border-radius: 7px; overflow: hidden;">
-                                <div ng-class="{'deletarCartaoAtivar' : activeDelete === item}" style="opacity: 0;transition: 0.5s; position: absolute;background: linear-gradient(to right, rgb(241, 241, 241) 0%,rgb(214, 214, 214) 100%); width: 0px; height: 83px; right: 0; top: 50%; transform: translate(0%, -50%); overflow: hidden;">
-                                    <div style="overflow: hidden; position: absolute; width: 100%; height: 70%; font-size: 12px; line-height: 14px; text-align: center; padding: 4px;">
-                                        <span style="font-weight: bold; letter-spacing: 1px;">DESEJA EXCLUIR?</span>
-                                        <br>Todos os itens desse cartão<br> também serão excluídos.
-                                    </div>
-                                    <div style="overflow: hidden; position: absolute; bottom: 4px; height: 30%; background-color: #ccc; width: 47%;left: 4px; border-radius: 4px;">
-                                        <span style="font-size: 11px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: black;" ng-click="setDesactive()">CANCELAR</span>
-                                    </div>
-                                    <div style="overflow: hidden; position: absolute; bottom: 4px; height: 30%; background-color: #d32714; width: 47%;right: 4px; border-radius: 4px;">
-                                        <span style="font-size: 11px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;" ng-click="deleteCartao($index)">EXCLUIR</span>
+                            <div ng-click="setDesactive()" ng-class="{'divFecharAviso':activeDelete === item}" style="transition: 0.25s;opacity: 0;width: 40%; height: 100%; position: absolute; left: 0;top: 0;border-radius: 7px;">
+
+                            </div>
+                            <div ng-class="{'abrirExluirCartao':activeDelete === item}" style="transition: 0.5s;opacity: 0;width: 0px; height: 100%; position: absolute; top: 0; right: 0; overflow: hidden;">
+                                    <div style="position: absolute; width: 60%; height: 100%; background-color: #f8f8f8;right: -1px;border-top-right-radius: 7px;border-bottom-right-radius: 7px;box-shadow: -5px 0px 40px 0px rgba(0,0,0,0.75); border: 1px solid #ccc; padding: 5px;">
+                                        <div style="height: 25%; width: 100%; position: absolute; left: 0px; top: 0px;">
+                                            <span style="font-weight: 500;width: 100%;text-align: center;position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);font-size: 14px;">EXCLUIR CARTÃO</span>
+                                        </div>
+                                        <div style="line-height: 14px;font-size: 10px;height: 75%; width: 100%; position: absolute; left: 0px; bottom: 0px; text-align: center; white-space: normal;">
+                                            <span>Excluindo este cartão, também irá excluir todos<br> os itens relacionados a ele.</span>
+                                            <div ng-click="deleteCartao($index)" style="background-color:rgb(196, 16, 16);position: absolute; width: 80%; height: 25px; bottom: 10px; left: 50%; transform: translate(-50%, 0%); border-radius: 2px;">
+                                                <i class="icon ion-ios-trash" style="font-size: 15px;position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 100%;color: white;"> Excluir</i>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                     <div style="width: 240px; height: 72px; padding: 0 15px; margin-top: 10px;">

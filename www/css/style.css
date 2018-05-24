@@ -669,3 +669,19 @@ ion-header-bar {
     transition: 0.5s !important;
 }
 
+.abrirExluirCartao{
+    width: 100% !important;
+    transition: 0.25s !important;
+    opacity: 1 !important;
+    border-radius: 7px;
+}
+
+
+.divFecharAviso{
+    z-index: 999 !important;
+    opacity: 1 !important;
+    display: block !important;
+    transition: 0.5s;
+    background-color: rgba(0,0,0,0.2) !important;
+}
+

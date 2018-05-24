@@ -51,14 +51,16 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
 
 
     $scope.deleteCartao = function (index) {
-        $scope.lista.forEach(item => {
-            if (item.cartao == $scope.listaCartao[index].cartao) {
-                $scope.lista.splice(index, 1);
-            }
-        });
-        $scope.listaCartao.splice(index, 1);
-        Util.salvarObjeto('ItensDaLista', $scope.lista);
-        Util.salvarObjeto('listaCartao', $scope.listaCartao);
+        // $scope.lista.forEach(item => {
+        //     var i = $scope.lista[$index];
+        //     if ($scope.listaCartao[index].nomeCartao == item.cartao) {
+        //         $scope.lista.splice(i, 1);
+        //     }
+        // });
+        // Util.salvarObjeto('ItensDaLista', $scope.lista);
+        // Util.salvarObjeto('listaCartao', $scope.listaCartao);
+        // $scope.ObterListaGastosCartao();
+        $scope.setDesactive();
     }
 
     $scope.downUp = true;
