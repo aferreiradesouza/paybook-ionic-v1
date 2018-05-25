@@ -1,10 +1,10 @@
 <ion-view ng-init="init()">
-    <style>
-        input[type="text"][disabled] {
-            color: black;
-            opacity: 1;
-        }
-    </style>
+  <style>
+    input[type="text"][disabled] {
+      color: black;
+      opacity: 1;
+    }
+  </style>
   <div class="bar bar-header bar-stable" style="height: 73px;">
     <a ng-href="/#/tab/lista-item" style="z-index: 999; color: black;">
       <div style="position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
@@ -19,127 +19,151 @@
     </div>
     <form name="addForm" ng-submit="addItem()">
 
+
+
+
       <!-- PREÇO -->
-      <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 82px;left: 3vw; position: absolute; border-radius: 25px;">
-        <div>
-          <i class="icon ion-cash" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
+      <div style=" position: relative; width: 100%; height: 50px;">
+        <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 8px;left: 3vw; position: absolute; border-radius: 25px;">
+          <div>
+            <i class="icon ion-cash" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
+          </div>
+          <input ui-money-mask ng-model="data.preco" name="preco" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
+            placeholder="Preço" required>
         </div>
-        <input ui-money-mask ng-model="data.preco" name="preco" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
-          placeholder="Preço" required>
+
+        <!-- LOCALIZAÇÃO -->
+        <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 8px;right: 3vw; position: absolute; border-radius: 25px;">
+          <div>
+            <i class="icon ion-location" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
+          </div>
+          <input maxlength="16" ng-model="data.localizacao" name="localizacao" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
+            placeholder="Localização" required>
+        </div>
       </div>
 
-      <!-- LOCALIZAÇÃO -->
-      <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 82px;right: 3vw; position: absolute; border-radius: 25px;">
-        <div>
-          <i class="icon ion-location" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
+
+
+
+      <div style=" width: 100%; height: 123px; position: relative;">
+        <div style="position: absolute; top: 0px;">
+          <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
+            <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.item != '' && data.item != null}">Título</div>
+            <input ng-class="{'ajusteInput-android' : platform == 'android'}" name="item" ng-model="data.item" style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+              placeholder="Título" required>
+
+
+            <div style="position: absolute; right: 0; width: 40vw; background-color:transparent; height: 40px; border-left: 1px solid #ccc;">
+              <div style="position: absolute; left: 5px;top: 11px; color: rgb(170, 170, 170);">Fixar item</div>
+              <label class="toggle toggle-positive" style="position: absolute; right: 0; top: 5px;">
+                <input type="checkbox" ng-model="data.itemFixo">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div style="top: 41px;position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
+            ng-click="openModalGasto()">
+            <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Categoria</div>
+            <input ng-model="data.gasto" type="text" name="tipo" style="color: black;position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+              disabled required>
+            <div ng-show="data.gasto == 'Lazer'">
+              <img src="../../img/icon/lazer.png" class="imgAddList" style="right: 70px">
+            </div>
+            <div ng-show="data.gasto == 'Café'">
+              <img src="../../img/icon/cafe.png" class="imgAddList" style="right: 65px">
+            </div>
+            <div ng-show="data.gasto == 'Lanche'">
+              <img src="../../img/icon/lanche.png" class="imgAddList" style="right: 85px">
+            </div>
+            <div ng-show="data.gasto == 'Restaurante'">
+              <img src="../../img/icon/restaurante.png" class="imgAddList" style="right: 110px">
+            </div>
+            <div ng-show="data.gasto == 'Mercado'">
+              <img src="../../img/icon/mercado.png" class="imgAddList" style="right: 90px">
+            </div>
+            <div ng-show="data.gasto == 'Cinema'">
+              <img src="../../img/icon/cinema.png" class="imgAddList" style="right: 80px">
+            </div>
+            <div ng-show="data.gasto == 'Roupa'">
+              <img src="../../img/icon/roupa.png" class="imgAddList" style="right: 75px">
+            </div>
+            <div ng-show="data.gasto == 'Infantil'">
+              <img src="../../img/icon/infantil.png" class="imgAddList" style="right: 85px">
+            </div>
+            <div ng-show="data.gasto == 'Presente'">
+              <img src="../../img/icon/present.png" class="imgAddList" style="right: 90px">
+            </div>
+            <div ng-show="data.gasto == 'Essencial'">
+              <img src="../../img/icon/essencial.png" class="imgAddList" style="right: 90px">
+            </div>
+            <div ng-show="data.gasto == 'Utilitários'">
+              <img src="../../img/icon/utilitarios.png" class="imgAddList" style="right: 100px">
+            </div>
+
+
+            <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+              <i class="icon ion-chevron-right"></i>
+            </div>
+          </div>
+
+
+          <div style="top: 83px;position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
+            ng-click="openModalCor()">
+            <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cor</div>
+
+            <input ng-model="data.cor" type="text" name="cor" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+              disabled required>
+
+            <div ng-show="data.cor == 'Roxo'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#8e44ad;font-size: 19px; right: 65px"></i>
+            </div>
+            <div ng-show="data.cor == 'Vermelho'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#c0392b;font-size: 19px; right: 95px"></i>
+            </div>
+            <div ng-show="data.cor == 'Verde'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#27ae60;font-size: 19px; right: 70px"></i>
+            </div>
+            <div ng-show="data.cor == 'Laranja'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#f39c12;font-size: 19px; right: 80px"></i>
+            </div>
+            <div ng-show="data.cor == 'Azul'">
+              <i class="icon ion-ios-circle-filled iconAddList" style="color:#2980b9;font-size: 19px; right: 65px"></i>
+            </div>
+
+
+            <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+              <i class="icon ion-chevron-right"></i>
+            </div>
+          </div>
         </div>
-        <input maxlength="16" ng-model="data.localizacao" name="localizacao" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
-          placeholder="Localização" required>
+
+        <div style="position: relative; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 124px;">
+            <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.descricao != '' && data.descricao != null}">Descrição(opcional)</div>
+            <input maxlength="72" ng-class="{'ajusteInput-android' : platform == 'android'}" name="descricao" ng-model="data.descricao"
+              style="left: -7px;position: absolute; width: 98vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+              placeholder="Descrição (opcional)">
+          </div>
       </div>
 
-      <div style="position: absolute; top: 130px;">
-        <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
-          <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.item != '' && data.item != null}">Título</div>
-          <input ng-class="{'ajusteInput-android' : platform == 'android'}" name="item" ng-model="data.item" style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
-            placeholder="Título" required>
 
 
-          <div style="position: absolute; right: 0; width: 40vw; background-color:transparent; height: 40px; border-left: 1px solid #ccc;">
-            <div style="position: absolute; left: 5px;top: 11px; color: rgb(170, 170, 170);">Fixar item</div>
-            <label class="toggle toggle-positive" style="position: absolute; right: 0; top: 5px;">
-              <input type="checkbox" ng-model="data.itemFixo">
-              <div class="track">
-                <div class="handle"></div>
-              </div>
-            </label>
-          </div>
-        </div>
-        <div style="top: 41px;position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
-          ng-click="openModalGasto()">
-          <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Categoria</div>
-          <input ng-model="data.gasto" type="text" name="tipo" style="color: black;position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
-            disabled required>
-          <div ng-show="data.gasto == 'Lazer'">
-            <img src="../../img/icon/lazer.png" class="imgAddList" style="right: 70px">
-          </div>
-          <div ng-show="data.gasto == 'Café'">
-            <img src="../../img/icon/cafe.png" class="imgAddList" style="right: 65px">
-          </div>
-          <div ng-show="data.gasto == 'Lanche'">
-            <img src="../../img/icon/lanche.png" class="imgAddList" style="right: 85px">
-          </div>
-          <div ng-show="data.gasto == 'Restaurante'">
-            <img src="../../img/icon/restaurante.png" class="imgAddList" style="right: 110px">
-          </div>
-          <div ng-show="data.gasto == 'Mercado'">
-            <img src="../../img/icon/mercado.png" class="imgAddList" style="right: 90px">
-          </div>
-          <div ng-show="data.gasto == 'Cinema'">
-            <img src="../../img/icon/cinema.png" class="imgAddList" style="right: 80px">
-          </div>
-          <div ng-show="data.gasto == 'Roupa'">
-            <img src="../../img/icon/roupa.png" class="imgAddList" style="right: 75px">
-          </div>
-          <div ng-show="data.gasto == 'Infantil'">
-            <img src="../../img/icon/infantil.png" class="imgAddList" style="right: 85px">
-          </div>
-          <div ng-show="data.gasto == 'Presente'">
-            <img src="../../img/icon/present.png" class="imgAddList" style="right: 90px">
-          </div>
-          <div ng-show="data.gasto == 'Essencial'">
-            <img src="../../img/icon/essencial.png" class="imgAddList" style="right: 90px">
-          </div>
-          <div ng-show="data.gasto == 'Utilitários'">
-            <img src="../../img/icon/utilitarios.png" class="imgAddList" style="right: 100px">
-          </div>
-
-
-          <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
-            <i class="icon ion-chevron-right"></i>
-          </div>
-        </div>
-
-
-        <div style="top: 83px;position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
-          ng-click="openModalCor()">
-          <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cor</div>
-
-          <input ng-model="data.cor" type="text" name="cor" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
-            disabled required>
-
-          <div ng-show="data.cor == 'Roxo'">
-            <i class="icon ion-ios-circle-filled iconAddList" style="color:#8e44ad;font-size: 19px; right: 65px"></i>
-          </div>
-          <div ng-show="data.cor == 'Vermelho'">
-            <i class="icon ion-ios-circle-filled iconAddList" style="color:#c0392b;font-size: 19px; right: 95px"></i>
-          </div>
-          <div ng-show="data.cor == 'Verde'">
-            <i class="icon ion-ios-circle-filled iconAddList" style="color:#27ae60;font-size: 19px; right: 70px"></i>
-          </div>
-          <div ng-show="data.cor == 'Laranja'">
-            <i class="icon ion-ios-circle-filled iconAddList" style="color:#f39c12;font-size: 19px; right: 80px"></i>
-          </div>
-          <div ng-show="data.cor == 'Azul'">
-            <i class="icon ion-ios-circle-filled iconAddList" style="color:#2980b9;font-size: 19px; right: 65px"></i>
-          </div>
-
-
-          <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
-            <i class="icon ion-chevron-right"></i>
-          </div>
-        </div>
-
-
-        <div ng-click="abrirAddCompraCartao()" style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 127px;">
-          <div style="top: 50%;position: absolute; transform: translate(0%, -50%); letter-spacing: 2px;"><span style="opacity: 0.5">INFORMAÇÕES ADICIONAIS</span>
+      <div style="position: relative; top: 0; width: 100%; height: 40px;top: 40px;">
+        <div ng-click="abrirAddCompraCartao()" style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 0px;">
+          <div style="top: 50%;position: absolute; transform: translate(0%, -50%); letter-spacing: 2px;">
+            <span style="opacity: 0.5">FORMA DE PAGAMENTO</span>
             <span style="font-size: 10px; letter-spacing: 0px; opacity: 0.5">(OPCIONAL)</span>
           </div>
           <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
             <i class="icon ion-chevron-down" ng-class="{'ion-chevron-up': abrirCompraCartao, 'ion-chevron-down' : !abrirCompraCartao}"></i>
           </div>
         </div>
+      </div>
 
-        <div ng-class="{'abrirAddCompraCartao transition': abrirCompraCartao, 'abrirAddCompraCartaoDescricao transition': data.cartao}" style="transition: 0.5s;overflow: hidden;height: 0px;background-color: transparent;width: 100vw;top: 166px;position: absolute;">
+
+        <div ng-class="{'abrirAddCompraCartao transition': abrirCompraCartao, 'abrirAddCompraCartaoDescricao transition': data.cartao}"
+          style="transition: 0.5s;overflow: hidden;height: 0px;background-color: transparent;width: 100vw;position: relative;top: 40px;">
 
           <div ng-class="{'itemCartaoAtivo transition' : data.itemCartao}" style="transition: 0.5s;top: 0px;position: relative; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
             <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cartão</div>
@@ -183,27 +207,29 @@
               <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{bandeiraCartaoEscolhido}}</span>
             </div>
           </div>
+        </div>
 
-          <div style="position: relative; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 0px;">
-            <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.descricao != '' && data.descricao != null}">Descrição(opcional)</div>
-            <input maxlength="72" ng-class="{'ajusteInput-android' : platform == 'android'}" name="descricao" ng-model="data.descricao"
-              style="left: -7px;position: absolute; width: 98vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
-              placeholder="Descrição (opcional)">
-          </div>
+
+
+
+      <div style="position: relative; width: 100vw;height: 47px;top: 40px">
+        <div ng-if="!data.itemCartao" style="width: 90%; margin: 0 auto;">
+          <button ng-class="{'btnCartaoAtivo transition' : abrirCompraCartao, 'btnCartaoAtivoDescricao transition': data.cartao}" class="button button-block button-positive"
+            style="transition: 0.5s;background-color: #387ef5 !important; top: 0px;" ng-disabled="addForm.item.$invalid || addForm.localizacao.$invalid || addForm.preco.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
+            Adicionar item
+          </button>
+        </div>
+        <div ng-if="data.itemCartao" style="width: 90%; margin: 0 auto;">
+          <button ng-class="{'btnCartaoAtivo transition' : abrirCompraCartao, 'btnCartaoAtivoDescricao transition': data.cartao}" class="button button-block button-positive"
+            style="transition: 0.5s;background-color: #387ef5 !important; top: 0px;" ng-disabled="addForm.item.$invalid || addForm.localizacao.$invalid || addForm.preco.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid || addForm.cartao.$invalid">
+            Adicionar item
+          </button>
         </div>
       </div>
-      <div ng-if="!data.itemCartao" style="width: 90%; margin: 0 auto;">
-        <button ng-class="{'btnCartaoAtivo transition' : abrirCompraCartao, 'btnCartaoAtivoDescricao transition': data.cartao}" class="button button-block button-positive" style="transition: 0.5s;background-color: #387ef5 !important; top: 223px;"
-          ng-disabled="addForm.item.$invalid || addForm.localizacao.$invalid || addForm.preco.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid ">
-          Adicionar item
-        </button>
-      </div>
-      <div ng-if="data.itemCartao" style="width: 90%; margin: 0 auto;">
-        <button ng-class="{'btnCartaoAtivo transition' : abrirCompraCartao, 'btnCartaoAtivoDescricao transition': data.cartao}" class="button button-block button-positive" style="transition: 0.5s;background-color: #387ef5 !important; top: 223px;"
-          ng-disabled="addForm.item.$invalid || addForm.localizacao.$invalid || addForm.preco.$invalid || addForm.tipo.$invalid || addForm.cor.$invalid || addForm.cartao.$invalid">
-          Adicionar item
-        </button>
-      </div>
+
+
+
+
       <script id="Gasto.html" type="text/ng-template">
         <ion-modal-view>
           <div class="bar bar-header bar-stable" style="height: 73px;">
@@ -309,11 +335,14 @@
               <div  ng-click="closeModalCartao()" style="z-index: 999;position: absolute; font-size: 22px; top: 40px; left: 5px;text-align: center; width: 30px; height: 25px;">
                 <i class="icon ion-chevron-left" style="font-size: 22px"></i>
               </div>
-              <h1 class="title" style="margin-top: 27px;">Escolha uma cor</h1>
+              <h1 class="title" style="margin-top: 27px;">Escolha um cartão</h1>
             </div>
         <ion-content>
             <div style="height: 71px;">
   
+              </div>
+              <div ng-if="listaCartao == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
+                  Nenhum cartão registrado.
               </div>
             <ion-list>
                 <ion-radio ng-repeat="item in listaCartao" ng-model="data.cartao" ng-value="'{{item.nomeCartao}}'" ng-click="closeModalCartao()">

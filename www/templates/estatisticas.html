@@ -85,19 +85,19 @@
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
           PORCENTAGEM DE ITENS TOTAL
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
-            {{item.porcentoItens}}%
+            {{item.porcentoItens | number:"2"}}%
           </div>
         </ion-item>
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
           PORCENTAGEM DO PREÇO TOTAL
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
-            {{item.porcentoPreco}}%
+            {{item.porcentoPreco| number:"2"}}%
           </div>
         </ion-item>
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
           PREÇO TOTAL
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
-            R${{item.precoTotal}}
+            {{item.precoTotal | currency:"R$"}}
           </div>
         </ion-item>
 
@@ -202,19 +202,19 @@
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
           PORCENTAGEM DE ITENS TOTAL
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
-            {{item.porcentoItens}}%
+            {{item.porcentoItens | number:"2"}}%
           </div>
         </ion-item>
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
           PORCENTAGEM DO PREÇO TOTAL
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
-            {{item.porcentoPreco}}%
+            {{item.porcentoPreco | number:"2"}}%
           </div>
         </ion-item>
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
           PREÇO TOTAL
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
-            R${{item.precoTotal}}
+            {{item.precoTotal | currency:"R$"}}
           </div>
         </ion-item>
       </div>

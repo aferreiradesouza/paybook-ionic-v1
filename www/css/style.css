@@ -599,10 +599,10 @@ ion-header-bar {
 }
 
 .abrirAddCompraCartao{
-    height: 82px !important;
+    height: 42px !important;
 }
 .abrirAddCompraCartaoDescricao{
-    height: 132px !important;
+    height: 92px !important;
 }
 .itemCartaoAtivo{
     width: 47.5vw !important;
@@ -613,13 +613,13 @@ ion-header-bar {
     border-left: 1px solid #ccc !important;
 }
 
-.btnCartaoAtivo{
+/* .btnCartaoAtivo{
     top: 302px !important;
 }
 
 .btnCartaoAtivoDescricao{
     top: 350px !important;
-}
+} */
 
 .ajusteRight{
     right: 10px !important;
