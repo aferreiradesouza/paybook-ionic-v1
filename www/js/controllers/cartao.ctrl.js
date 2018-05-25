@@ -6,6 +6,7 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
     $scope.listaCartao = [];
     $scope.listaCartaoItemFixados = [];
     $scope.listaCartaoItemAdicionados = [];
+    $scope.listaFaturaCartao = [];
 
 
     $scope.init = function () {
@@ -33,6 +34,7 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         }
         $scope.data.filtro = 'Todos';
 
+        $scope.calculoPreco();
         $scope.ObterListaGastosCartao();
         $scope.ObterListaFixaGastosCartao();
 
@@ -119,16 +121,26 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         });
     }
 
-
-    // $scope.calculoPreco = function () {
-    //     $scope.listaCartao.forEach(item => {
-    //         $scope.lista.forEach(itemLista => {
-    //             var contagemPreco = 0;
-    //             if (item.nomeCartao == itemLista.cartao) {
-    //                 contagemPreco += itemLista.preco;
-    //             }
-    //             $scope.fatura = contagemPreco;
-    //         });
-    //     });
-    // }
+    $scope.calculoPreco = function () {
+        var i;
+        var n;
+        for (i = 0; i <= $scope.listaCartao.length - 1; i++) {
+            var contagemPreco = 0;
+            var contagemItem = 0;
+            $scope.lista.forEach(item => {
+                if ($scope.listaCartao[i].nomeCartao == item.cartao) {
+                    contagemPreco += item.preco;
+                    contagemItem += 1;
+                }
+            });
+            $scope.listaFixa.forEach(item => {
+                if ($scope.listaCartao[i].nomeCartao == item.cartao) {
+                    contagemPreco += item.preco;
+                    contagemItem += 1;
+                }
+            });
+            var item = { fatura: contagemPreco, contagemItem : contagemItem }
+            $scope.listaFaturaCartao.push(item);
+        }
+    }
 })

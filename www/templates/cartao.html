@@ -50,7 +50,7 @@
                             <div style="position: absolute; bottom:10px; right: 15px;">
                                 <img ng-src="img/{{item.bandeiraConv}}" width="40px;">
                             </div>
-                            <div ng-click="setDesactive()" ng-class="{'divFecharAviso':activeDelete === item}" style="transition: 0.5s;opacity: 0;width: 40%; height: 100%; position: absolute; left: 0;top: 0;border-radius: 7px;">
+                            <div ng-click="setDesactive()" ng-class="{'divFecharAviso':activeDelete === item}" style="transition: 0.5s;opacity: 0;width: 40%; height: 100%; position: absolute; left: 0;top: 0; border-top-left-radius: 7px; border-bottom-left-radius: 7px;">
 
                             </div>
                             <div ng-class="{'abrirExluirCartao':activeDelete === item}" style="transition: 0.5s;opacity: 0;width: 0px; height: 100%; position: absolute; top: 0; right: 0; overflow: hidden;">
@@ -81,11 +81,11 @@
                             <div style="position: absolute; width: 46%; height: 60px;top: 5px; right: 0; border-left: 1px solid #ccc">
                                 <div style="position: absolute; width: 100%; height: 50%; top: 0; left: 0; border-bottom: 1px solid #ccc">
                                     <div style=" font-size: 8px; position: absolute; top: -5px; right: 5px;"> FATURA ATUAL </div>
-                                    <div style=" font-size: 15px; position: absolute; bottom: 0px; right: 5px;"> R$548,55 </div>
+                                    <div style=" font-size: 15px; position: absolute; bottom: 0px; right: 5px;" ng-bind="listaFaturaCartao[$index].fatura | currency:'R$'"></div>
                                 </div>
                                 <div style="position: absolute; width: 100%; height: 50%; bottom: 0; left: 0;">
                                     <div style=" font-size: 8px; position: absolute; top: 0px; right: 5px;"> TOTAL DE ITENS </div>
-                                    <div style=" font-size: 15px; position: absolute; bottom: -3px; right: 5px;"> 12 </div>
+                                    <div style=" font-size: 15px; position: absolute; bottom: -3px; right: 5px;" ng-bind="listaFaturaCartao[$index].contagemItem"></div>
                                 </div>
                             </div>
                         </div>
