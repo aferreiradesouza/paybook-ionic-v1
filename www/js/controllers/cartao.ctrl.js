@@ -34,7 +34,7 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         }
         $scope.data.filtro = 'Todos';
 
-        $scope.calculoPreco();
+        $scope.infoCartao();
         $scope.ObterListaGastosCartao();
         $scope.ObterListaFixaGastosCartao();
 
@@ -53,16 +53,25 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
 
 
     $scope.deleteCartao = function (index) {
-        // $scope.lista.forEach(item => {
-        //     var i = $scope.lista[$index];
-        //     if ($scope.listaCartao[index].nomeCartao == item.cartao) {
-        //         $scope.lista.splice(i, 1);
-        //     }
-        // });
-        // Util.salvarObjeto('ItensDaLista', $scope.lista);
-        // Util.salvarObjeto('listaCartao', $scope.listaCartao);
-        // $scope.ObterListaGastosCartao();
-        $scope.setDesactive();
+        var i;
+        var n;
+        for (i = 0; i <= $scope.lista.length -1; i++) {
+            if($scope.lista[i].cartao == $scope.listaCartao[index].nomeCartao){
+                $scope.lista.splice(i, 1);
+            }
+        }
+        for (n = 0; n <= $scope.listaFixa.length -1; n++) {
+            if($scope.listaFixa[n].cartao == $scope.listaCartao[index].nomeCartao){
+                $scope.listaFixa.splice(n, 1);
+            }
+        }
+        $scope.listaCartao.splice(index, 1);
+        Util.salvarObjeto('ItensDaLista', $scope.lista);
+        Util.salvarObjeto('listaCartao', $scope.listaCartao);
+        Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
+        $scope.infoCartao();
+        $scope.ObterListaGastosCartao();
+        $scope.ObterListaFixaGastosCartao();
     }
 
     $scope.downUp = true;
@@ -121,9 +130,8 @@ app.controller('cartaoCtrl', function ($scope, Util, $ionicModal) {
         });
     }
 
-    $scope.calculoPreco = function () {
+    $scope.infoCartao = function () {
         var i;
-        var n;
         for (i = 0; i <= $scope.listaCartao.length - 1; i++) {
             var contagemPreco = 0;
             var contagemItem = 0;
