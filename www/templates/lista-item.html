@@ -94,7 +94,7 @@
                   <i class="icon" style="margin-left: 5px;" ng-class="{'ion-chevron-left': cartaoListaFixaAbrir, 'ion-chevron-right': !cartaoListaFixaAbrir}"></i>
                 </span>
               </div>
-              <div ng-click="abrirCartaoListaFixa()" ng-class="{'cartaoDescFixo' : cartaoListaFixaAbrir, 'cartaoDescOffFixo' : !cartaoListaFixaAbrir}" style="position: absolute; left:0; height: 100%; background-color: rgb(241, 241, 241); width: 0px;top: 0px;opacity: 0; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px;overflow: hidden">
+              <div ng-click="abrirCartaoListaFixa()" ng-class="{'cartaoDescFixo' : cartaoListaFixaAbrir, 'cartaoDescOffFixo' : !cartaoListaFixaAbrir}" style="position: absolute; left:0; height: 100%; background-color: rgb(241, 241, 241); width: 0px;top: 0px;opacity: 0; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px;overflow: hidden; box-shadow: 0px -5px 40px 0px rgba(0,0,0,0.75);">
                 <div style=" top: 16px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
                   <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">CARTÃO</span>
                   <span style="position: absolute; right: 3px; font-size: 12px;">{{item.cartao | uppercase}}</span>
@@ -134,9 +134,6 @@
             <div class="col col-33 info color" style="position:relative;background-color: {{item.corConv}};" ng-click="setActive(item)">
               <div class="gasto" style="white-space: nowrap; overflow: hidden;">
                 {{item.preco | currency:"R$"}}
-                <div ng-show="lista[$index].preco >= '1000'" style="width: 20px; height: 20px; position: absolute; top: 4.5px; right:0;background: linear-gradient(to right, rgba(125,185,232,0) 0%,{{item.corConv}} 100%);">
-
-                </div>
                 <div style="position: absolute; left: 5px; top: 23px; font-size: 10px; opacity: 0.6">
                   <i ng-if="lista[$index].itemCartao == true" class="icon ion-card" style="font-size: 14px;"></i>
                   <span ng-if="lista[$index].itemCartao == true" style="position: absolute; top:50%; transform: translate(0%, -50%); left: 17px;">{{item.cartao | uppercase}}</span>
@@ -193,7 +190,7 @@
                 </span>
               </div>
 
-              <div ng-click="abrirCartao()" ng-class="{'cartaoDesc' : cartaoListaAbrir, 'cartaoDescOff' : !cartaoListaAbrir}" style="position: absolute; right:0; height: 0px; background-color: rgb(241, 241, 241); width: 100%;top: 0px;opacity: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px;overflow: hidden">
+              <div ng-click="abrirCartao()" ng-class="{'cartaoDesc' : cartaoListaAbrir, 'cartaoDescOff' : !cartaoListaAbrir}" style="position: absolute; right:0; height: 0px; background-color: rgb(241, 241, 241); width: 100%;top: 0px;opacity: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px;overflow: hidden; box-shadow: -5px 0px 40px 0px rgba(0,0,0,0.75);">
                 <div style=" top: 33px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
                   <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">CARTÃO</span>
                   <span style="position: absolute; right: 3px; font-size: 12px;">{{item.cartao | uppercase}}</span>

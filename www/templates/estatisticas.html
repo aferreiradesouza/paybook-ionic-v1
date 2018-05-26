@@ -9,7 +9,7 @@
     <ion-list>
       <div class="list" style="margin-bottom: 0;">
         <div class="item item-divider" style="font-size: 13px; background-color: rgb(237, 237, 237)">
-          GERAL
+          ESTATÍSTICAS GERAIS
         </div>
       </div>
       <div class="GERAL">
@@ -51,6 +51,67 @@
         </ion-item>
       </div>
 
+
+
+      <!-- CARTÃO -->
+      <div class="list" style="margin-bottom: 0;">
+        <div class="item item-divider" style="font-size: 13px; border-bottom: 0px; background-color: rgb(237, 237, 237)">
+          CARTÃO
+        </div>
+      </div>
+      <div class="list" style="margin-bottom: 0;">
+        <div class="item item-divider" style="font-size: 13px; padding-left: 35px; background-color: rgb(237, 237, 237)">
+          GERAL
+        </div>
+      </div>
+      <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+        QUANTIDADE DE CARTÕES
+        <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+          {{listaCartao.length}}
+        </div>
+      </ion-item>
+      <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+        COMPRAS USANDO CARTÃO
+        <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+          {{contagemItensCartao}}
+        </div>
+      </ion-item>
+      <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+        PREÇO TOTAL
+        <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+          {{contagemPrecoTotalCartao | currency}}
+        </div>
+      </ion-item>
+
+      <!-- itensCartao -->
+
+      <div ng-repeat="item in listaCartao">
+        <div class="list" style="margin-bottom: 0;">
+          <div class="item item-divider" style="font-size: 13px; padding-left: 35px; background-color: rgb(237, 237, 237); height: 38px !important;">
+            <i class="icon ion-card" style="height: 20px;font-size: 18px; top: 50%; position: absolute; transform: translate(0%, -50%); color: {{item.corCartaoConvertida}}">
+              <span style="font-size: 13px; top: 50%; position: absolute; transform: translate(0%, -50%); left: 22px;">{{item.nomeCartao | uppercase}}</span>
+            </i>
+          </div>
+        </div>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS ADICIONADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            1
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          ITENS FIXADOS
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            1
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          FATURA
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            1
+          </div>
+        </ion-item>
+      </div>
 
       <!-- CATEGORIA DOS ITENS -->
       <div ng-if="ListarStatsCor != '' && ListarStatsCategorias != ''" class="list" style="margin-bottom: 0;">

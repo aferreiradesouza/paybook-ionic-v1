@@ -3,10 +3,13 @@ app.controller('statsCtrl', function ($scope, Util) {
     $scope.lista = [];
     $scope.ListarStatsCategorias = [];
     $scope.ListarStatsCor = [];
+    $scope.listaCartao = [];
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
         var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
+        var listaAuxExcluir = Util.obterObjeto('listaExcluir');
+        var listaAuxCartao = Util.obterObjeto('listaCartao');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
@@ -14,7 +17,18 @@ app.controller('statsCtrl', function ($scope, Util) {
         if (listaAuxFixa != '') {
             $scope.listaFixa = Util.converterParaObjeto(listaAuxFixa);
         }
-        /*LISTAS CATEGORIA*/
+        if (listaAuxExcluir != '') {
+            $scope.listaExcluir = Util.converterParaObjeto(listaAuxExcluir);
+        }
+        if (listaAuxCartao != '') {
+            $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
+        }
+
+        //CARTAO
+        $scope.ObterListaDeComprasCartao();
+
+
+        //LISTAS CATEGORIA
         $scope.ObterTipoLazer();
         $scope.ObterTipoLanche();
         $scope.ObterTipoRestaurante();
@@ -27,7 +41,7 @@ app.controller('statsCtrl', function ($scope, Util) {
         $scope.ObterTipoMercado();
         $scope.ObterTipoCafe();
 
-        /*LISTAS COR*/
+        //LISTAS COR
         $scope.ObterCorRoxo();
         $scope.ObterCorVermelho();
         $scope.ObterCorVerde();
@@ -70,6 +84,28 @@ app.controller('statsCtrl', function ($scope, Util) {
         total = parseFloat(total);
         return total.toFixed(2);
     }
+
+    $scope.contagemItensCartao = 0;
+    $scope.contagemPrecoTotalCartao = 0;
+    $scope.ObterListaDeComprasCartao = function(){
+        var contagem = 0;
+        var count = 0;
+        $scope.lista.forEach(item => {
+            if(item.itemCartao == true){
+                contagem += 1;
+                count += item.preco;
+            }
+        });
+        $scope.listaFixa.forEach(item => {
+            if(item.itemCartao == true){
+                contagem += 1;
+                count += item.preco;
+            }
+        });
+        $scope.contagemPrecoTotalCartao = count;
+        $scope.contagemItensCartao = contagem;
+    }
+
     /*Lista Categorias */
     $scope.ObterTipoLazer = function () {
         var contagem = 0;

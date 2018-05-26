@@ -21,36 +21,43 @@
 
 
 
+      <div style="position: relative; top: -8px; width: 100%; height: 40px;">
+        <div ng-click="abrirAddCompraCartao()" style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 0px;">
+          <div style="bottom: 5px;position: absolute; letter-spacing: 2px;">
+            <span style="font-size: 12px;">INFORMAÇÕES IMPORTANTES</span>
+          </div>
+        </div>
+      </div>
 
-      <!-- PREÇO -->
-      <div style=" position: relative; width: 100%; height: 50px;">
+      <!-- TÍTULO -->
+      <div style=" position: relative; width: 100%; height: 50px;top:-8px;">
         <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 8px;left: 3vw; position: absolute; border-radius: 25px;">
+          <div>
+            <i class="icon ion-pricetag" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
+          </div>
+          <input ng-model="data.item" name="item" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
+            placeholder="Título" required>
+        </div>
+
+        <!-- PREÇO -->
+        <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 8px;right: 3vw; position: absolute; border-radius: 25px;">
           <div>
             <i class="icon ion-cash" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
           </div>
           <input ui-money-mask ng-model="data.preco" name="preco" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
             placeholder="Preço" required>
         </div>
-
-        <!-- LOCALIZAÇÃO -->
-        <div style="border: 1px solid #b2b2b2;width: 45vw; height: 35px; background-color:#f8f8f8; top: 8px;right: 3vw; position: absolute; border-radius: 25px;">
-          <div>
-            <i class="icon ion-location" style="position: absolute; top: 50%; left: 12px; transform: translate(0%, -50%); font-size: 20px; color: rgb(153, 162, 170)"></i>
-          </div>
-          <input maxlength="16" ng-model="data.localizacao" name="localizacao" type="text" style="position: absolute; width: 30vw; background-color: transparent; text-align: center;left: 50%; transform: translate(-45%, 2%);"
-            placeholder="Localização" required>
-        </div>
       </div>
 
 
 
 
-      <div style=" width: 100%; height: 123px; position: relative;">
+      <div style=" width: 100%; height: 123px; position: relative; top: -8px;">
         <div style="position: absolute; top: 0px;">
           <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
-            <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.item != '' && data.item != null}">Título</div>
-            <input ng-class="{'ajusteInput-android' : platform == 'android'}" name="item" ng-model="data.item" style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
-              placeholder="Título" required>
+            <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.localizacao != '' && data.localizacao != null}">Localização</div>
+            <input maxlength="16" ng-class="{'ajusteInput-android' : platform == 'android'}" name="localizacao" ng-model="data.localizacao" style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+              placeholder="Localizacao" required>
 
 
             <div style="position: absolute; right: 0; width: 40vw; background-color:transparent; height: 40px; border-left: 1px solid #ccc;">
@@ -140,74 +147,74 @@
         </div>
 
         <div style="position: relative; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 124px;">
-            <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.descricao != '' && data.descricao != null}">Descrição(opcional)</div>
-            <input maxlength="72" ng-class="{'ajusteInput-android' : platform == 'android'}" name="descricao" ng-model="data.descricao"
-              style="left: -7px;position: absolute; width: 98vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
-              placeholder="Descrição (opcional)">
-          </div>
+          <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.descricao != '' && data.descricao != null}">Descrição(opcional)</div>
+          <input maxlength="72" ng-class="{'ajusteInput-android' : platform == 'android'}" name="descricao" ng-model="data.descricao"
+            style="left: -7px;position: absolute; width: 98vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+            placeholder="Descrição (opcional)">
+        </div>
       </div>
 
 
 
       <div style="position: relative; top: 0; width: 100%; height: 40px;top: 40px;">
         <div ng-click="abrirAddCompraCartao()" style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc; top: 0px;">
-          <div style="top: 50%;position: absolute; transform: translate(0%, -50%); letter-spacing: 2px;">
-            <span style="opacity: 0.5">FORMA DE PAGAMENTO</span>
-            <span style="font-size: 10px; letter-spacing: 0px; opacity: 0.5">(OPCIONAL)</span>
+          <div style="bottom: 5px;position: absolute; letter-spacing: 2px;">
+            <span style="font-size: 12px;">FORMA DE PAGAMENTO</span>
+            <span style="font-size: 9px; letter-spacing: 0px;">( OPCIONAL )</span>
           </div>
-          <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+          <div style="position: absolute; right: 5px;bottom: 5px; color: black">
             <i class="icon ion-chevron-down" ng-class="{'ion-chevron-up': abrirCompraCartao, 'ion-chevron-down' : !abrirCompraCartao}"></i>
           </div>
         </div>
       </div>
 
 
-        <div ng-class="{'abrirAddCompraCartao transition': abrirCompraCartao, 'abrirAddCompraCartaoDescricao transition': data.cartao}"
-          style="transition: 0.5s;overflow: hidden;height: 0px;background-color: transparent;width: 100vw;position: relative;top: 40px;">
+      <div ng-class="{'abrirAddCompraCartao transition': abrirCompraCartao, 'abrirAddCompraCartaoDescricao transition': data.cartao}"
+        style="transition: 0.5s;overflow: hidden;height: 0px;background-color: transparent;width: 100vw;position: relative;top: 40px;">
 
-          <div ng-class="{'itemCartaoAtivo transition' : data.itemCartao}" style="transition: 0.5s;top: 0px;position: relative; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
-            <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cartão</div>
+        <div ng-class="{'itemCartaoAtivo transition' : data.itemCartao}" style="transition: 0.5s;top: 0px;position: relative; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
+          <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Cartão</div>
 
-            <div ng-class="{'ajusteRight': data.itemCartao}" style="position: absolute; right: 0px;top: -1px; color: rgb(170, 170, 170);">
-              <label ng-click="limparCartao()" class="toggle toggle-positive" style="position: absolute; right: 0; top: 5px;">
-                <input type="checkbox" ng-model="data.itemCartao">
-                <div class="track">
-                  <div class="handle"></div>
-                </div>
-              </label>
-            </div>
-          </div>
-          <div ng-class="{'itemCartaoAtivo transition itemCartaoAtivoBorder' : data.itemCartao}" style="overflow: hidden;top: 0px;position: absolute; right: 2.5vw; width: 0vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
-            ng-click="openModalCartao()">
-            <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170);left: 7px; ">Qual?</div>
-
-            <input ng-model="data.cartao" type="text" name="cartao" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
-              disabled required>
-
-            <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
-              <i class="icon ion-chevron-right"></i>
-            </div>
-          </div>
-
-          <div ng-class="{'abrirDescricaoCartao' : data.cartao}" style="opacity: 0;transition: 0.5s;overflow: hidden; position: relative;width: 95vw; height: 0px; background-color:#f8f8f8;margin: 0 auto; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc;">
-            <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%; border-left: 5px solid {{corCartaoEscolhido}};">
-              <span style="position: absolute; top: 50%; left: 5px; transform: translate(0%, -50%); font-size: 10px; opacity: 0.5">DÍGITO </span>
-              <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{digitoCartaoEscolhido}}</span>
-            </div>
-            <div style="position: absolute; top: 0; right: 0; width: 49.9%; height: 50%; border-left: 1px solid #ccc;">
-              <span style="position: absolute; top: 50%; left: 5px; transform: translate(0%, -50%); font-size: 10px; opacity: 0.5">LIMITE </span>
-              <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{limiteCartaoEscolhido | currency:"R$"}}</span>
-            </div>
-            <div style="position: absolute; bottom: 0; left: 0; width: 50%; height: 50%; border-left: 5px solid {{corCartaoEscolhido}};">
-              <span style="position: absolute; top: 50%; left: 5px; transform: translate(0%, -50%); font-size: 10px; opacity: 0.5">NOME </span>
-              <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{nomeCartaoEscolhido}}</span>
-            </div>
-            <div style="position: absolute; bottom: 0; right: 0; width: 49.9%; height: 50%; border-left: 1px solid #ccc;">
-              <span style="position: absolute; top: 50%; left: 5px; transform: translate(0%, -50%); font-size: 10px; opacity: 0.5">BANDEIRA </span>
-              <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{bandeiraCartaoEscolhido}}</span>
-            </div>
+          <div ng-class="{'ajusteRight': data.itemCartao}" style="position: absolute; right: 0px;top: -1px; color: rgb(170, 170, 170);">
+            <label ng-click="limparCartao()" class="toggle toggle-positive" style="position: absolute; right: 0; top: 5px;">
+              <input type="checkbox" ng-model="data.itemCartao">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
           </div>
         </div>
+        <div ng-class="{'itemCartaoAtivo transition itemCartaoAtivoBorder' : data.itemCartao}" style="overflow: hidden;top: 0px;position: absolute; right: 2.5vw; width: 0vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;"
+          ng-click="openModalCartao()">
+          <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170);left: 7px; ">Qual?</div>
+
+          <input ng-model="data.cartao" type="text" name="cartao" style="color: black; position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
+            disabled required>
+
+          <div style="position: absolute; right: 5px;top: 11px; color: rgb(170, 170, 170);">
+            <i class="icon ion-chevron-right"></i>
+          </div>
+        </div>
+
+        <div ng-class="{'abrirDescricaoCartao' : data.cartao}" style="opacity: 0;transition: 0.5s;overflow: hidden; position: relative;width: 95vw; height: 0px; background-color:#f8f8f8;margin: 0 auto; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc;">
+          <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%; border-left: 5px solid {{corCartaoEscolhido}};">
+            <span style="position: absolute; top: 50%; left: 5px; transform: translate(0%, -50%); font-size: 10px; opacity: 0.5">DÍGITO </span>
+            <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{digitoCartaoEscolhido}}</span>
+          </div>
+          <div style="position: absolute; top: 0; right: 0; width: 49.9%; height: 50%; border-left: 1px solid #ccc;">
+            <span style="position: absolute; top: 50%; left: 5px; transform: translate(0%, -50%); font-size: 10px; opacity: 0.5">LIMITE </span>
+            <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{limiteCartaoEscolhido | currency:"R$"}}</span>
+          </div>
+          <div style="position: absolute; bottom: 0; left: 0; width: 50%; height: 50%; border-left: 5px solid {{corCartaoEscolhido}};">
+            <span style="position: absolute; top: 50%; left: 5px; transform: translate(0%, -50%); font-size: 10px; opacity: 0.5">NOME </span>
+            <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{nomeCartaoEscolhido}}</span>
+          </div>
+          <div style="position: absolute; bottom: 0; right: 0; width: 49.9%; height: 50%; border-left: 1px solid #ccc;">
+            <span style="position: absolute; top: 50%; left: 5px; transform: translate(0%, -50%); font-size: 10px; opacity: 0.5">BANDEIRA </span>
+            <span style="position: absolute; top: 50%; right: 5px; transform: translate(0%, -50%)">{{bandeiraCartaoEscolhido}}</span>
+          </div>
+        </div>
+      </div>
 
 
 
