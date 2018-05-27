@@ -4,6 +4,7 @@ app.controller('statsCtrl', function ($scope, Util) {
     $scope.ListarStatsCategorias = [];
     $scope.ListarStatsCor = [];
     $scope.listaCartao = [];
+    $scope.listaCartaoEstatistica = [];
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
@@ -26,7 +27,7 @@ app.controller('statsCtrl', function ($scope, Util) {
 
         //CARTAO
         $scope.ObterListaDeComprasCartao();
-
+        $scope.infoCartao();
 
         //LISTAS CATEGORIA
         $scope.ObterTipoLazer();
@@ -87,23 +88,55 @@ app.controller('statsCtrl', function ($scope, Util) {
 
     $scope.contagemItensCartao = 0;
     $scope.contagemPrecoTotalCartao = 0;
-    $scope.ObterListaDeComprasCartao = function(){
+    $scope.ObterListaDeComprasCartao = function () {
         var contagem = 0;
         var count = 0;
         $scope.lista.forEach(item => {
-            if(item.itemCartao == true){
+            if (item.itemCartao == true) {
                 contagem += 1;
                 count += item.preco;
+
             }
         });
         $scope.listaFixa.forEach(item => {
-            if(item.itemCartao == true){
+            if (item.itemCartao == true) {
                 contagem += 1;
                 count += item.preco;
             }
         });
         $scope.contagemPrecoTotalCartao = count;
         $scope.contagemItensCartao = contagem;
+    }
+
+    $scope.infoCartao = function () {
+        var i;
+        for (i = 0; i <= $scope.listaCartao.length - 1; i++) {
+            var contagemPreco = 0;
+            var contagemItem = 0;
+            var contagemItemFixo = 0;
+            var nomeCartao;
+            var corCartao;
+            $scope.lista.forEach(item => {
+                if ($scope.listaCartao[i].nomeCartao == item.cartao) {
+                    contagemPreco += item.preco;
+                    contagemItem += 1;
+                    nomeCartao = item.cartao;
+                    corCartao = item.corCartaoItem;
+                }
+            });
+            $scope.listaFixa.forEach(item => {
+                if ($scope.listaCartao[i].nomeCartao == item.cartao) {
+                    contagemPreco += item.preco;
+                    contagemItemFixo += 1;
+                    nomeCartao = item.cartao;
+                    corCartao = item.corCartaoItem;
+                }
+            });
+            if (contagemItemFixo != 0 || contagemItem != 0) {
+                var item = { fatura: contagemPreco, contagemItem: contagemItem, contagemItemFixo: contagemItemFixo, corCartaoItem: corCartao, nomeCartao: nomeCartao }
+                $scope.listaCartaoEstatistica.push(item);
+            }
+        }
     }
 
     /*Lista Categorias */
@@ -674,7 +707,8 @@ app.controller('statsCtrl', function ($scope, Util) {
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
 
-            var itemExistenteCor = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
                 contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
                 contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
                 contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
@@ -797,7 +831,8 @@ app.controller('statsCtrl', function ($scope, Util) {
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
 
-            var itemExistenteCor = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
                 contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
                 contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
                 contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
@@ -920,7 +955,8 @@ app.controller('statsCtrl', function ($scope, Util) {
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
 
-            var itemExistenteCor = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
                 contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
                 contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
                 contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
@@ -1043,7 +1079,8 @@ app.controller('statsCtrl', function ($scope, Util) {
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
 
-            var itemExistenteCor = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
                 contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
                 contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
                 contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
@@ -1166,7 +1203,8 @@ app.controller('statsCtrl', function ($scope, Util) {
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
 
-            var itemExistenteCor = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
                 contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
                 contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
                 contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
