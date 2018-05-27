@@ -132,8 +132,11 @@ app.controller('statsCtrl', function ($scope, Util) {
                     corCartao = item.corCartaoItem;
                 }
             });
+            var precoTotal = $scope.precoTotalSomado();
+            var porcentagemPrecoTotal = (contagemPreco * 100)/precoTotal;
+
             if (contagemItemFixo != 0 || contagemItem != 0) {
-                var item = { fatura: contagemPreco, contagemItem: contagemItem, contagemItemFixo: contagemItemFixo, corCartaoItem: corCartao, nomeCartao: nomeCartao }
+                var item = { fatura: contagemPreco, contagemItem: contagemItem, contagemItemFixo: contagemItemFixo, corCartaoItem: corCartao, nomeCartao: nomeCartao, porcentagemPrecoTotal: porcentagemPrecoTotal }
                 $scope.listaCartaoEstatistica.push(item);
             }
         }

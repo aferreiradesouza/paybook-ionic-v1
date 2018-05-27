@@ -56,7 +56,7 @@
       <!-- CARTÃO -->
       <div class="list" style="margin-bottom: 0;">
         <div class="item item-divider" style="font-size: 13px; border-bottom: 0px; background-color: rgb(237, 237, 237)">
-          CARTÃO
+          ESTATÍSTICAS DO CARTÃO
         </div>
       </div>
       <div class="list" style="margin-bottom: 0;">
@@ -103,6 +103,18 @@
           ITENS FIXADOS
           <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
             {{item.contagemItemFixo}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          COMPRAS UTILIZANDO ESTE CARTÃO
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.contagemItemFixo + item.contagemItem}}
+          </div>
+        </ion-item>
+        <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
+          PORCENTAGEM DE USO
+          <div style="color: black;font-size: 15px;position: absolute; right: 0;height: 40px;top: 0; padding: 10px;">
+            {{item.porcentagemPrecoTotal | number:"2"}}%
           </div>
         </ion-item>
         <ion-item style="color:rgb(119, 119, 119);font-size: 12px;padding: 10px; padding-left: 35px; background-color: #f9f9f9;">
