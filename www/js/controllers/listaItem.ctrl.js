@@ -126,6 +126,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         Util.salvarObjeto('ItensDaLista', $scope.lista);
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
+        $scope.sum();
     }
 
     $scope.clickDesfazerLista = function (item, from, to) {
@@ -137,6 +138,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         Util.salvarObjeto('ItensDaLista', $scope.lista);
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
+        $scope.sum();
     }
 
     $scope.clickDesfazerListaFixa = function (item, from, to) {
@@ -148,6 +150,7 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         Util.salvarObjeto('ItensDaLista', $scope.lista);
         Util.salvarObjeto('ItensDaListaFixa', $scope.listaFixa);
         Util.salvarObjeto('listaExcluir', $scope.listaExcluir);
+        $scope.sum();
     }
 
     $scope.deleteItem = function (index) {
