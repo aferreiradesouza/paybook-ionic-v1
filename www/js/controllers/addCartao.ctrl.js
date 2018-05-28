@@ -104,7 +104,7 @@ app.controller('addCartaoCtrl', function ($scope, Util, $ionicModal) {
             corConvertida = "#f0932b"
         }
         if(cor == "Vermelho"){
-            corConvertida = "#ff3838"
+            corConvertida = "#d41212"
         }
         return corConvertida;
     }
