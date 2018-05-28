@@ -1,5 +1,13 @@
 <ion-view ng-init="init()" ng-cloak>
   <div class="bar bar-header bar-stable" ng-class="{'ajuste-header-android': platform == 'android'}" style="height: 73px;">
+    <a ng-href="/#!/add-cartao" style="z-index: 999; color: black;">
+      <div ng-class="{'ajuste-icon-modal-android' : platform == 'android'}" style="position: absolute; font-size: 22px; top: 40px; left: 10px;text-align: center; width: 30px; height: 25px;">
+        <div style="position: absolute; top: -4px;left: 14px;width: 32px;border-radius: 25px;height: 13px; background: linear-gradient(to right, red 0%,rgb(228, 10, 10) 100%);font-size: 8px;">
+          <span style="position: absolute; top: -3px; left: 3.3px; color: white;">NOVO!</span>
+        </div>
+        <i class="icon ion-card"></i>
+      </div>
+    </a>
     <h1 class="title" style="margin-top: 27px;" ng-class="{'ajuste-title-android': platform == 'android'}">Paybook</h1>
     <a style="z-index: 999; color: black;">
       <div ng-click="openModal()" ng-class="{'ajuste-icon-modal-android' : platform == 'android'}" style="position: absolute; font-size: 22px; top: 40px; right: 10px;text-align: center; width: 30px; height: 25px;">
