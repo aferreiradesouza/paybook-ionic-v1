@@ -684,3 +684,7 @@ ion-header-bar {
     background-color: rgba(0,0,0,0.2) !important;
 }
 
+.activeMenuStat{
+    border-bottom: 2px solid #387ef5;
+    color: #387ef5;
+}

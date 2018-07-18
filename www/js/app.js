@@ -60,6 +60,18 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
           }
         }
       })
+
+      .state('listaRelatorios', {
+        url: '/listaRelatorios',
+        templateUrl: 'templates/listaRelatorios.html',
+        controller: 'listaRelatorioCtrl'
+      })
+
+      .state('Relatorios', {
+        url: '/Relatorios/:guid',
+        templateUrl: 'templates/relatorioIndividual.html',
+        controller: 'relatorioCtrl'
+      })
       
       .state('tab.cartao', {
         url: '/cartao',

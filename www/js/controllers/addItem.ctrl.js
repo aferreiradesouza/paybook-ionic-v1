@@ -173,6 +173,9 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     }
 
     function converterGasto(gasto) {
+        if (gasto == 'Transporte') {
+            var tipoGasto = 'onibus.png';
+        }
         if (gasto == 'Lazer') {
             var tipoGasto = 'lazer.png';
         }

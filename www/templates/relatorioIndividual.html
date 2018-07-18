@@ -1,0 +1,226 @@
+<ion-view ng-init="init()" ng-cloak>
+    <div class="bar bar-header bar-stable" ng-class="{'ajuste-header-android': platform == 'android'}" style="height: 73px;">
+
+        <a style="z-index: 999; color: black;" ng-href="/#!/listaRelatorios">
+            <div ng-class="{'ajuste-icon-modal-android' : platform == 'android'}" style="position: absolute; font-size: 25px; top: 34px; left: 10px;text-align: center; width: 30px; height: 25px;">
+                <i class="icon ion-chevron-left"></i>
+            </div>
+        </a>
+        <h1 class="title" style="margin-top: 22px;" ng-class="{'ajuste-title-android': platform == 'android'}">{{relatorioGeral.nomeRelatorio | uppercase}}</h1>
+        <h1 class="title" style="margin-top: 35px; font-size: 10px; color: rgba(0,0,0,0.5)" ng-class="{'ajuste-title-android': platform == 'android'}">SALVO EM {{relatorioGeral.data | date:'dd/MM/yy'}}</h1>
+
+    </div>
+    <ion-content class="platform-ios" overflow-scroll="true">
+        <div style="height: 71px;" ng-class="{'div-sumir' : platform == 'android'}">
+
+        </div>
+        <div style="height: 50px; width: 100%; background-color: #f8f8f8; border-bottom: 1px solid #ccc;">
+            <div style="width: 25%;float: left;height: 100%; text-align: center; position: relative;" ng-click="mudancaTab('geral')"
+                ng-class="{'activeMenuStat' : tabAtual == 'geral'}">
+                <span style="position: absolute; top: 50%; transform: translate(-50%, -50%);left: 50%; font-size: 10px; line-height: 12px">RELATÓRIO
+                    <br> GERAL</span>
+            </div>
+            <div style="width: 25%;float: left;height: 100%; text-align: center; position: relative;" ng-click="mudancaTab('cartao')"
+                ng-class="{'activeMenuStat' : tabAtual == 'cartao'}">
+                <span style="position: absolute; top: 50%; transform: translate(-50%, -50%);left: 50%; font-size: 10px; line-height: 12px">RELATÓRIO
+                    <br> DO
+                    <br> CARTÃO</span>
+            </div>
+            <div style="width: 25%;float: left;height: 100%; text-align: center; position: relative;" ng-click="mudancaTab('categorias')"
+                ng-class="{'activeMenuStat' : tabAtual == 'categorias'}">
+                <span style="position: absolute; top: 50%; transform: translate(-50%, -50%);left: 50%; font-size: 10px; line-height: 12px">RELATÓRIO
+                    <br> POR
+                    <br> CATEGORIAS</span>
+            </div>
+            <div style="width: 25%;float: left;height: 100%; text-align: center; position: relative;" ng-click="mudancaTab('cores')"
+                ng-class="{'activeMenuStat' : tabAtual == 'cores'}">
+                <span style="position: absolute; top: 50%; transform: translate(-50%, -50%);left: 50%; font-size: 10px; line-height: 12px">RELATÓRIO
+                    <br> DAS
+                    <br> CORES</span>
+            </div>
+        </div>
+        <!-- 
+            
+
+            RELATÓRIO GERAL
+
+
+
+        -->
+
+
+        <div ng-if="tabAtual == 'geral'" style="width: calc(100vw - 20px); margin: 10px auto; height: 540px;">
+            <div class="linha" style="width: 100%; position: relative">
+                <div style="position: absolute;left: 0; width: calc(50% - 5px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                        {{relatorioGeral.qtdLista}}
+                    </div>
+                    <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center;">
+                        ITENS ADICIONADOS</div>
+                </div>
+                <div style="position: absolute;right: 0; width: calc(50% - 5px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                        {{relatorioGeral.qtdListaFixa}}
+                    </div>
+                    <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center;">
+                        ITENS FIXADOS</div>
+                </div>
+            </div>
+
+            <div class="linha" style="width: 100%; position: relative; top: 110px;">
+                <div style="position: absolute;left: 0; width: calc(50% - 5px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                        {{relatorioGeral.precoAdc | currency}}
+                    </div>
+                    <div style="font-size: 12px;line-height: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center;">
+                        PREÇO TOTAL DOS ITENS ADICIONADOS</div>
+                </div>
+                <div style="position: absolute;right: 0; width: calc(50% - 5px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                        {{relatorioGeral.precoFixados | currency}}
+                    </div>
+                    <div style="font-size: 12px;line-height: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center;">
+                        PREÇO TOTAL DOS ITENS FIXADOS</div>
+                </div>
+            </div>
+
+            <div class="linha" style="width: 100%; position: relative; top: 220px;">
+                <div style="position: absolute;left: 0; width: calc(60% - 5px); height: 100px; background-color: #387ef5; border-radius: 3px;">
+                    <img src="img/dinheiro.png" style="position: absolute;opacity: 0.2; right: 5px;top: 5px;width: 80px;">
+                    <div style="position: absolute; font-size: 25px; left: 10px; top: 50px;color: white;">
+                        {{relatorioGeral.gastoTotalComDinheiro | currency}}
+                    </div>
+                    <div style="position: absolute; width: 100%; bottom: 10px; left: 10px; color: white;font-size: 11px; opacity: 0.8">
+                        GASTO TOTAL EM DINHEIRO</div>
+                </div>
+                <div style="position: absolute;right: 0; width: calc(40% - 5px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; color: black;transform: translate( -50%, 0%);text-align: center;">
+                        {{relatorioGeral.porcComprasDinheiro | number:"2"}}
+                        <span style="position: absolute;font-size: 15px; bottom: -3px; right: -15px">
+                            %
+                        </span>
+                    </div>
+                    <div style="line-height: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black;transform: translate( -50%, 0%);font-size: 11px; opacity: 0.8;text-align: center;">
+                        COMPRAS COM DINHEIRO</div>
+                </div>
+            </div>
+
+            <div class="linha" style="width: 100%; position: relative; top: 330px;">
+                <div style="position: absolute;left: 0; width: calc(40% - 5px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; color: black;transform: translate( -50%, 0%);text-align: center;">
+                        {{relatorioGeral.porcComprasCartao | number:"2"}}
+                        <span style="position: absolute;font-size: 15px; bottom: -3px; right: -15px">
+                            %
+                        </span>
+                    </div>
+                    <div style="line-height: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black;transform: translate( -50%, 0%);font-size: 11px; opacity: 0.8;text-align: center;">
+                        COMPRAS COM CARTÃO</div>
+                </div>
+                <div style="position: absolute;right: 0; width: calc(60% - 5px); height: 100px; background-color: #387ef5; border-radius: 3px;">
+                    <img src="img/cartao.png" style="position: absolute;opacity: 0.2; right: 5px;top: 5px;width: 80px;">
+                    <div style="position: absolute; font-size: 25px; left: 10px; top: 50px;color: white;">
+                        {{relatorioGeral.gastoTotalComCartao | currency}}
+                    </div>
+                    <div style="position: absolute; width: 100%; bottom: 10px; left: 10px; color: white;font-size: 11px; opacity: 0.8;">
+                        GASTO TOTAL NO CARTÃO</div>
+                </div>
+            </div>
+
+            <div class="linha" style="width: 100%; position: relative; top: 440px;">
+                <div style="position: absolute;left: 0; width: 100%; height: 100px; background-color: #27ae60; border-radius: 3px;">
+                    <img src="img/emLinha.png" style="position: absolute;opacity: 0.2; right: 10px;bottom: 0px;">
+                    <div style="position: absolute; font-size: 25px; left: 10px; top: 50px;color: white;">
+                    {{relatorioGeral.precoTotal | currency}}
+                    </div>
+                    <div style="position: absolute; width: 100%; bottom: 10px; left: 10px; color: white;font-size: 11px; opacity: 0.8;">
+                        GASTO TOTAL</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 
+            
+
+            RELATÓRIO DO CARTÃO
+
+
+
+        -->
+        <div ng-if="tabAtual == 'cartao'" ng-repeat="item in relatoriosCartao" style="margin-top: 7px;">
+            <div ng-if="item.guid == relatorioCartao" style="top: 5px;position: relative; height: 400px; width: 95vw; margin: 0 auto; background-color: #f8f8f8; border-radius: 5px; border: 1px solid #ccc;">
+                <div style="position: absolute; top: 10px; left: 10px; font-size: 18px; color: {{item.corCartaoItem}};">{{item.nomeCartao}}</div>
+                <div style="position: absolute; left: 10px; top: 45px; width: 50vw; height: 100px; border-radius: 3px; background-color: {{item.corCartaoItem}}">
+                    <img src="img/grafico.png" style="position: absolute;opacity: 0.2; right: 5px;width: 90px; bottom: 0;">
+                    <div style="position: absolute; font-size: 25px; left: 10px; top: 50px;color: white;">
+                        {{item.fatura | currency}}
+                    </div>
+                    <div style="position: absolute; width: 60%; bottom: 10px; left: 10px; color: white;font-size: 12px; opacity: 0.8">
+                        FATURA</div>
+                </div>
+                <div style="position: absolute; right: 10px; top: 45px; width: 35vw; height: 100px; background-color:#ececec; border-radius: 3px;">
+
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                        {{item.porcentagemPrecoTotal | number:"2"}}
+                        <span style="position: absolute;font-size: 15px; bottom: -3px; right: -15px">
+                            %
+                        </span>
+                    </div>
+                    <div style="position: absolute; width: 60%; bottom: 10px; left: 50%; transform: translate(-50%, 0%); text-align: center; color: {{item.corCartaoItem}};">
+                        % DE USO</div>
+                </div>
+                <div style="margin: 0 auto;position: relative;top: 200px; width: calc(100% - 20px); height: 50px;">
+                    <div class="barra" style="position: absolute; background-color:#b9b9b9; width: 100%; height: 15px; bottom: 0;">
+
+                    </div>
+                    <div class="ponteiroLimite" style="width: 100%; height: 80px; bottom: 0; position: absolute; border-right:1px solid  #6e6e6e;">
+                        <div style="position: absolute; top: 0; right: 5px; font-size: 18px;">
+                            {{item.limiteCartao | currency}}
+                        </div>
+                    </div>
+
+                    <div ng-if="item.porcUso >= 50" class="ponteiroFatura" style=" height: 50px; bottom: 0; position: absolute; border-right: 1px solid #6e6e6e;width: {{item.porcUso}}%;">
+                        <div style="position: absolute; top: 0; right: 5px; font-size: 18px;">
+                            {{item.fatura | currency}}
+                        </div>
+                        <div style="position: absolute;top: 35px;width: 100%;">
+                            <div class="barraitens" style="float: left; height: 15px; bottom: 0;width: 100%;background-color: {{item.corCartaoItem}};">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="item.porcUso < 50" class="ponteiroFatura" style="height: 50px; bottom: 0; position: absolute; border-right: 1px solid #6e6e6e; width: {{item.porcUso}}%;">
+                        <div style="position: absolute; top: 0; left: 108%; font-size: 18px;">
+                            {{item.fatura | currency}}
+                        </div>
+                        <div style="position: absolute;top: 35px;width: 100%;">
+                            <div class="barraitens" style="float: left; height: 15px; bottom: 0;width: 100%;background-color: {{item.corCartaoItem}};">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="position: absolute; left: 10px; top: 280px; width: 42.5vw; height: 100px; background-color: #ececec; border-radius: 3px;">
+
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                        {{item.contagemItemFixo}}
+                    </div>
+                    <div style="font-size: 11px;position: absolute; width: 90%; bottom: 10px; left: 50%; transform: translate(-50%, 0%); text-align: center; color: {{item.corCartaoItem}};">
+                        ITENS FIXADOS</div>
+
+                </div>
+                <div style="position: absolute; right: 10px; top: 280px; width: 42.5vw; height: 100px; background-color:#ececec; border-radius: 3px;">
+
+                    <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                        {{item.contagemItem}}
+                    </div>
+                    <div style="font-size: 11px;position: absolute; width: 90%; bottom: 10px; left: 50%; transform: translate(-50%, 0%); text-align: center; color: {{item.corCartaoItem}};">
+                        ITENS ADICIONADOS
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

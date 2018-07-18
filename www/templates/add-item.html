@@ -56,7 +56,8 @@
         <div style="position: absolute; top: 0px;">
           <div style="position: absolute; left: 2.5vw; width: 95vw; background-color:transparent; height: 40px; border-bottom: 1px solid #ccc;">
             <div class="normalForm" style="position: absolute; font-size: 10px;" ng-class="{'formActive' : data.localizacao != '' && data.localizacao != null}">Localização</div>
-            <input maxlength="16" ng-class="{'ajusteInput-android' : platform == 'android'}" name="localizacao" ng-model="data.localizacao" style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
+            <input maxlength="16" ng-class="{'ajusteInput-android' : platform == 'android'}" name="localizacao" ng-model="data.localizacao"
+              style="left: -7px;position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 7px; "
               placeholder="Localizacao" required>
 
 
@@ -75,6 +76,9 @@
             <div style="position: absolute; width: 55vw; background-color:transparent;border: 0; height: 33px;top: 11px; color: rgb(170, 170, 170); ">Categoria</div>
             <input ng-model="data.gasto" type="text" name="tipo" style="color: black;position: absolute; width: 150px; height: 33px; right: 21px; background-color:transparent; border: 0;top: 4px; text-align: right"
               disabled required>
+            <div ng-show="data.gasto == 'Transporte'">
+              <img src="../../img/icon/onibus.png" class="imgAddList" style="right: 95px">
+            </div>
             <div ng-show="data.gasto == 'Lazer'">
               <img src="../../img/icon/lazer.png" class="imgAddList" style="right: 70px">
             </div>
@@ -253,6 +257,10 @@
                 <ion-radio ng-model="data.gasto" ng-value="'Lazer'" ng-click="closeModalGasto()">
                   <img src="../../img/icon/lazer.png" class="imgRadio">
                   <span class="categoriaRadio">Lazer</span>
+                </ion-radio>
+                <ion-radio ng-model="data.gasto" ng-value="'Transporte'" ng-click="closeModalGasto()">
+                  <img src="../../img/icon/onibus.png" class="imgRadio">
+                  <span class="categoriaRadio">Transporte</span>
                 </ion-radio>
                 <ion-radio ng-model="data.gasto" ng-value="'Café'" ng-click="closeModalGasto()">
                   <img src="../../img/icon/cafe.png" class="imgRadio">

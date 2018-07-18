@@ -1,4 +1,4 @@
-app.controller('statsCtrl', function ($scope, Util) {
+app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
     $scope.listaFixa = [];
     $scope.lista = [];
     $scope.ListarStatsCategorias = [];
@@ -6,11 +6,20 @@ app.controller('statsCtrl', function ($scope, Util) {
     $scope.listaCartao = [];
     $scope.listaCartaoEstatistica = [];
 
+    //relatorios
+    $scope.listaRelatorios = [];
+    $scope.relatoriosCartao = [];
+
+
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
         var listaAuxFixa = Util.obterObjeto('ItensDaListaFixa');
         var listaAuxExcluir = Util.obterObjeto('listaExcluir');
         var listaAuxCartao = Util.obterObjeto('listaCartao');
+
+        //relatorios
+        var listaAuxRelatorio = Util.obterObjeto('listaRelatorio');
+        var listaAuxRelatorioCartao = Util.obterObjeto('listaRelatorioCartao');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
@@ -25,29 +34,41 @@ app.controller('statsCtrl', function ($scope, Util) {
             $scope.listaCartao = Util.converterParaObjeto(listaAuxCartao);
         }
 
+        //relatorios
+        if (listaAuxRelatorio != '') {
+            $scope.listaRelatorios = Util.converterParaObjeto(listaAuxRelatorio);
+        }
+        if (listaAuxRelatorioCartao != '') {
+            $scope.relatoriosCartao = Util.converterParaObjeto(listaAuxRelatorioCartao);
+        }
+
         //CARTAO
-        $scope.ObterListaDeComprasCartao();
+        //$scope.ObterListaDeComprasCartao();
         $scope.infoCartao();
 
         //LISTAS CATEGORIA
-        $scope.ObterTipoLazer();
-        $scope.ObterTipoLanche();
-        $scope.ObterTipoRestaurante();
-        $scope.ObterTipoCinema();
-        $scope.ObterTipoRoupa();
-        $scope.ObterTipoInfantil();
-        $scope.ObterTipoPresente();
-        $scope.ObterTipoEssencial();
-        $scope.ObterTipoUtilitarios();
-        $scope.ObterTipoMercado();
-        $scope.ObterTipoCafe();
+        //$scope.ObterTipoLazer();
+        //$scope.ObterTipoLanche();
+        //$scope.ObterTipoTransporte();
+        //$scope.ObterTipoRestaurante();
+        //$scope.ObterTipoCinema();
+        //$scope.ObterTipoRoupa();
+        //$scope.ObterTipoInfantil();
+        //$scope.ObterTipoPresente();
+        //$scope.ObterTipoEssencial();
+        //$scope.ObterTipoUtilitarios();
+        //$scope.ObterTipoMercado();
+        //$scope.ObterTipoCafe();
+        //
+        // //LISTAS COR
+        //$scope.ObterCorRoxo();
+        //$scope.ObterCorVermelho();
+        //$scope.ObterCorVerde();
+        //$scope.ObterCorLaranja();
+        //$scope.ObterCorAzul();
 
-        //LISTAS COR
-        $scope.ObterCorRoxo();
-        $scope.ObterCorVermelho();
-        $scope.ObterCorVerde();
-        $scope.ObterCorLaranja();
-        $scope.ObterCorAzul();
+        //RELATORIO
+        // $scope.ObterRelatorio();
 
     }
 
@@ -133,7 +154,7 @@ app.controller('statsCtrl', function ($scope, Util) {
                 }
             });
             var precoTotal = $scope.precoTotalSomado();
-            var porcentagemPrecoTotal = (contagemPreco * 100)/precoTotal;
+            var porcentagemPrecoTotal = (contagemPreco * 100) / precoTotal;
 
             if (contagemItemFixo != 0 || contagemItem != 0) {
                 var item = { fatura: contagemPreco, contagemItem: contagemItem, contagemItemFixo: contagemItemFixo, corCartaoItem: corCartao, nomeCartao: nomeCartao, porcentagemPrecoTotal: porcentagemPrecoTotal }
@@ -142,1078 +163,1282 @@ app.controller('statsCtrl', function ($scope, Util) {
         }
     }
 
+    function voltarIndex() {
+        window.location.href = "#!/listaRelatorios";
+    }
+
+    $scope.obterRelatorioCartao = function () {
+        var i;
+        for (i = 0; i <= $scope.listaCartao.length - 1; i++) {
+            var contagemPreco = 0;
+            var contagemItem = 0;
+            var contagemItemFixo = 0;
+            var nomeCartao;
+            var corCartao;
+            var cartaoLimite;
+            var porcUso;
+            $scope.lista.forEach(item => {
+                if ($scope.listaCartao[i].nomeCartao == item.cartao) {
+                    contagemPreco += item.preco;
+                    contagemItem += 1;
+                    nomeCartao = item.cartao;
+                    corCartao = item.corCartaoItem;
+                }
+            });
+            $scope.listaFixa.forEach(item => {
+                if ($scope.listaCartao[i].nomeCartao == item.cartao) {
+                    contagemPreco += item.preco;
+                    contagemItemFixo += 1;
+                    nomeCartao = item.cartao;
+                    corCartao = item.corCartaoItem;
+                }
+            });
+            var precoTotal = $scope.precoTotalSomado();
+            var porcentagemPrecoTotal = (contagemPreco * 100) / precoTotal;
+
+            if (contagemItemFixo != 0 || contagemItem != 0) {
+                cartaoLimite = $scope.listaCartao[i].limite;
+                porcUso = (contagemPreco * 100) / cartaoLimite;
+                if (porcUso > 100) {
+                    porcUso = 100;
+                }
+                var item = {
+                    guid: $scope.data.guid, fatura: contagemPreco, contagemItem: contagemItem,
+                    contagemItemFixo: contagemItemFixo, corCartaoItem: corCartao, nomeCartao: nomeCartao,
+                    porcentagemPrecoTotal: porcentagemPrecoTotal, limiteCartao: cartaoLimite, porcUso: porcUso
+                }
+                $scope.relatoriosCartao.push(item);
+            }
+        }
+    }
+    $scope.showPopup = function () {
+        $scope.data = {}
+        var myPopup = $ionicPopup.show({
+            template: '<input type="text" ng-model="data.relatorioNome">',
+            title: 'Salvar relatório',
+            subTitle: 'Digite o nome do relatório',
+            scope: $scope,
+            buttons: [
+                { text: 'Voltar' },
+                {
+                    text: '<b>Salvar</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+
+                        $scope.data.guid = Util.criarGuid();
+
+                        //estatisticas cartao
+
+                        $scope.obterRelatorioCartao();
+                        Util.salvarObjeto('listaRelatorioCartao', $scope.relatoriosCartao);
+
+
+                        //estatisticas gerais
+                        $scope.obterCompras = function () {
+                            var contListaDinheiro = 0;
+                            var contGastoDinheiro = 0;
+
+                            var contListaCartao = 0;
+                            var contGastoCartao = 0;
+                            $scope.lista.forEach(item => {
+                                if (item.itemCartao == false) {
+                                    contListaDinheiro += 1;
+                                    contGastoDinheiro += item.preco;
+                                }
+                                if (item.itemCartao == true) {
+                                    contListaCartao += 1;
+                                    contGastoCartao += item.preco;
+                                }
+                            });
+                            $scope.listaFixa.forEach(item => {
+                                if (item.itemCartao == false) {
+                                    contListaDinheiro += 1;
+                                    contGastoDinheiro += item.preco;
+                                }
+                                if (item.itemCartao == true) {
+                                    contListaCartao += 1;
+                                    contGastoCartao += item.preco;
+                                }
+                            });
+
+                            $scope.comprasDinheiro = contListaDinheiro;
+                            $scope.comprasCartao = contListaCartao;
+                            $scope.gastoTotalComDinheiro = contGastoDinheiro;
+                            $scope.gastoTotalComCartao = contGastoCartao;
+                        }
+                        $scope.obterCompras();
+                        $scope.porcComprasDinheiro = ($scope.comprasDinheiro * 100) / $scope.lista.length + $scope.listaFixa.length;
+                        $scope.porcComprasCartao = 100 - $scope.porcComprasDinheiro;
+
+                        $scope.precoItensFixado = $scope.somarFixados();
+                        $scope.precoItensAdc = $scope.somarAdc();
+                        $scope.precoItensTotal = $scope.precoTotalSomado();
+                        $scope.data.data = new Date();
+
+                        var relatorio = {
+                            guid: $scope.data.guid, nomeRelatorio: $scope.data.relatorioNome, qtdLista: $scope.lista.length, qtdListaFixa: $scope.listaFixa.length, data: $scope.data.data,
+                            precoAdc: $scope.precoItensAdc, precoFixados: $scope.precoItensFixado, precoTotal: $scope.precoItensTotal,
+                            porcComprasDinheiro : $scope.porcComprasDinheiro,porcComprasCartao : $scope.porcComprasCartao,
+                            comprasDinheiro : $scope.comprasDinheiro, comprasCartao : $scope.comprasCartao, gastoTotalComDinheiro : $scope.gastoTotalComDinheiro,gastoTotalComCartao : $scope.gastoTotalComCartao 
+                        }
+
+                        $scope.listaRelatorios.unshift(relatorio);
+                        Util.salvarObjeto('listaRelatorio', $scope.listaRelatorios);
+                        voltarIndex();
+                    }
+                }
+            ]
+        });
+    };
+
     /*Lista Categorias */
-    $scope.ObterTipoLazer = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Lazer") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Lazer") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoTransporte = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Transporte") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Transporte") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { categoria: "Lazer", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto, itensFixados: contagemFixados, itensAdicionados: contagemAdicionados }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { categoria: "Transporte", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto, itensFixados: contagemFixados, itensAdicionados: contagemAdicionados }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoLanche = function () {
-        var contagem = 0;
-        var precoTotalGasto = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Lanche") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Lanche") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoLazer = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Lazer") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Lazer") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Lanche", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { categoria: "Lazer", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto, itensFixados: contagemFixados, itensAdicionados: contagemAdicionados }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoRestaurante = function () {
-        var contagem = 0;
-        var precoTotalGasto = 0;
-        var contagemAdicionados = 0;
-        var contagemFixados = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Restaurante") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Restaurante") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoLanche = function () {
+    //     var contagem = 0;
+    //     var precoTotalGasto = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Lanche") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Lanche") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Restaurante", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Lanche", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoCinema = function () {
-        var contagem = 0;
-        var contagemAdicionados = 0;
-        var contagemFixados = 0;
-        var precoTotalGasto = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Cinema") {
-                contagemAdicionados += 1;
-                contagem += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Cinema") {
-                contagemFixados += 1;
-                contagem += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoRestaurante = function () {
+    //     var contagem = 0;
+    //     var precoTotalGasto = 0;
+    //     var contagemAdicionados = 0;
+    //     var contagemFixados = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Restaurante") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Restaurante") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Cinema", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Restaurante", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoRoupa = function () {
-        var contagem = 0;
-        var precoTotalGasto = 0;
-        var contagemAdicionados = 0;
-        var contagemFixados = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Roupa") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Roupa") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoCinema = function () {
+    //     var contagem = 0;
+    //     var contagemAdicionados = 0;
+    //     var contagemFixados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Cinema") {
+    //             contagemAdicionados += 1;
+    //             contagem += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Cinema") {
+    //             contagemFixados += 1;
+    //             contagem += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Roupa", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Cinema", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoInfantil = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Infantil") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Infantil") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoRoupa = function () {
+    //     var contagem = 0;
+    //     var precoTotalGasto = 0;
+    //     var contagemAdicionados = 0;
+    //     var contagemFixados = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Roupa") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Roupa") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Infantil", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Roupa", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoPresente = function () {
-        var contagem = 0;
-        var contagemAdicionados = 0;
-        var contagemFixados = 0;
-        var precoTotalGasto = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Presente") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Presente") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoInfantil = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Infantil") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Infantil") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Presente", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Infantil", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoEssencial = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Essencial") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Essencial") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoPresente = function () {
+    //     var contagem = 0;
+    //     var contagemAdicionados = 0;
+    //     var contagemFixados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Presente") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Presente") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Essencial", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Presente", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoUtilitarios = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Utilitários") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Utilitários") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoEssencial = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Essencial") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Essencial") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Utilitários", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Essencial", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoMercado = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Mercado") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Mercado") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoUtilitarios = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Utilitários") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Utilitários") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Mercado", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Utilitários", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
-    $scope.ObterTipoCafe = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.gasto == "Café") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.gasto == "Café") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterTipoMercado = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Mercado") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Mercado") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Café", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
-            $scope.ListarStatsCategorias.push(itemExistente);
-        }
-    }
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Mercado", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
+
+    // $scope.ObterTipoCafe = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.gasto == "Café") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.gasto == "Café") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
+
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
+
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
+
+    //         var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Café", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+    //         $scope.ListarStatsCategorias.push(itemExistente);
+    //     }
+    // }
 
     /*Lista Cores */
 
-    $scope.ObterCorVermelho = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        var contagemTipoLazer = 0;
-        var contagemTipoLanche = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRestaurante = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRoupa = 0;
-        var contagemTipoInfantil = 0;
-        var contagemTipoPresente = 0;
-        var contagemTipoEssencial = 0;
-        var contagemTipoUtilitarios = 0;
-        var contagemTipoMercado = 0;
-        var contagemTipoCafe = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.cor == "Vermelho") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.cor == "Vermelho") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    // $scope.ObterCorVermelho = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     var contagemTipoTransporte = 0;
+    //     var contagemTipoLazer = 0;
+    //     var contagemTipoLanche = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRestaurante = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRoupa = 0;
+    //     var contagemTipoInfantil = 0;
+    //     var contagemTipoPresente = 0;
+    //     var contagemTipoEssencial = 0;
+    //     var contagemTipoUtilitarios = 0;
+    //     var contagemTipoMercado = 0;
+    //     var contagemTipoCafe = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.cor == "Vermelho") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.cor == "Vermelho") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistenteCor = {
-                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
-                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-                corDigitada: "Vermelho", totalDeItens: contagem, cor: "#c0392b", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-            }
-            $scope.ListarStatsCor.push(itemExistenteCor);
-        }
-    }
-    $scope.ObterCorRoxo = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        var contagemTipoLazer = 0;
-        var contagemTipoLanche = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRestaurante = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRoupa = 0;
-        var contagemTipoInfantil = 0;
-        var contagemTipoPresente = 0;
-        var contagemTipoEssencial = 0;
-        var contagemTipoUtilitarios = 0;
-        var contagemTipoMercado = 0;
-        var contagemTipoCafe = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.cor == "Roxo") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.cor == "Roxo") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    //         var itemExistenteCor = {
+    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+    //             corDigitada: "Vermelho", totalDeItens: contagem, cor: "#c0392b", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+    //         }
+    //         $scope.ListarStatsCor.push(itemExistenteCor);
+    //     }
+    // }
+    // $scope.ObterCorRoxo = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     var contagemTipoTransporte = 0;
+    //     var contagemTipoLazer = 0;
+    //     var contagemTipoLanche = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRestaurante = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRoupa = 0;
+    //     var contagemTipoInfantil = 0;
+    //     var contagemTipoPresente = 0;
+    //     var contagemTipoEssencial = 0;
+    //     var contagemTipoUtilitarios = 0;
+    //     var contagemTipoMercado = 0;
+    //     var contagemTipoCafe = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.cor == "Roxo") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.cor == "Roxo") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistenteCor = {
-                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
-                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-                corDigitada: "Roxo", totalDeItens: contagem, cor: "#8e44ad", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-            }
-            $scope.ListarStatsCor.push(itemExistenteCor);
-        }
-    }
-    $scope.ObterCorVerde = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        var contagemTipoLazer = 0;
-        var contagemTipoLanche = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRestaurante = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRoupa = 0;
-        var contagemTipoInfantil = 0;
-        var contagemTipoPresente = 0;
-        var contagemTipoEssencial = 0;
-        var contagemTipoUtilitarios = 0;
-        var contagemTipoMercado = 0;
-        var contagemTipoCafe = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.cor == "Verde") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.cor == "Verde") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    //         var itemExistenteCor = {
+    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+    //             corDigitada: "Roxo", totalDeItens: contagem, cor: "#8e44ad", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+    //         }
+    //         $scope.ListarStatsCor.push(itemExistenteCor);
+    //     }
+    // }
+    // $scope.ObterCorVerde = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     var contagemTipoTransporte = 0;
+    //     var contagemTipoLazer = 0;
+    //     var contagemTipoLanche = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRestaurante = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRoupa = 0;
+    //     var contagemTipoInfantil = 0;
+    //     var contagemTipoPresente = 0;
+    //     var contagemTipoEssencial = 0;
+    //     var contagemTipoUtilitarios = 0;
+    //     var contagemTipoMercado = 0;
+    //     var contagemTipoCafe = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.cor == "Verde") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.cor == "Verde") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistenteCor = {
-                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
-                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-                corDigitada: "Verde", totalDeItens: contagem, cor: "#27ae60", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-            }
-            $scope.ListarStatsCor.push(itemExistenteCor);
-        }
-    }
-    $scope.ObterCorLaranja = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        var contagemTipoLazer = 0;
-        var contagemTipoLanche = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRestaurante = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRoupa = 0;
-        var contagemTipoInfantil = 0;
-        var contagemTipoPresente = 0;
-        var contagemTipoEssencial = 0;
-        var contagemTipoUtilitarios = 0;
-        var contagemTipoMercado = 0;
-        var contagemTipoCafe = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.cor == "Laranja") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.cor == "Laranja") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    //         var itemExistenteCor = {
+    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+    //             corDigitada: "Verde", totalDeItens: contagem, cor: "#27ae60", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+    //         }
+    //         $scope.ListarStatsCor.push(itemExistenteCor);
+    //     }
+    // }
+    // $scope.ObterCorLaranja = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     var contagemTipoTransporte = 0;
+    //     var contagemTipoLazer = 0;
+    //     var contagemTipoLanche = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRestaurante = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRoupa = 0;
+    //     var contagemTipoInfantil = 0;
+    //     var contagemTipoPresente = 0;
+    //     var contagemTipoEssencial = 0;
+    //     var contagemTipoUtilitarios = 0;
+    //     var contagemTipoMercado = 0;
+    //     var contagemTipoCafe = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.cor == "Laranja") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.cor == "Laranja") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistenteCor = {
-                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
-                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-                corDigitada: "Laranja", totalDeItens: contagem, cor: "#f39c12", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-            }
-            $scope.ListarStatsCor.push(itemExistenteCor);
-        }
-    }
-    $scope.ObterCorAzul = function () {
-        var contagem = 0;
-        var contagemFixados = 0;
-        var contagemAdicionados = 0;
-        var precoTotalGasto = 0;
-        var contagemTipoLazer = 0;
-        var contagemTipoLanche = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRestaurante = 0;
-        var contagemTipoCinema = 0;
-        var contagemTipoRoupa = 0;
-        var contagemTipoInfantil = 0;
-        var contagemTipoPresente = 0;
-        var contagemTipoEssencial = 0;
-        var contagemTipoUtilitarios = 0;
-        var contagemTipoMercado = 0;
-        var contagemTipoCafe = 0;
-        angular.forEach($scope.lista, function (key, value) {
-            if (key.cor == "Azul") {
-                contagem += 1;
-                contagemAdicionados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        angular.forEach($scope.listaFixa, function (key, value) {
-            if (key.cor == "Azul") {
-                contagem += 1;
-                contagemFixados += 1;
-                precoTotalGasto += key.preco;
-                if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
-                }
-                if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
-                }
-                if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
-                }
-                if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
-                }
-                if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
-                }
-                if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
-                }
-                if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
-                }
-                if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
-                }
-                if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
-                }
-                if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
-                }
-                if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
-                }
-            }
-        });
-        if (contagem >= 1) {
-            /*PORCENTAGEM ITEM*/
-            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-            /*PORCENTAGEM ITEM*/
+    //         var itemExistenteCor = {
+    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+    //             corDigitada: "Laranja", totalDeItens: contagem, cor: "#f39c12", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+    //         }
+    //         $scope.ListarStatsCor.push(itemExistenteCor);
+    //     }
+    // }
+    // $scope.ObterCorAzul = function () {
+    //     var contagem = 0;
+    //     var contagemFixados = 0;
+    //     var contagemAdicionados = 0;
+    //     var precoTotalGasto = 0;
+    //     var contagemTipoTransporte = 0;
+    //     var contagemTipoLazer = 0;
+    //     var contagemTipoLanche = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRestaurante = 0;
+    //     var contagemTipoCinema = 0;
+    //     var contagemTipoRoupa = 0;
+    //     var contagemTipoInfantil = 0;
+    //     var contagemTipoPresente = 0;
+    //     var contagemTipoEssencial = 0;
+    //     var contagemTipoUtilitarios = 0;
+    //     var contagemTipoMercado = 0;
+    //     var contagemTipoCafe = 0;
+    //     angular.forEach($scope.lista, function (key, value) {
+    //         if (key.cor == "Azul") {
+    //             contagem += 1;
+    //             contagemAdicionados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     angular.forEach($scope.listaFixa, function (key, value) {
+    //         if (key.cor == "Azul") {
+    //             contagem += 1;
+    //             contagemFixados += 1;
+    //             precoTotalGasto += key.preco;
+    //             if (key.gasto == "Transporte") {
+    //                 contagemTipoTransporte += 1;
+    //             }
+    //             if (key.gasto == "Lazer") {
+    //                 contagemTipoLazer += 1;
+    //             }
+    //             if (key.gasto == "Lanche") {
+    //                 contagemTipoLanche += 1;
+    //             }
+    //             if (key.gasto == "Restaurante") {
+    //                 contagemTipoRestaurante += 1;
+    //             }
+    //             if (key.gasto == "Cinema") {
+    //                 contagemTipoCinema += 1;
+    //             }
+    //             if (key.gasto == "Roupa") {
+    //                 contagemTipoRoupa += 1;
+    //             }
+    //             if (key.gasto == "Infantil") {
+    //                 contagemTipoInfantil += 1;
+    //             }
+    //             if (key.gasto == "Presente") {
+    //                 contagemTipoPresente += 1;
+    //             }
+    //             if (key.gasto == "Essencial") {
+    //                 contagemTipoEssencial += 1;
+    //             }
+    //             if (key.gasto == "Utilitários") {
+    //                 contagemTipoUtilitarios += 1;
+    //             }
+    //             if (key.gasto == "Mercado") {
+    //                 contagemTipoMercado += 1;
+    //             }
+    //             if (key.gasto == "Café") {
+    //                 contagemTipoCafe += 1;
+    //             }
+    //         }
+    //     });
+    //     if (contagem >= 1) {
+    //         /*PORCENTAGEM ITEM*/
+    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+    //         /*PORCENTAGEM ITEM*/
 
-            /* PORCENTAGEM PRECO*/
-            var precoTotal = $scope.precoTotalSomado();
-            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-            /* PORCENTAGEM PRECO*/
+    //         /* PORCENTAGEM PRECO*/
+    //         var precoTotal = $scope.precoTotalSomado();
+    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+    //         /* PORCENTAGEM PRECO*/
 
-            /*TOTAL PRECO */
-            precoTotalGasto = precoTotalGasto.toFixed(2);
-            /*TOTAL PRECO */
+    //         /*TOTAL PRECO */
+    //         precoTotalGasto = precoTotalGasto.toFixed(2);
+    //         /*TOTAL PRECO */
 
-            var itemExistenteCor = {
-                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados,
-                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-                corDigitada: "Azul", totalDeItens: contagem, cor: "#2980b9", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-            }
-            $scope.ListarStatsCor.push(itemExistenteCor);
-        }
-    }
+    //         var itemExistenteCor = {
+    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+    //             corDigitada: "Azul", totalDeItens: contagem, cor: "#2980b9", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+    //         }
+    //         $scope.ListarStatsCor.push(itemExistenteCor);
+    //     }
+    // }
 })
