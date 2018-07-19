@@ -688,3 +688,19 @@ ion-header-bar {
     border-bottom: 2px solid #387ef5;
     color: #387ef5;
 }
+
+.desactiveCat {
+    background-color: transparent !important;
+    opacity: 0.3;
+}
+
+.activeCat {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75) !important;
+    width: calc(100% + 20px) !important;
+    margin-left: -10px!important;
+    transition: 0.5s;
+    padding-left: 5px;
+    padding-right: 5px;
+    opacity: 1 !important;
+    background-color: #f8f8f8 !important;
+}

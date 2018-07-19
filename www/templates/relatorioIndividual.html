@@ -229,8 +229,36 @@
 
         -->
         <div ng-if="tabAtual == 'categorias'">
-            <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid == relatorioCartao">
+            <!-- <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid == relatorioCartao">
                 {{item.categoria}}
+            </div> -->
+
+            <div style="position: relative; width: calc(100vw - 10px); height: 400px; left: 50%; transform: translate(-50%, 0%); top: 10px;">
+                <div style="width: calc(100% - 20px);letter-spacing:2px; font-size: 12px; padding-bottom: 5px; margin: 0 auto; border-bottom: 1px solid #e0e0e0;">
+                    CATEGORIAS
+                </div>
+                <div style="position: relative; width: calc(100% - 10px); height: 70px; left: 50%; transform: translate(-50%, 0%); top: 10px;">
+                    <i class="icon ion-arrow-up-b" style="position: absolute; right: 1px;bottom: 10px"></i>
+                    <span style="position: absolute; right: 1px;bottom: -5px; font-size: 18px">{{relatorioGeral.precoTotal | currency}}</span>
+
+                    <div style="width: calc(100% - 10px); height: 30px; background-color: gray;position: relative; left: 50%; transform: translate(-50%, 0%); top: 10px; border-radius: 3px; overflow: hidden;">
+                        <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid" ng-click="mudancaCategoria(item.categoria)" style="float: left;height: 30px; position: relative;border: 0.5px solid black; width: {{item.porcentoPreco}}%; background-color: {{item.corIten}};">
+
+                        </div>
+                    </div>
+                </div>
+                <div style="width: calc(100% - 20px); margin: 40px auto 0">
+                    <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid" ng-class="{'activeCat' : categoriaAtual == item.categoria, 'desactiveCat' : categoriaAtual != 'todos'}"
+                        style="height: 35px; width: 100%; border-bottom: 1px solid #e0e0e0;">
+                        <div style="float: left; margin-top: 7.5px;left:0; color: {{item.corIten}}">
+                            <!-- <img ng-src="img/icon/{{item.icon}}" style="height: 15px;position: absolute;left: 15px;"> -->
+                            {{item.categoria | uppercase}}</div>
+                        <div style="float: right; margin-top: 7.5px;right: 0; color: {{item.corIten}}">{{item.precoTotal | currency}}</div>
+                    </div>
+                </div>
+                <!-- <div style="width: calc(100% - 40px);letter-spacing:2px; font-size: 12px; padding-bottom: 5px; border-bottom: 1px solid #e0e0e0; position: absolute; left: 50%; transform: translate(-50%, 0%); ">
+                    MAIS INFORMAÇÕES
+                </div> -->
             </div>
         </div>
     </ion-content>

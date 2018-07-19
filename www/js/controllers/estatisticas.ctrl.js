@@ -221,6 +221,8 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
         $scope.ListarStatsCategorias.forEach(item => {
             var categoria = item.categoria;
             var contagem = item.totalDeItens;
+            var corIten = item.corIten;
+            var icon = item.icon;
 
             var resultadoPorcentagemContagem = item.porcentoItens;
                 resultadoPorcentagemContagem = Math.round(resultadoPorcentagemContagem);
@@ -240,7 +242,9 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 porcentoPreco: resultadoPorcentagemPreco, 
                 precoTotal: precoTotalGasto, 
                 itensFixados: contagemFixados, 
-                itensAdicionados: contagemAdicionados 
+                itensAdicionados: contagemAdicionados,
+                corIten : corIten,
+                icon : icon,
                 }
 
             $scope.relatoriosCategoria.push(itemExistente);
@@ -368,8 +372,10 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
             var itemExistente = { 
-                                categoria: "Transporte", 
-                                totalDeItens: contagem, 
+                                categoria: "Transporte",
+                                corIten: "#1abc9c", 
+                                totalDeItens: contagem,
+                                icon: "onibus.png", 
                                 porcentoItens: resultadoPorcentagemContagem, 
                                 porcentoPreco: resultadoPorcentagemPreco, 
                                 precoTotal: precoTotalGasto, 
@@ -412,7 +418,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { categoria: "Lazer", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto, itensFixados: contagemFixados, itensAdicionados: contagemAdicionados }
+            var itemExistente = { categoria: "Lazer",icon: "lazer.png",corIten: "#2ecc71", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto, itensFixados: contagemFixados, itensAdicionados: contagemAdicionados }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -449,7 +455,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Lanche", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "lanche.png", corIten: "#3498db", itensAdicionados: contagemAdicionados, categoria: "Lanche", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -486,7 +492,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Restaurante", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "restaurante.png",corIten: "#9b59b6", itensAdicionados: contagemAdicionados, categoria: "Restaurante", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -523,7 +529,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Cinema", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "cinema.png",corIten: "#34495e", itensAdicionados: contagemAdicionados, categoria: "Cinema", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -560,7 +566,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Roupa", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "roupa.png",corIten: "#f1c40f", itensAdicionados: contagemAdicionados, categoria: "Roupa", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -597,7 +603,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Infantil", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "infantil.png",corIten: "#e67e22", itensAdicionados: contagemAdicionados, categoria: "Infantil", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -634,7 +640,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Presente", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "present.png",corIten: "#e74c3c", itensAdicionados: contagemAdicionados, categoria: "Presente", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -671,7 +677,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Essencial", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "essencial.png",corIten: "#bdc3c7", itensAdicionados: contagemAdicionados, categoria: "Essencial", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -708,7 +714,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Utilitários", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "utilitarios.png",corIten: "#00d2d3", itensAdicionados: contagemAdicionados, categoria: "Utilitários", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -745,7 +751,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Mercado", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "mercado.png",corIten: "#44bd32", itensAdicionados: contagemAdicionados, categoria: "Mercado", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -782,7 +788,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, categoria: "Café", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados,icon: "cafe.png",corIten: "#353b48", itensAdicionados: contagemAdicionados, categoria: "Café", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }

@@ -52,7 +52,9 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
 
         iniciar();
 
-        $scope.tabAtual = 'geral';
+        $scope.tabAtual = 'categorias';
+
+        $scope.categoriaAtual = 'todos';
 
     }
 
@@ -93,4 +95,7 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
         $scope.tabAtual = tabDeMudanca;
     }
 
+    $scope.mudancaCategoria = function(categoria){
+        $scope.categoriaAtual = categoria;
+    }
 })
