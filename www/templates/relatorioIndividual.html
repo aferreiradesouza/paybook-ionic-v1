@@ -248,8 +248,8 @@
                     </div>
                 </div>
                 <div style="width: calc(100% - 20px); margin: 40px auto 0">
-                    <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid" ng-class="{'activeCat' : categoriaAtual == item.categoria, 'desactiveCat' : categoriaAtual != 'todos'}"
-                        style="height: 35px; width: 100%; border-bottom: 1px solid #e0e0e0;">
+                    <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid" ng-click="desfazerMudancaCategoria()" ng-class="{'activeCat' : categoriaAtual == item.categoria, 'desactiveCat' : categoriaAtual != 'todos'}"
+                        style="height: 35px; width: 100%; border-bottom: 1px solid #e0e0e0;transition: 0.5s;">
                         <div style="float: left; margin-top: 7.5px;left:0; color: {{item.corIten}}">
                             <!-- <img ng-src="img/icon/{{item.icon}}" style="height: 15px;position: absolute;left: 15px;"> -->
                             {{item.categoria | uppercase}}</div>

@@ -98,4 +98,8 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
     $scope.mudancaCategoria = function(categoria){
         $scope.categoriaAtual = categoria;
     }
+
+    $scope.desfazerMudancaCategoria = function(){
+        $scope.categoriaAtual = 'todos';
+    }
 })
