@@ -12,6 +12,7 @@ app.controller('listaRelatorioCtrl', function ($scope, Util, $stateParams, $stat
     //relatorios
     $scope.listaRelatorios = [];
     $scope.relatoriosCartao = [];
+    $scope.relatoriosCategoria = [];
 
 
     $scope.init = function () {
@@ -20,9 +21,10 @@ app.controller('listaRelatorioCtrl', function ($scope, Util, $stateParams, $stat
         var listaAuxExcluir = Util.obterObjeto('listaExcluir');
         var listaAuxCartao = Util.obterObjeto('listaCartao');
 
-        //geral
+        //relatorios
         var listaAuxRelatorio = Util.obterObjeto('listaRelatorio');
         var listaAuxRelatorioCartao = Util.obterObjeto('listaRelatorioCartao');
+        var listaAuxRelatorioCategoria = Util.obterObjeto('listaRelatorioCategoria');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
@@ -44,6 +46,9 @@ app.controller('listaRelatorioCtrl', function ($scope, Util, $stateParams, $stat
         if (listaAuxRelatorioCartao != '') {
             $scope.relatoriosCartao = Util.converterParaObjeto(listaAuxRelatorioCartao);
         }
+        if (listaAuxRelatorioCategoria != '') {
+            $scope.relatoriosCategoria = Util.converterParaObjeto(listaAuxRelatorioCategoria);
+        }
     }
 
     $scope.platform = ionic.Platform.platform();
@@ -58,9 +63,15 @@ app.controller('listaRelatorioCtrl', function ($scope, Util, $stateParams, $stat
 
     $scope.deleteRelatorio = function (index, guid) {
         var n;
+        var i;
         for (n = $scope.relatoriosCartao.length - 1; n > -1; n=n-1) {
             if($scope.relatoriosCartao[n].guid == guid){
                 $scope.relatoriosCartao.splice(n, 1);
+            }
+        }
+        for (i = $scope.relatoriosCategoria.length - 1; i > -1; i=i-1) {
+            if($scope.relatoriosCategoria[i].guid == guid){
+                $scope.relatoriosCategoria.splice(i, 1);
             }
         }
 
@@ -68,6 +79,7 @@ app.controller('listaRelatorioCtrl', function ($scope, Util, $stateParams, $stat
 
         Util.salvarObjeto('listaRelatorio', $scope.listaRelatorios);
         Util.salvarObjeto('listaRelatorioCartao', $scope.relatoriosCartao);
+        Util.salvarObjeto('listaRelatorioCategoria', $scope.relatoriosCategoria);
     }
 
 })

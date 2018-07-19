@@ -9,9 +9,11 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
     //relatorios
     $scope.listaRelatorios = [];
     $scope.relatoriosCartao = [];
+    $scope.relatoriosCategoria = [];
 
     $scope.relatorioGeral = {};
     $scope.relatorioCartao = {};
+    $scope.relatorioCategoria = {};
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
@@ -22,6 +24,7 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
         //relatorios
         var listaAuxRelatorio = Util.obterObjeto('listaRelatorio');
         var listaAuxRelatorioCartao = Util.obterObjeto('listaRelatorioCartao');
+        var listaAuxRelatorioCategoria = Util.obterObjeto('listaRelatorioCategoria');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
@@ -42,6 +45,9 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
         }
         if (listaAuxRelatorioCartao != '') {
             $scope.relatoriosCartao = Util.converterParaObjeto(listaAuxRelatorioCartao);
+        }
+        if (listaAuxRelatorioCategoria != '') {
+            $scope.relatoriosCategoria = Util.converterParaObjeto(listaAuxRelatorioCategoria);
         }
 
         iniciar();
@@ -69,6 +75,14 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
         $scope.relatoriosCartao.forEach(item => {
             if (item.guid == $stateParams.guid) {
                 $scope.relatorioCartao = $stateParams.guid;
+
+                return;
+            }
+        });
+
+        $scope.relatoriosCategoria.forEach(item => {
+            if (item.guid == $stateParams.guid) {
+                $scope.relatorioCategoria = $stateParams.guid;
 
                 return;
             }

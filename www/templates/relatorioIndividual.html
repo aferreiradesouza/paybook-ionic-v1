@@ -130,15 +130,13 @@
                 <div style="position: absolute;left: 0; width: 100%; height: 100px; background-color: #27ae60; border-radius: 3px;">
                     <img src="img/emLinha.png" style="position: absolute;opacity: 0.2; right: 10px;bottom: 0px;">
                     <div style="position: absolute; font-size: 25px; left: 10px; top: 50px;color: white;">
-                    {{relatorioGeral.precoTotal | currency}}
+                        {{relatorioGeral.precoTotal | currency}}
                     </div>
                     <div style="position: absolute; width: 100%; bottom: 10px; left: 10px; color: white;font-size: 11px; opacity: 0.8;">
                         GASTO TOTAL</div>
                 </div>
             </div>
         </div>
-
-
         <!-- 
             
 
@@ -222,5 +220,18 @@
             </div>
         </div>
 
+        <!-- 
+            
+
+            RELATÓRIO DAS CATEGORIAS
+
+
+
+        -->
+        <div ng-if="tabAtual == 'categorias'">
+            <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid == relatorioCartao">
+                {{item.categoria}}
+            </div>
+        </div>
     </ion-content>
 </ion-view>
