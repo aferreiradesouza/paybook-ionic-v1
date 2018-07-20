@@ -705,3 +705,7 @@ ion-header-bar {
     background-color: #f8f8f8 !important;
 }
 
+.marcacao{
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}

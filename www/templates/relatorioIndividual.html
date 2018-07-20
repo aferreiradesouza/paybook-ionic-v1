@@ -251,7 +251,7 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="mudancaCategoria(item.categoria, item.corIten)"
-                                    style="width: {{item.porcentoPreco}}%; background-color: {{item.corIten}}; height: 30px;">
+                                    style="width: {{item.porcentoPreco}}%; background-color: {{item.corIten}}; height: 30px;" ng-class="{'marcacao' : categoriaAtual == item.categoria}">
                                     &nbsp;
                                 </td>
                             </tr>
