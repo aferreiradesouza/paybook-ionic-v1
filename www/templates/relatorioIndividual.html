@@ -251,15 +251,16 @@
                         <table style="width: 100%;">
                             <tr>
                                 <td ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="mudancaCategoria(item.categoria, item.corIten)"
-                                style="width: {{item.porcentoPreco}}%; background-color: {{item.corIten}}; height: 30px;">
-                                &nbsp;
+                                    style="width: {{item.porcentoPreco}}%; background-color: {{item.corIten}}; height: 30px;">
+                                    &nbsp;
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div style="width: calc(100% - 20px); margin: 40px auto 0">
-                    <div ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="desfazerMudancaCategoria(item.categoria, item.corIten)" ng-class="{'activeCat' : categoriaAtual == item.categoria, 'desactiveCat' : categoriaAtual != 'todos'}"
+                    <div ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="desfazerMudancaCategoria(item.categoria, item.corIten)"
+                        ng-class="{'activeCat' : categoriaAtual == item.categoria, 'desactiveCat' : categoriaAtual != 'todos'}"
                         style="height: 35px; width: 100%; border-bottom: 1px solid #e0e0e0;transition: 0.5s;">
                         <div style="float: left; margin-top: 7.5px;left:0; color: {{item.corIten}}">
                             <!-- <img ng-src="img/icon/{{item.icon}}" style="height: 15px;position: absolute;left: 15px;"> -->
@@ -272,12 +273,67 @@
                     <div ng-if="categoriaAtual != 'todos'" style="float: right;letter-spacing:0px; color: {{corAtual}}">
                         {{categoriaAtual | uppercase}}
                     </div>
-                    <div ng-if="categoriaAtual == 'todos'" style="float: right;letter-spacing:0px; font-size: 10px;">
-                        Selecione uma categoria
-                    </div>
                 </div>
-                <div>
-                    
+
+
+                <div ng-if="categoriaAtual == 'todos'" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
+                    Selecione uma categoria
+                </div>
+
+                <div ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao">
+                    <div ng-if="categoriaAtual == item.categoria" class="linha" style="width: 100%; position: relative; top: 10px;">
+                        <div style="position: absolute;left: 10px; width: calc(50% - 15px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                            <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                                {{item.itensAdicionados}}
+                            </div>
+                            <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center; color: {{corAtual}}">
+                                ITENS ADICIONADOS</div>
+                        </div>
+                        <div style="position: absolute;right: 10px; width: calc(50% - 15px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                            <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                                {{item.itensFixados}}
+                            </div>
+                            <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center; color: {{corAtual}}">
+                                ITENS FIXADOS</div>
+                        </div>
+                    </div>
+                    <div ng-if="categoriaAtual == item.categoria" class="linha" style="width: 100%; position: relative; top: 120px;">
+                        <div style="position: absolute;left: 10px; width: calc(50% - 15px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                            <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                                {{item.porcentoItens | number:"2"}}
+                                <span style="position: absolute;font-size: 15px; bottom: -3px; right: -15px">
+                                    %
+                                </span>
+                            </div>
+                            <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center; color: {{corAtual}}">
+                                PORCENTAGEM DOS ITENS</div>
+                        </div>
+                        <div style="position: absolute;right: 10px; width: calc(50% - 15px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                            <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                                {{item.porcentoPreco | number:"2"}}
+                                <span style="position: absolute;font-size: 15px; bottom: -3px; right: -15px">
+                                    %
+                                </span>
+                            </div>
+                            <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center; color: {{corAtual}}">
+                                PORCENTAGEM DO PREÇO</div>
+                        </div>
+                    </div>
+                    <div ng-if="categoriaAtual == item.categoria" class="linha" style="width: 100%; position: relative; top: 230px;">
+                        <div style="position: absolute;left: 10px; width: calc(100% - 20px); height: 100px; background-color: #ececec; border-radius: 3px; background-color:{{corAtual}}">
+                            <!-- <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                                {{item.precoTotal | currency}}
+                            </div>
+                            <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center;">
+                                PREÇO TOTAL</div> -->
+                            <img src="img/graph.png" style="position: absolute;opacity: 0.2; right: 10px;bottom: 0px; height: 87px;">
+                            <div style="position: absolute; font-size: 25px; left: 10px; top: 50px;color: white;">
+                                {{item.precoTotal | currency}}
+                            </div>
+                            <div style="position: absolute; width: 100%; bottom: 10px; left: 10px; color: white;font-size: 11px; opacity: 0.8;">
+                                PREÇO TOTAL</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
