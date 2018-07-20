@@ -7,7 +7,7 @@
             </div>
         </a>
         <h1 class="title" style="margin-top: 22px;" ng-class="{'ajuste-title-android': platform == 'android'}">{{relatorioGeral.nomeRelatorio | uppercase}}</h1>
-        <h1 class="title" style="margin-top: 35px; font-size: 10px; color: rgba(0,0,0,0.5)" ng-class="{'ajuste-title-android': platform == 'android'}">SALVO EM {{relatorioGeral.data | date:'dd/MM/yy'}}</h1>
+        <h1 class="title" style="margin-top: 39px; font-size: 10px; color: rgba(0,0,0,0.5)" ng-class="{'ajuste-title-android': platform == 'android'}">SALVO EM {{relatorioGeral.data | date:'dd/MM/yy'}}</h1>
 
     </div>
     <ion-content class="platform-ios" overflow-scroll="true">
@@ -241,14 +241,25 @@
                     <i class="icon ion-arrow-up-b" style="position: absolute; right: 1px;bottom: 10px"></i>
                     <span style="position: absolute; right: 1px;bottom: -5px; font-size: 18px">{{relatorioGeral.precoTotal | currency}}</span>
 
-                    <div style="width: calc(100% - 10px); height: 30px; background-color: gray;position: relative; left: 50%; transform: translate(-50%, 0%); top: 10px; border-radius: 3px; overflow: hidden;">
-                        <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid" ng-click="mudancaCategoria(item.categoria)" style="float: left;height: 30px; position: relative;border: 0.5px solid black; width: {{item.porcentoPreco}}%; background-color: {{item.corIten}};">
+                    <div style="width: calc(100% - 10px); height: 30px; background-color: gray;position: relative; left: 50%; transform: translate(-50%, 0%); top: 10px; border-radius: 3px; overflow: hidden;border: 1px solid black;">
+                        <!-- <div style="height: 30px;">
+                            <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid == relatorioCartao" ng-click="mudancaCategoria(item.categoria, item.corIten)"
+                                style="display:inline-block;height: 30px;border: 0.5px solid black; position: relative; width: {{item.porcentoPreco}}%; background-color: {{item.corIten}};">
 
-                        </div>
+                            </div>
+                        </div> -->
+                        <table style="width: 100%;">
+                            <tr>
+                                <td ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="mudancaCategoria(item.categoria, item.corIten)"
+                                style="width: {{item.porcentoPreco}}%; background-color: {{item.corIten}}; height: 30px;">
+                                &nbsp;
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div style="width: calc(100% - 20px); margin: 40px auto 0">
-                    <div ng-repeat="item in relatoriosCategoria" ng-if="item.guid" ng-click="desfazerMudancaCategoria()" ng-class="{'activeCat' : categoriaAtual == item.categoria, 'desactiveCat' : categoriaAtual != 'todos'}"
+                    <div ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="desfazerMudancaCategoria(item.categoria, item.corIten)" ng-class="{'activeCat' : categoriaAtual == item.categoria, 'desactiveCat' : categoriaAtual != 'todos'}"
                         style="height: 35px; width: 100%; border-bottom: 1px solid #e0e0e0;transition: 0.5s;">
                         <div style="float: left; margin-top: 7.5px;left:0; color: {{item.corIten}}">
                             <!-- <img ng-src="img/icon/{{item.icon}}" style="height: 15px;position: absolute;left: 15px;"> -->
@@ -256,9 +267,18 @@
                         <div style="float: right; margin-top: 7.5px;right: 0; color: {{item.corIten}}">{{item.precoTotal | currency}}</div>
                     </div>
                 </div>
-                <!-- <div style="width: calc(100% - 40px);letter-spacing:2px; font-size: 12px; padding-bottom: 5px; border-bottom: 1px solid #e0e0e0; position: absolute; left: 50%; transform: translate(-50%, 0%); ">
+                <div style="width: calc(100% - 20px);letter-spacing:2px; font-size: 12px; padding-bottom: 5px; border-bottom: 1px solid #e0e0e0; margin: 20px auto 0; ">
                     MAIS INFORMAÇÕES
-                </div> -->
+                    <div ng-if="categoriaAtual != 'todos'" style="float: right;letter-spacing:0px; color: {{corAtual}}">
+                        {{categoriaAtual | uppercase}}
+                    </div>
+                    <div ng-if="categoriaAtual == 'todos'" style="float: right;letter-spacing:0px; font-size: 10px;">
+                        Selecione uma categoria
+                    </div>
+                </div>
+                <div>
+                    
+                </div>
             </div>
         </div>
     </ion-content>

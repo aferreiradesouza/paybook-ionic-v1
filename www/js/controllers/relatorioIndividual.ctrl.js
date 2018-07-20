@@ -95,11 +95,16 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
         $scope.tabAtual = tabDeMudanca;
     }
 
-    $scope.mudancaCategoria = function(categoria){
+    $scope.mudancaCategoria = function(categoria, cor){
         $scope.categoriaAtual = categoria;
+        $scope.corAtual = cor;
     }
 
-    $scope.desfazerMudancaCategoria = function(){
-        $scope.categoriaAtual = 'todos';
+    $scope.desfazerMudancaCategoria = function(categoria, cor){
+        if($scope.categoriaAtual == categoria){
+            $scope.categoriaAtual = 'todos';
+        }
+        $scope.categoriaAtual = categoria;
+        $scope.corAtual = cor;
     }
 })

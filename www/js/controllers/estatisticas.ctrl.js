@@ -228,7 +228,13 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 resultadoPorcentagemContagem = Math.round(resultadoPorcentagemContagem);
 
             var resultadoPorcentagemPreco = item.porcentoPreco;
-                resultadoPorcentagemPreco = Math.round(resultadoPorcentagemPreco);
+            if(resultadoPorcentagemPreco < 1){
+                resultadoPorcentagemPreco = Math.ceil(resultadoPorcentagemPreco)
+            }
+
+            if(resultadoPorcentagemPreco > 99){
+                resultadoPorcentagemPreco = Math.floor(resultadoPorcentagemPreco);
+            }
                 
             var precoTotalGasto = item.precoTotal;
             var contagemFixados = item.itensFixados;
