@@ -10,6 +10,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
     $scope.listaRelatorios = [];
     $scope.relatoriosCartao = [];
     $scope.relatoriosCategoria = [];
+    $scope.relatoriosCor = [];
 
 
     $scope.init = function () {
@@ -22,6 +23,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
         var listaAuxRelatorio = Util.obterObjeto('listaRelatorio');
         var listaAuxRelatorioCartao = Util.obterObjeto('listaRelatorioCartao');
         var listaAuxRelatorioCategoria = Util.obterObjeto('listaRelatorioCategoria');
+        var listaAuxRelatorioCor = Util.obterObjeto('listaRelatorioCor');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
@@ -46,6 +48,9 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
         if (listaAuxRelatorioCategoria != '') {
             $scope.relatoriosCategoria = Util.converterParaObjeto(listaAuxRelatorioCategoria);
         }
+        if (listaAuxRelatorioCor != '') {
+            $scope.relatoriosCor = Util.converterParaObjeto(listaAuxRelatorioCor);
+        }
 
         //CARTAO
         //$scope.ObterListaDeComprasCartao();
@@ -66,11 +71,11 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
         $scope.ObterTipoCafe();
         //
         // //LISTAS COR
-        //$scope.ObterCorRoxo();
-        //$scope.ObterCorVermelho();
-        //$scope.ObterCorVerde();
-        //$scope.ObterCorLaranja();
-        //$scope.ObterCorAzul();
+        $scope.ObterCorRoxo();
+        $scope.ObterCorVermelho();
+        $scope.ObterCorVerde();
+        $scope.ObterCorLaranja();
+        $scope.ObterCorAzul();
 
         //RELATORIO
         // $scope.ObterRelatorio();
@@ -217,7 +222,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
         }
     }
 
-    $scope.obterRelatorioCategoria = function(){
+    $scope.obterRelatorioCategoria = function () {
         $scope.ListarStatsCategorias.forEach(item => {
             var categoria = item.categoria;
             var contagem = item.totalDeItens;
@@ -225,36 +230,76 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             var icon = item.icon;
 
             var resultadoPorcentagemContagem = item.porcentoItens;
-                resultadoPorcentagemContagem = Math.round(resultadoPorcentagemContagem);
+            resultadoPorcentagemContagem = Math.round(resultadoPorcentagemContagem);
 
             var resultadoPorcentagemPreco = item.porcentoPreco;
-            if(resultadoPorcentagemPreco < 1){
-                resultadoPorcentagemPreco = Math.ceil(resultadoPorcentagemPreco)
-            }
+            resultadoPorcentagemPreco = Math.round(resultadoPorcentagemPreco);
 
-            if(resultadoPorcentagemPreco > 99){
-                resultadoPorcentagemPreco = Math.floor(resultadoPorcentagemPreco);
-            }
-                
+            // var resultadoPorcentagemPreco = item.porcentoPreco;
+            // if (resultadoPorcentagemPreco < 1) {
+            //     resultadoPorcentagemPreco = Math.ceil(resultadoPorcentagemPreco)
+            // }
+
+            // if (resultadoPorcentagemPreco > 99) {
+            //     resultadoPorcentagemPreco = Math.floor(resultadoPorcentagemPreco);
+            // }
+
             var precoTotalGasto = item.precoTotal;
             var contagemFixados = item.itensFixados;
             var contagemAdicionados = item.itensAdicionados;
 
-            var itemExistente = { 
+            var itemExistente = {
                 guid: $scope.data.guid,
-                categoria: categoria, 
-                totalDeItens: contagem, 
-                porcentoItens: resultadoPorcentagemContagem, 
-                porcentoPreco: resultadoPorcentagemPreco, 
-                precoTotal: precoTotalGasto, 
-                itensFixados: contagemFixados, 
+                categoria: categoria,
+                totalDeItens: contagem,
+                porcentoItens: resultadoPorcentagemContagem,
+                porcentoPreco: resultadoPorcentagemPreco,
+                precoTotal: precoTotalGasto,
+                itensFixados: contagemFixados,
                 itensAdicionados: contagemAdicionados,
-                corIten : corIten,
-                icon : icon,
-                }
+                corIten: corIten,
+                icon: icon,
+            }
 
             $scope.relatoriosCategoria.push(itemExistente);
             Util.salvarObjeto('listaRelatorioCategoria', $scope.relatoriosCategoria);
+        });
+    }
+
+    $scope.obterRelatorioCor = function(){
+        $scope.ListarStatsCor.forEach(item => {
+            var porcPreco = item.porcentoPreco;
+            porcPreco = Math.round(porcPreco);
+
+            var porcItens = item.porcentoItens;
+            porcItens = Math.round(porcItens);
+            
+            var itemExistente = {
+                guid: $scope.data.guid,
+                itensFixados: item.itensFixados, 
+                itensAdicionados: item.itensAdicionados, 
+                contagemTipoTransporte: item.contagemTipoTransporte,
+                contagemTipoLazer: item.contagemTipoLazer, 
+                contagemTipoLanche: item.contagemTipoLanche, 
+                contagemTipoRestaurante: item.contagemTipoRestaurante, 
+                contagemTipoCinema: item.contagemTipoCinema,
+                contagemTipoRoupa: item.contagemTipoRoupa, 
+                contagemTipoInfantil: item.contagemTipoInfantil, 
+                contagemTipoPresente: item.contagemTipoPresente, 
+                contagemTipoEssencial: item.contagemTipoEssencial,
+                contagemTipoUtilitarios: item.contagemTipoUtilitarios, 
+                contagemTipoMercado: item.contagemTipoMercado, 
+                contagemTipoCafe: item.contagemTipoCafe,
+                corDigitada: item.corDigitada, 
+                totalDeItens: item.totalDeItens, 
+                cor: item.cor, 
+                porcentoItens: porcItens, 
+                porcentoPreco: porcPreco, 
+                precoTotal: item.precoTotal
+            }
+
+            $scope.relatoriosCor.push(itemExistente);
+            Util.salvarObjeto('listaRelatorioCor', $scope.relatoriosCor);
         });
     }
 
@@ -273,6 +318,11 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                     onTap: function (e) {
 
                         $scope.data.guid = Util.criarGuid();
+
+                        //estatisticas cor
+
+                        $scope.obterRelatorioCor();
+                        Util.salvarObjeto('listaRelatorioCor', $scope.relatoriosCor);
 
                         //estatisticas categoria
 
@@ -377,17 +427,17 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { 
-                                categoria: "Transporte",
-                                corIten: "#1abc9c", 
-                                totalDeItens: contagem,
-                                icon: "onibus.png", 
-                                porcentoItens: resultadoPorcentagemContagem, 
-                                porcentoPreco: resultadoPorcentagemPreco, 
-                                precoTotal: precoTotalGasto, 
-                                itensFixados: contagemFixados, 
-                                itensAdicionados: contagemAdicionados 
-                                }
+            var itemExistente = {
+                categoria: "Transporte",
+                corIten: "#1abc9c",
+                totalDeItens: contagem,
+                icon: "onibus.png",
+                porcentoItens: resultadoPorcentagemContagem,
+                porcentoPreco: resultadoPorcentagemPreco,
+                precoTotal: precoTotalGasto,
+                itensFixados: contagemFixados,
+                itensAdicionados: contagemAdicionados
+            }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -424,7 +474,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { categoria: "Lazer",icon: "lazer.png",corIten: "#2ecc71", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto, itensFixados: contagemFixados, itensAdicionados: contagemAdicionados }
+            var itemExistente = { categoria: "Lazer", icon: "lazer.png", corIten: "#2ecc71", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto, itensFixados: contagemFixados, itensAdicionados: contagemAdicionados }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -461,7 +511,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "lanche.png", corIten: "#3498db", itensAdicionados: contagemAdicionados, categoria: "Lanche", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "lanche.png", corIten: "#3498db", itensAdicionados: contagemAdicionados, categoria: "Lanche", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -498,7 +548,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "restaurante.png",corIten: "#9b59b6", itensAdicionados: contagemAdicionados, categoria: "Restaurante", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "restaurante.png", corIten: "#9b59b6", itensAdicionados: contagemAdicionados, categoria: "Restaurante", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -535,7 +585,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "cinema.png",corIten: "#34495e", itensAdicionados: contagemAdicionados, categoria: "Cinema", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "cinema.png", corIten: "#34495e", itensAdicionados: contagemAdicionados, categoria: "Cinema", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -572,7 +622,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "roupa.png",corIten: "#f1c40f", itensAdicionados: contagemAdicionados, categoria: "Roupa", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "roupa.png", corIten: "#f1c40f", itensAdicionados: contagemAdicionados, categoria: "Roupa", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -609,7 +659,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "infantil.png",corIten: "#e67e22", itensAdicionados: contagemAdicionados, categoria: "Infantil", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "infantil.png", corIten: "#e67e22", itensAdicionados: contagemAdicionados, categoria: "Infantil", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -646,7 +696,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "present.png",corIten: "#e74c3c", itensAdicionados: contagemAdicionados, categoria: "Presente", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "present.png", corIten: "#e74c3c", itensAdicionados: contagemAdicionados, categoria: "Presente", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -683,7 +733,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "essencial.png",corIten: "#bdc3c7", itensAdicionados: contagemAdicionados, categoria: "Essencial", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "essencial.png", corIten: "#bdc3c7", itensAdicionados: contagemAdicionados, categoria: "Essencial", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -720,7 +770,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "utilitarios.png",corIten: "#00d2d3", itensAdicionados: contagemAdicionados, categoria: "Utilitários", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "utilitarios.png", corIten: "#00d2d3", itensAdicionados: contagemAdicionados, categoria: "Utilitários", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -757,7 +807,7 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "mercado.png",corIten: "#44bd32", itensAdicionados: contagemAdicionados, categoria: "Mercado", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "mercado.png", corIten: "#44bd32", itensAdicionados: contagemAdicionados, categoria: "Mercado", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
@@ -794,666 +844,681 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
             /*TOTAL PRECO */
             precoTotalGasto = precoTotalGasto.toFixed(2);
             /*TOTAL PRECO */
-            var itemExistente = { itensFixados: contagemFixados,icon: "cafe.png",corIten: "#353b48", itensAdicionados: contagemAdicionados, categoria: "Café", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
+            var itemExistente = { itensFixados: contagemFixados, icon: "cafe.png", corIten: "#353b48", itensAdicionados: contagemAdicionados, categoria: "Café", totalDeItens: contagem, porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto }
             $scope.ListarStatsCategorias.push(itemExistente);
         }
     }
 
     /*Lista Cores */
 
-    // $scope.ObterCorVermelho = function () {
-    //     var contagem = 0;
-    //     var contagemFixados = 0;
-    //     var contagemAdicionados = 0;
-    //     var precoTotalGasto = 0;
-    //     var contagemTipoTransporte = 0;
-    //     var contagemTipoLazer = 0;
-    //     var contagemTipoLanche = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRestaurante = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRoupa = 0;
-    //     var contagemTipoInfantil = 0;
-    //     var contagemTipoPresente = 0;
-    //     var contagemTipoEssencial = 0;
-    //     var contagemTipoUtilitarios = 0;
-    //     var contagemTipoMercado = 0;
-    //     var contagemTipoCafe = 0;
-    //     angular.forEach($scope.lista, function (key, value) {
-    //         if (key.cor == "Vermelho") {
-    //             contagem += 1;
-    //             contagemAdicionados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     angular.forEach($scope.listaFixa, function (key, value) {
-    //         if (key.cor == "Vermelho") {
-    //             contagem += 1;
-    //             contagemFixados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     if (contagem >= 1) {
-    //         /*PORCENTAGEM ITEM*/
-    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-    //         /*PORCENTAGEM ITEM*/
+    $scope.ObterCorVermelho = function () {
+        var contagem = 0;
+        var contagemFixados = 0;
+        var contagemAdicionados = 0;
+        var precoTotalGasto = 0;
+        var contagemTipoTransporte = 0;
+        var contagemTipoLazer = 0;
+        var contagemTipoLanche = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRestaurante = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRoupa = 0;
+        var contagemTipoInfantil = 0;
+        var contagemTipoPresente = 0;
+        var contagemTipoEssencial = 0;
+        var contagemTipoUtilitarios = 0;
+        var contagemTipoMercado = 0;
+        var contagemTipoCafe = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Vermelho") {
+                contagem += 1;
+                contagemAdicionados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Vermelho") {
+                contagem += 1;
+                contagemFixados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
 
-    //         /* PORCENTAGEM PRECO*/
-    //         var precoTotal = $scope.precoTotalSomado();
-    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-    //         /* PORCENTAGEM PRECO*/
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
 
-    //         /*TOTAL PRECO */
-    //         precoTotalGasto = precoTotalGasto.toFixed(2);
-    //         /*TOTAL PRECO */
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
 
-    //         var itemExistenteCor = {
-    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
-    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-    //             corDigitada: "Vermelho", totalDeItens: contagem, cor: "#c0392b", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-    //         }
-    //         $scope.ListarStatsCor.push(itemExistenteCor);
-    //     }
-    // }
-    // $scope.ObterCorRoxo = function () {
-    //     var contagem = 0;
-    //     var contagemFixados = 0;
-    //     var contagemAdicionados = 0;
-    //     var precoTotalGasto = 0;
-    //     var contagemTipoTransporte = 0;
-    //     var contagemTipoLazer = 0;
-    //     var contagemTipoLanche = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRestaurante = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRoupa = 0;
-    //     var contagemTipoInfantil = 0;
-    //     var contagemTipoPresente = 0;
-    //     var contagemTipoEssencial = 0;
-    //     var contagemTipoUtilitarios = 0;
-    //     var contagemTipoMercado = 0;
-    //     var contagemTipoCafe = 0;
-    //     angular.forEach($scope.lista, function (key, value) {
-    //         if (key.cor == "Roxo") {
-    //             contagem += 1;
-    //             contagemAdicionados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     angular.forEach($scope.listaFixa, function (key, value) {
-    //         if (key.cor == "Roxo") {
-    //             contagem += 1;
-    //             contagemFixados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     if (contagem >= 1) {
-    //         /*PORCENTAGEM ITEM*/
-    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-    //         /*PORCENTAGEM ITEM*/
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, 
+                itensAdicionados: contagemAdicionados, 
+                contagemTipoTransporte: contagemTipoTransporte,
+                contagemTipoLazer: contagemTipoLazer, 
+                contagemTipoLanche: contagemTipoLanche, 
+                contagemTipoRestaurante: contagemTipoRestaurante, 
+                contagemTipoCinema: contagemTipoCinema,
+                contagemTipoRoupa: contagemTipoRoupa, 
+                contagemTipoInfantil: contagemTipoInfantil, 
+                contagemTipoPresente: contagemTipoPresente, 
+                contagemTipoEssencial: contagemTipoEssencial,
+                contagemTipoUtilitarios: contagemTipoUtilitarios, 
+                contagemTipoMercado: contagemTipoMercado, 
+                contagemTipoCafe: contagemTipoCafe,
+                corDigitada: "Vermelho", 
+                totalDeItens: contagem, 
+                cor: "#c0392b", 
+                porcentoItens: resultadoPorcentagemContagem, 
+                porcentoPreco: resultadoPorcentagemPreco, 
+                precoTotal: precoTotalGasto
+            }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
+    $scope.ObterCorRoxo = function () {
+        var contagem = 0;
+        var contagemFixados = 0;
+        var contagemAdicionados = 0;
+        var precoTotalGasto = 0;
+        var contagemTipoTransporte = 0;
+        var contagemTipoLazer = 0;
+        var contagemTipoLanche = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRestaurante = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRoupa = 0;
+        var contagemTipoInfantil = 0;
+        var contagemTipoPresente = 0;
+        var contagemTipoEssencial = 0;
+        var contagemTipoUtilitarios = 0;
+        var contagemTipoMercado = 0;
+        var contagemTipoCafe = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Roxo") {
+                contagem += 1;
+                contagemAdicionados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Roxo") {
+                contagem += 1;
+                contagemFixados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
 
-    //         /* PORCENTAGEM PRECO*/
-    //         var precoTotal = $scope.precoTotalSomado();
-    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-    //         /* PORCENTAGEM PRECO*/
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
 
-    //         /*TOTAL PRECO */
-    //         precoTotalGasto = precoTotalGasto.toFixed(2);
-    //         /*TOTAL PRECO */
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
 
-    //         var itemExistenteCor = {
-    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
-    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-    //             corDigitada: "Roxo", totalDeItens: contagem, cor: "#8e44ad", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-    //         }
-    //         $scope.ListarStatsCor.push(itemExistenteCor);
-    //     }
-    // }
-    // $scope.ObterCorVerde = function () {
-    //     var contagem = 0;
-    //     var contagemFixados = 0;
-    //     var contagemAdicionados = 0;
-    //     var precoTotalGasto = 0;
-    //     var contagemTipoTransporte = 0;
-    //     var contagemTipoLazer = 0;
-    //     var contagemTipoLanche = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRestaurante = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRoupa = 0;
-    //     var contagemTipoInfantil = 0;
-    //     var contagemTipoPresente = 0;
-    //     var contagemTipoEssencial = 0;
-    //     var contagemTipoUtilitarios = 0;
-    //     var contagemTipoMercado = 0;
-    //     var contagemTipoCafe = 0;
-    //     angular.forEach($scope.lista, function (key, value) {
-    //         if (key.cor == "Verde") {
-    //             contagem += 1;
-    //             contagemAdicionados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     angular.forEach($scope.listaFixa, function (key, value) {
-    //         if (key.cor == "Verde") {
-    //             contagem += 1;
-    //             contagemFixados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     if (contagem >= 1) {
-    //         /*PORCENTAGEM ITEM*/
-    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-    //         /*PORCENTAGEM ITEM*/
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+                corDigitada: "Roxo", totalDeItens: contagem, cor: "#8e44ad", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+            }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
+    $scope.ObterCorVerde = function () {
+        var contagem = 0;
+        var contagemFixados = 0;
+        var contagemAdicionados = 0;
+        var precoTotalGasto = 0;
+        var contagemTipoTransporte = 0;
+        var contagemTipoLazer = 0;
+        var contagemTipoLanche = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRestaurante = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRoupa = 0;
+        var contagemTipoInfantil = 0;
+        var contagemTipoPresente = 0;
+        var contagemTipoEssencial = 0;
+        var contagemTipoUtilitarios = 0;
+        var contagemTipoMercado = 0;
+        var contagemTipoCafe = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Verde") {
+                contagem += 1;
+                contagemAdicionados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Verde") {
+                contagem += 1;
+                contagemFixados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
 
-    //         /* PORCENTAGEM PRECO*/
-    //         var precoTotal = $scope.precoTotalSomado();
-    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-    //         /* PORCENTAGEM PRECO*/
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
 
-    //         /*TOTAL PRECO */
-    //         precoTotalGasto = precoTotalGasto.toFixed(2);
-    //         /*TOTAL PRECO */
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
 
-    //         var itemExistenteCor = {
-    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
-    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-    //             corDigitada: "Verde", totalDeItens: contagem, cor: "#27ae60", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-    //         }
-    //         $scope.ListarStatsCor.push(itemExistenteCor);
-    //     }
-    // }
-    // $scope.ObterCorLaranja = function () {
-    //     var contagem = 0;
-    //     var contagemFixados = 0;
-    //     var contagemAdicionados = 0;
-    //     var precoTotalGasto = 0;
-    //     var contagemTipoTransporte = 0;
-    //     var contagemTipoLazer = 0;
-    //     var contagemTipoLanche = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRestaurante = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRoupa = 0;
-    //     var contagemTipoInfantil = 0;
-    //     var contagemTipoPresente = 0;
-    //     var contagemTipoEssencial = 0;
-    //     var contagemTipoUtilitarios = 0;
-    //     var contagemTipoMercado = 0;
-    //     var contagemTipoCafe = 0;
-    //     angular.forEach($scope.lista, function (key, value) {
-    //         if (key.cor == "Laranja") {
-    //             contagem += 1;
-    //             contagemAdicionados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     angular.forEach($scope.listaFixa, function (key, value) {
-    //         if (key.cor == "Laranja") {
-    //             contagem += 1;
-    //             contagemFixados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     if (contagem >= 1) {
-    //         /*PORCENTAGEM ITEM*/
-    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-    //         /*PORCENTAGEM ITEM*/
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+                corDigitada: "Verde", totalDeItens: contagem, cor: "#27ae60", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+            }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
+    $scope.ObterCorLaranja = function () {
+        var contagem = 0;
+        var contagemFixados = 0;
+        var contagemAdicionados = 0;
+        var precoTotalGasto = 0;
+        var contagemTipoTransporte = 0;
+        var contagemTipoLazer = 0;
+        var contagemTipoLanche = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRestaurante = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRoupa = 0;
+        var contagemTipoInfantil = 0;
+        var contagemTipoPresente = 0;
+        var contagemTipoEssencial = 0;
+        var contagemTipoUtilitarios = 0;
+        var contagemTipoMercado = 0;
+        var contagemTipoCafe = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Laranja") {
+                contagem += 1;
+                contagemAdicionados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Laranja") {
+                contagem += 1;
+                contagemFixados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
 
-    //         /* PORCENTAGEM PRECO*/
-    //         var precoTotal = $scope.precoTotalSomado();
-    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-    //         /* PORCENTAGEM PRECO*/
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
 
-    //         /*TOTAL PRECO */
-    //         precoTotalGasto = precoTotalGasto.toFixed(2);
-    //         /*TOTAL PRECO */
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
 
-    //         var itemExistenteCor = {
-    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
-    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-    //             corDigitada: "Laranja", totalDeItens: contagem, cor: "#f39c12", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-    //         }
-    //         $scope.ListarStatsCor.push(itemExistenteCor);
-    //     }
-    // }
-    // $scope.ObterCorAzul = function () {
-    //     var contagem = 0;
-    //     var contagemFixados = 0;
-    //     var contagemAdicionados = 0;
-    //     var precoTotalGasto = 0;
-    //     var contagemTipoTransporte = 0;
-    //     var contagemTipoLazer = 0;
-    //     var contagemTipoLanche = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRestaurante = 0;
-    //     var contagemTipoCinema = 0;
-    //     var contagemTipoRoupa = 0;
-    //     var contagemTipoInfantil = 0;
-    //     var contagemTipoPresente = 0;
-    //     var contagemTipoEssencial = 0;
-    //     var contagemTipoUtilitarios = 0;
-    //     var contagemTipoMercado = 0;
-    //     var contagemTipoCafe = 0;
-    //     angular.forEach($scope.lista, function (key, value) {
-    //         if (key.cor == "Azul") {
-    //             contagem += 1;
-    //             contagemAdicionados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     angular.forEach($scope.listaFixa, function (key, value) {
-    //         if (key.cor == "Azul") {
-    //             contagem += 1;
-    //             contagemFixados += 1;
-    //             precoTotalGasto += key.preco;
-    //             if (key.gasto == "Transporte") {
-    //                 contagemTipoTransporte += 1;
-    //             }
-    //             if (key.gasto == "Lazer") {
-    //                 contagemTipoLazer += 1;
-    //             }
-    //             if (key.gasto == "Lanche") {
-    //                 contagemTipoLanche += 1;
-    //             }
-    //             if (key.gasto == "Restaurante") {
-    //                 contagemTipoRestaurante += 1;
-    //             }
-    //             if (key.gasto == "Cinema") {
-    //                 contagemTipoCinema += 1;
-    //             }
-    //             if (key.gasto == "Roupa") {
-    //                 contagemTipoRoupa += 1;
-    //             }
-    //             if (key.gasto == "Infantil") {
-    //                 contagemTipoInfantil += 1;
-    //             }
-    //             if (key.gasto == "Presente") {
-    //                 contagemTipoPresente += 1;
-    //             }
-    //             if (key.gasto == "Essencial") {
-    //                 contagemTipoEssencial += 1;
-    //             }
-    //             if (key.gasto == "Utilitários") {
-    //                 contagemTipoUtilitarios += 1;
-    //             }
-    //             if (key.gasto == "Mercado") {
-    //                 contagemTipoMercado += 1;
-    //             }
-    //             if (key.gasto == "Café") {
-    //                 contagemTipoCafe += 1;
-    //             }
-    //         }
-    //     });
-    //     if (contagem >= 1) {
-    //         /*PORCENTAGEM ITEM*/
-    //         var itensTotal = $scope.lista.length + $scope.listaFixa.length;
-    //         var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
-    //         resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
-    //         /*PORCENTAGEM ITEM*/
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+                corDigitada: "Laranja", totalDeItens: contagem, cor: "#f39c12", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+            }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
+    $scope.ObterCorAzul = function () {
+        var contagem = 0;
+        var contagemFixados = 0;
+        var contagemAdicionados = 0;
+        var precoTotalGasto = 0;
+        var contagemTipoTransporte = 0;
+        var contagemTipoLazer = 0;
+        var contagemTipoLanche = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRestaurante = 0;
+        var contagemTipoCinema = 0;
+        var contagemTipoRoupa = 0;
+        var contagemTipoInfantil = 0;
+        var contagemTipoPresente = 0;
+        var contagemTipoEssencial = 0;
+        var contagemTipoUtilitarios = 0;
+        var contagemTipoMercado = 0;
+        var contagemTipoCafe = 0;
+        angular.forEach($scope.lista, function (key, value) {
+            if (key.cor == "Azul") {
+                contagem += 1;
+                contagemAdicionados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        angular.forEach($scope.listaFixa, function (key, value) {
+            if (key.cor == "Azul") {
+                contagem += 1;
+                contagemFixados += 1;
+                precoTotalGasto += key.preco;
+                if (key.gasto == "Transporte") {
+                    contagemTipoTransporte += 1;
+                }
+                if (key.gasto == "Lazer") {
+                    contagemTipoLazer += 1;
+                }
+                if (key.gasto == "Lanche") {
+                    contagemTipoLanche += 1;
+                }
+                if (key.gasto == "Restaurante") {
+                    contagemTipoRestaurante += 1;
+                }
+                if (key.gasto == "Cinema") {
+                    contagemTipoCinema += 1;
+                }
+                if (key.gasto == "Roupa") {
+                    contagemTipoRoupa += 1;
+                }
+                if (key.gasto == "Infantil") {
+                    contagemTipoInfantil += 1;
+                }
+                if (key.gasto == "Presente") {
+                    contagemTipoPresente += 1;
+                }
+                if (key.gasto == "Essencial") {
+                    contagemTipoEssencial += 1;
+                }
+                if (key.gasto == "Utilitários") {
+                    contagemTipoUtilitarios += 1;
+                }
+                if (key.gasto == "Mercado") {
+                    contagemTipoMercado += 1;
+                }
+                if (key.gasto == "Café") {
+                    contagemTipoCafe += 1;
+                }
+            }
+        });
+        if (contagem >= 1) {
+            /*PORCENTAGEM ITEM*/
+            var itensTotal = $scope.lista.length + $scope.listaFixa.length;
+            var resultadoPorcentagemContagem = (contagem * 100) / itensTotal;
+            resultadoPorcentagemContagem = parseFloat(resultadoPorcentagemContagem.toFixed(2));
+            /*PORCENTAGEM ITEM*/
 
-    //         /* PORCENTAGEM PRECO*/
-    //         var precoTotal = $scope.precoTotalSomado();
-    //         var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
-    //         resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
-    //         /* PORCENTAGEM PRECO*/
+            /* PORCENTAGEM PRECO*/
+            var precoTotal = $scope.precoTotalSomado();
+            var resultadoPorcentagemPreco = (precoTotalGasto * 100) / precoTotal;
+            resultadoPorcentagemPreco = parseFloat(resultadoPorcentagemPreco.toFixed(2));
+            /* PORCENTAGEM PRECO*/
 
-    //         /*TOTAL PRECO */
-    //         precoTotalGasto = precoTotalGasto.toFixed(2);
-    //         /*TOTAL PRECO */
+            /*TOTAL PRECO */
+            precoTotalGasto = precoTotalGasto.toFixed(2);
+            /*TOTAL PRECO */
 
-    //         var itemExistenteCor = {
-    //             itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
-    //             contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
-    //             contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
-    //             contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
-    //             corDigitada: "Azul", totalDeItens: contagem, cor: "#2980b9", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
-    //         }
-    //         $scope.ListarStatsCor.push(itemExistenteCor);
-    //     }
-    // }
+            var itemExistenteCor = {
+                itensFixados: contagemFixados, itensAdicionados: contagemAdicionados, contagemTipoTransporte: contagemTipoTransporte,
+                contagemTipoLazer: contagemTipoLazer, contagemTipoLanche: contagemTipoLanche, contagemTipoRestaurante: contagemTipoRestaurante, contagemTipoCinema: contagemTipoCinema,
+                contagemTipoRoupa: contagemTipoRoupa, contagemTipoInfantil: contagemTipoInfantil, contagemTipoPresente: contagemTipoPresente, contagemTipoEssencial: contagemTipoEssencial,
+                contagemTipoUtilitarios: contagemTipoUtilitarios, contagemTipoMercado: contagemTipoMercado, contagemTipoCafe: contagemTipoCafe,
+                corDigitada: "Azul", totalDeItens: contagem, cor: "#2980b9", porcentoItens: resultadoPorcentagemContagem, porcentoPreco: resultadoPorcentagemPreco, precoTotal: precoTotalGasto
+            }
+            $scope.ListarStatsCor.push(itemExistenteCor);
+        }
+    }
 })

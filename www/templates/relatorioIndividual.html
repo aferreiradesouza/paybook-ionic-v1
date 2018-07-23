@@ -236,7 +236,7 @@
                 {{item.categoria}}
             </div> -->
 
-            <div style="position: relative; width: calc(100vw - 10px); height: 400px; left: 50%; transform: translate(-50%, 0%); top: 10px;">
+            <div style="position: relative; width: calc(100vw - 10px); height: 670px; left: 50%; transform: translate(-50%, 0%); top: 10px;">
                 <div style="width: calc(100% - 20px);letter-spacing:2px; font-size: 12px; padding-bottom: 5px; margin: 0 auto; border-bottom: 1px solid #e0e0e0;">
                     CATEGORIAS
                 </div>
@@ -251,9 +251,9 @@
 
                             </div>
                         </div> -->
-                        <table style="width: 100%;">
+                        <table style="width: 102%;margin-left: -2px;height: 38px;margin-top: -1px;">
                             <tr>
-                                <td ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="mudancaCategoria(item.categoria, item.corIten)"
+                                <td ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCategoria" ng-click="mudancaCategoria(item.categoria, item.corIten)"
                                     style="width: {{item.porcentoPreco}}%; background-color: {{item.corIten}}; height: 30px;">
                                     &nbsp;
                                 </td>
@@ -262,19 +262,28 @@
                     </div>
                 </div>
                 <div style="width: calc(100% - 20px); margin: 40px auto 0">
-                    <div ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="desfazerMudancaCategoria(item.categoria, item.corIten)"
+                    <div ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCartao" ng-click="mudancaCategoriaLista(item.categoria, item.corIten)"
                         ng-class="{'activeCat' : categoriaAtual == item.categoria, 'desactiveCat' : categoriaAtual != 'todos'}"
-                        style="height: 35px; width: 100%; border-bottom: 1px solid #e0e0e0;transition: 0.5s;">
+                        style="height: 35px; width: 100%; border-bottom: 1px solid #e0e0e0;transition: 0.5s;position: relative;">
                         <div style="float: left; margin-top: 7.5px;left:0; color: {{item.corIten}}">
                             <!-- <img ng-src="img/icon/{{item.icon}}" style="height: 15px;position: absolute;left: 15px;"> -->
                             {{item.categoria | uppercase}}</div>
+                            <span style=" position: absolute; font-size: 43px; bottom: 7px;right: 65px; opacity: 0.2; color: {{item.corIten}}; ">
+                                {{item.porcentoPreco}}
+                            </span>
+                            
+                        <span style="position: absolute;font-size: 20px;right:50px;opacity: 0.2;bottom: 0px; color: {{item.corIten}};">
+                                %
+                            </span>
                         <div style="float: right; margin-top: 7.5px;right: 0; color: {{item.corIten}}">{{item.precoTotal | currency}}</div>
+
                     </div>
                 </div>
                 <div style="width: calc(100% - 20px);letter-spacing:2px; font-size: 12px; padding-bottom: 5px; border-bottom: 1px solid #e0e0e0; margin: 20px auto 0; ">
                     MAIS INFORMAÇÕES
-                    <div ng-if="categoriaAtual != 'todos'" style="float: right;letter-spacing:0px; color: {{corAtual}}">
+                    <div ng-if="categoriaAtual != 'todos'" style="float: right;letter-spacing:0px; color: {{corAtual}}" ng-click="desfazerMudancaCategoria()">
                         {{categoriaAtual | uppercase}}
+                        <i class="icon ion-close" style="margin-left: 5px;"></i>
                     </div>
                 </div>
 
@@ -337,6 +346,115 @@
                                 PREÇO TOTAL</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 
+            
+
+            RELATÓRIO DAS CORES
+
+
+
+        -->
+
+        <div ng-if="tabAtual == 'cores'">
+            <div style="width: calc(100% - 30px);letter-spacing:2px; font-size: 12px; padding-bottom: 5px; margin: 10px auto; border-bottom: 1px solid #e0e0e0;">
+                CORES
+            </div>
+            <div style="position: relative;height: 280px; width: calc(100vw - 30px); margin: -10px auto;">
+                <div style="height: 250px; position: absolute;top: 15px; width: calc(100% - 50px);">
+                    <div ng-class="{'activeCor' : statCorAtual == item.corDigitada, 'desactiveCor' : statCorAtual != 'todas'}" style="overflow: hidden;position: relative;transition: 0.5s;width:100%; margin-top: 2px; background-color: {{item.cor}}; height: 48px; padding: 15px;color:white; border-radius: 2px;"
+                        ng-repeat="item in relatoriosCor track by $index" ng-if="item.guid == relatorioCor" ng-click="mudancaCor(item.corDigitada, item.cor)">
+                        {{item.corDigitada | uppercase}}
+                        <span style="float: right;">{{item.precoTotal | currency}}</span>
+                        <span style="position: absolute; right: 85px; font-size: 56px; opacity: 0.3">
+                            {{item.porcentoPreco}}
+                        </span>
+                        <span style="position: absolute;font-size: 25px;right:65px;opacity: 0.3;top: 27px;">
+                            %
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div style="background-color:#cecece; height: 248px; position: absolute;top: 174px; right: 15px; width: 38px; border-radius: 3px; border: 1px solid black; overflow: hidden;">
+                <table style="height: 101%; margin-top: -1px; width: 40px; margin-left: -1px;">
+                    <tr ng-repeat="item in relatoriosCor track by $index" ng-if="item.guid == relatorioCor">
+                        <td style="height: {{item.porcentoPreco}}%; background-color:{{item.cor}};width: 38px;" ng-click="mudancaCor(item.corDigitada, item.cor)">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="width: calc(100% - 30px);letter-spacing:2px; font-size: 12px; padding-bottom: 5px; margin: 10px auto; border-bottom: 1px solid #e0e0e0;">
+                MAIS INFORMAÇÕES
+                <div ng-if="statCorAtual != 'todas'" style="float: right;letter-spacing:0px; color: {{corItem}}" ng-click="desfazerMudancaCor()">
+                    {{statCorAtual | uppercase}}
+                    <i class="icon ion-close" style="margin-left: 5px;"></i>
+                </div>
+            </div>
+            <div class="categorias das cores">
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoCafe > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">CAFÉ </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoCafe}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoCinema > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">CINEMA </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoCinema}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoEssencial > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">ESSENCIAL </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoEssencial}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoInfantil > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">INFANTIL </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoInfantil}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoLanche > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">LANCHE </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoLanche}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoLazer > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">LAZER </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoLazer}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoMercado > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">MERCADO </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoMercado}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoPresente > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">PRESENTE </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoPresente}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoRestaurante > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">RESTAURANTE </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoRestaurante}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCo && item.contagemTipoRoupa > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">ROUPA </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoRoupa}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoTransporte > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">TRANSPORTE </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoTransporte}} </span>
+                </div>
+                <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoUtilitarios > 0"
+                    style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">UTILITÁRIOS </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoUtilitarios}} </span>
                 </div>
             </div>
         </div>

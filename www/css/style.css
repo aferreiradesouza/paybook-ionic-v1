@@ -705,3 +705,18 @@ ion-header-bar {
     background-color: #f8f8f8 !important;
 }
 
+.desactiveCor {
+    opacity: 0.3 !important;
+}
+.activeCor{
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.75) !important;
+    transition: 0.5s;
+    width: calc(100% + 18px) !important;
+    opacity: 1 !important;
+    margin-left: -10px!important;
+}
+
+table, tr, td{
+    border: 1px solid black;
+    
+}

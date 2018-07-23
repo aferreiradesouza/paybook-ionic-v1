@@ -10,10 +10,12 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
     $scope.listaRelatorios = [];
     $scope.relatoriosCartao = [];
     $scope.relatoriosCategoria = [];
+    $scope.relatoriosCor = [];
 
     $scope.relatorioGeral = {};
     $scope.relatorioCartao = {};
     $scope.relatorioCategoria = {};
+    $scope.relatorioCor = {};
 
     $scope.init = function () {
         var listaAux = Util.obterObjeto('ItensDaLista');
@@ -25,6 +27,7 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
         var listaAuxRelatorio = Util.obterObjeto('listaRelatorio');
         var listaAuxRelatorioCartao = Util.obterObjeto('listaRelatorioCartao');
         var listaAuxRelatorioCategoria = Util.obterObjeto('listaRelatorioCategoria');
+        var listaAuxRelatorioCor = Util.obterObjeto('listaRelatorioCor');
 
         if (listaAux != '') {
             $scope.lista = Util.converterParaObjeto(listaAux);
@@ -49,13 +52,17 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
         if (listaAuxRelatorioCategoria != '') {
             $scope.relatoriosCategoria = Util.converterParaObjeto(listaAuxRelatorioCategoria);
         }
+        if (listaAuxRelatorioCor != '') {
+            $scope.relatoriosCor = Util.converterParaObjeto(listaAuxRelatorioCor);
+        }
 
         iniciar();
 
-        $scope.tabAtual = 'cartao';
+        $scope.tabAtual = 'categorias';
 
         $scope.categoriaAtual = 'todos';
 
+        $scope.statCorAtual = 'todas';
     }
 
     $scope.platform = ionic.Platform.platform();
@@ -89,6 +96,14 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
                 return;
             }
         });
+
+        $scope.relatoriosCategoria.forEach(item => {
+            if (item.guid == $stateParams.guid) {
+                $scope.relatorioCor = $stateParams.guid;
+
+                return;
+            }
+        });
     }
 
     $scope.mudancaTab = function(tabDeMudanca){
@@ -100,11 +115,21 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
         $scope.corAtual = cor;
     }
 
-    $scope.desfazerMudancaCategoria = function(categoria, cor){
-        if($scope.categoriaAtual == categoria){
-            $scope.categoriaAtual = 'todos';
-        }
+    $scope.mudancaCategoriaLista = function(categoria, cor){
         $scope.categoriaAtual = categoria;
         $scope.corAtual = cor;
+    }
+    
+    $scope.desfazerMudancaCategoria = function(){
+        $scope.categoriaAtual = 'todos';
+    }
+
+    $scope.mudancaCor = function(cor, corItem){
+        $scope.statCorAtual = cor;
+        $scope.corItem = corItem;
+    }
+
+    $scope.desfazerMudancaCor = function(){
+        $scope.statCorAtual = 'todas';
     }
 })
