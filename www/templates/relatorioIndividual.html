@@ -135,6 +135,7 @@
                     <div style="position: absolute; width: 100%; bottom: 10px; left: 10px; color: white;font-size: 11px; opacity: 0.8;">
                         GASTO TOTAL</div>
                 </div>
+                <div style="width: 100%; height: 15px; position: absolute; top: 100px;"></div>
             </div>
         </div>
         <!-- 
@@ -255,7 +256,7 @@
                             <tr>
                                 <td ng-repeat="item in relatoriosCategoria track by $index" ng-if="item.guid == relatorioCategoria" ng-click="mudancaCategoria(item.categoria, item.corIten)"
                                     style="width: {{item.porcentoPreco}}%; background-color: {{item.corIten}}; height: 30px;">
-                                    &nbsp;
+                                    <div style="width: 1px; height: 1px;"></div>
                                 </td>
                             </tr>
                         </table>
@@ -268,13 +269,12 @@
                         <div style="float: left; margin-top: 7.5px;left:0; color: {{item.corIten}}">
                             <!-- <img ng-src="img/icon/{{item.icon}}" style="height: 15px;position: absolute;left: 15px;"> -->
                             {{item.categoria | uppercase}}</div>
-                            <span style=" position: absolute; font-size: 43px; bottom: 7px;right: 65px; opacity: 0.2; color: {{item.corIten}}; ">
-                                {{item.porcentoPreco}}
-                            </span>
-                            
-                        <span style="position: absolute;font-size: 20px;right:50px;opacity: 0.2;bottom: 0px; color: {{item.corIten}};">
-                                %
-                            </span>
+                        <span style=" position: absolute; font-size: 43px; bottom: 7px;right: 85px; opacity: 0.2; color: {{item.corIten}}; ">
+                            {{item.porcentoPreco}}
+                        </span>
+                        <span style="position: absolute;font-size: 20px;right:70px;opacity: 0.2;bottom: 0px; color: {{item.corIten}};">
+                            %
+                        </span>
                         <div style="float: right; margin-top: 7.5px;right: 0; color: {{item.corIten}}">{{item.precoTotal | currency}}</div>
 
                     </div>
@@ -333,11 +333,6 @@
                     </div>
                     <div ng-if="categoriaAtual == item.categoria" class="linha" style="width: 100%; position: relative; top: 230px;">
                         <div style="position: absolute;left: 10px; width: calc(100% - 20px); height: 100px; background-color: #ececec; border-radius: 3px; background-color:{{corAtual}}">
-                            <!-- <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
-                                {{item.precoTotal | currency}}
-                            </div>
-                            <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center;">
-                                PREÇO TOTAL</div> -->
                             <img src="img/graph.png" style="position: absolute;opacity: 0.2; right: 10px;bottom: 0px; height: 87px;">
                             <div style="position: absolute; font-size: 25px; left: 10px; top: 50px;color: white;">
                                 {{item.precoTotal | currency}}
@@ -345,6 +340,7 @@
                             <div style="position: absolute; width: 100%; bottom: 10px; left: 10px; color: white;font-size: 11px; opacity: 0.8;">
                                 PREÇO TOTAL</div>
                         </div>
+                        <div style="width: 100%; height: 15px; position: absolute; top: 100px;"></div>
                     </div>
                 </div>
             </div>
@@ -370,20 +366,20 @@
                         ng-repeat="item in relatoriosCor track by $index" ng-if="item.guid == relatorioCor" ng-click="mudancaCor(item.corDigitada, item.cor)">
                         {{item.corDigitada | uppercase}}
                         <span style="float: right;">{{item.precoTotal | currency}}</span>
-                        <span style="position: absolute; right: 85px; font-size: 56px; opacity: 0.3">
+                        <span style="position: absolute; right: 95px; font-size: 56px; opacity: 0.3">
                             {{item.porcentoPreco}}
                         </span>
-                        <span style="position: absolute;font-size: 25px;right:65px;opacity: 0.3;top: 27px;">
+                        <span style="position: absolute;font-size: 25px;right:75px;opacity: 0.3;top: 27px;">
                             %
                         </span>
                     </div>
                 </div>
             </div>
             <div style="background-color:#cecece; height: 248px; position: absolute;top: 174px; right: 15px; width: 38px; border-radius: 3px; border: 1px solid black; overflow: hidden;">
-                <table style="height: 101%; margin-top: -1px; width: 40px; margin-left: -1px;">
+                <table style="height: calc(100% + 2px); width: 40px; margin-left: -1px;margin-top: -1px;">
                     <tr ng-repeat="item in relatoriosCor track by $index" ng-if="item.guid == relatorioCor">
                         <td style="height: {{item.porcentoPreco}}%; background-color:{{item.cor}};width: 38px;" ng-click="mudancaCor(item.corDigitada, item.cor)">
-                            &nbsp;
+                            <div style="width: 4px; height: 4px;"></div>
                         </td>
                     </tr>
                 </table>
@@ -395,66 +391,120 @@
                     <i class="icon ion-close" style="margin-left: 5px;"></i>
                 </div>
             </div>
-            <div class="categorias das cores">
+            <div ng-if="statCorAtual == 'todas'" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
+                    Selecione uma cor
+            </div>
+            <div class="categorias das cores" style="font-size: 11px;color: {{corItem}}">
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoCafe > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">CAFÉ </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoCafe}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoCafe | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoCinema > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">CINEMA </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoCinema}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoCinema | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoEssencial > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">ESSENCIAL </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoEssencial}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoEssencial | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoInfantil > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">INFANTIL </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoInfantil}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoInfantil | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoLanche > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">LANCHE </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoLanche}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoLanche | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoLazer > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">LAZER </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoLazer}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoLazer | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoMercado > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">MERCADO </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoMercado}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoMercado | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoPresente > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">PRESENTE </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoPresente}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoPresente | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoRestaurante > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">RESTAURANTE </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoRestaurante}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoRestaurante | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCo && item.contagemTipoRoupa > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">ROUPA </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoRoupa}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoRoupa | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoTransporte > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">TRANSPORTE </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoTransporte}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoTransporte | currency}} </span>
                 </div>
                 <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor && item.contagemTipoUtilitarios > 0"
                     style="width: calc(100% - 30px); height: 25px; position: relative; margin: 0 auto; border-bottom: 1px solid #ccc">
                     <span style="position: absolute; top: 50%; transform: translate(0%, -50%)">UTILITÁRIOS </span>
-                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoUtilitarios}} </span>
+                    <span style="position: absolute; top: 50%; transform: translate(0%, -50%); right: 0;">{{item.contagemTipoUtilitarios | currency}} </span>
+                </div>
+            </div>
+            <div ng-repeat="item in relatoriosCor track by $index" ng-if="item.corDigitada == statCorAtual && item.guid == relatorioCor">
+                <div class="linha" style="width: 100%; position: relative; top: 10px;">
+                    <div style="position: absolute;left: 15px; width: calc(50% - 20px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                        <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                            {{item.itensAdicionados}}
+                        </div>
+                        <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center; color: {{corItem}}">
+                            ITENS ADICIONADOS</div>
+                    </div>
+                    <div style="position: absolute;right: 15px; width: calc(50% - 20px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                        <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                            {{item.itensFixados}}
+                        </div>
+                        <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center; color: {{corItem}}">
+                            ITENS FIXADOS</div>
+                    </div>
+                </div>
+                <div class="linha" style="width: 100%; position: relative; top: 120px;">
+                    <div style="position: absolute;left: 15px; width: calc(50% - 20px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                        <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                            {{item.porcentoItens}}
+                            <span style="position: absolute;font-size: 15px; bottom: -3px; right: -15px">
+                                %
+                            </span>
+                        </div>
+                        <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center; color: {{corItem}}">
+                            PROCENTAGEM DE ITENS</div>
+                    </div>
+                    <div style="position: absolute;right: 15px; width: calc(50% - 20px); height: 100px; background-color: #ececec; border-radius: 3px;">
+                        <div style="position: absolute; font-size: 25px; left: 50%; top: 27px; transform: translate(-50%, 0%); text-align: center;">
+                            {{item.porcentoPreco}}
+                            <span style="position: absolute;font-size: 15px; bottom: -3px; right: -15px">
+                                %
+                            </span>
+                        </div>
+                        <div style="font-size: 12px;position: absolute; width: 100%; bottom: 10px; left: 50%; color: black; transform: translate(-50%, 0%); text-align: center; color: {{corItem}}">
+                            PORCENTAGEM DE GASTO</div>
+                    </div>
+                </div>
+                <div class="linha" style="width: 100%; position: relative; top: 230px;">
+                    <div style="position: absolute;left: 15px; width: calc(100% - 30px); height: 100px; border-radius: 3px; background-color:{{corItem}}">
+                        <img src="img/graph.png" style="position: absolute;opacity: 0.2; right: 10px;bottom: 0px; height: 87px;">
+                        <div style="position: absolute; font-size: 25px; left: 10px; top: 50px;color: white;">
+                            {{item.precoTotal | currency}}
+                        </div>
+                        <div style="position: absolute; width: 100%; bottom: 10px; left: 10px; color: white;font-size: 11px; opacity: 0.8;">
+                            PREÇO TOTAL</div>
+                    </div>
+                    <div style="width: 100%; height: 15px; position: absolute; top: 100px;"></div>
                 </div>
             </div>
         </div>

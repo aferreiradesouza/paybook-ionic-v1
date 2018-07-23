@@ -875,40 +875,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemAdicionados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -918,40 +918,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -1021,40 +1021,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemAdicionados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -1064,40 +1064,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -1152,40 +1152,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemAdicionados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -1195,40 +1195,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -1283,40 +1283,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemAdicionados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -1326,40 +1326,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -1414,40 +1414,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemAdicionados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
@@ -1457,40 +1457,40 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                 contagemFixados += 1;
                 precoTotalGasto += key.preco;
                 if (key.gasto == "Transporte") {
-                    contagemTipoTransporte += 1;
+                    contagemTipoTransporte += key.preco;
                 }
                 if (key.gasto == "Lazer") {
-                    contagemTipoLazer += 1;
+                    contagemTipoLazer += key.preco;
                 }
                 if (key.gasto == "Lanche") {
-                    contagemTipoLanche += 1;
+                    contagemTipoLanche += key.preco;
                 }
                 if (key.gasto == "Restaurante") {
-                    contagemTipoRestaurante += 1;
+                    contagemTipoRestaurante += key.preco;
                 }
                 if (key.gasto == "Cinema") {
-                    contagemTipoCinema += 1;
+                    contagemTipoCinema += key.preco;
                 }
                 if (key.gasto == "Roupa") {
-                    contagemTipoRoupa += 1;
+                    contagemTipoRoupa += key.preco;
                 }
                 if (key.gasto == "Infantil") {
-                    contagemTipoInfantil += 1;
+                    contagemTipoInfantil += key.preco;
                 }
                 if (key.gasto == "Presente") {
-                    contagemTipoPresente += 1;
+                    contagemTipoPresente += key.preco;
                 }
                 if (key.gasto == "Essencial") {
-                    contagemTipoEssencial += 1;
+                    contagemTipoEssencial += key.preco;
                 }
                 if (key.gasto == "Utilitários") {
-                    contagemTipoUtilitarios += 1;
+                    contagemTipoUtilitarios += key.preco;
                 }
                 if (key.gasto == "Mercado") {
-                    contagemTipoMercado += 1;
+                    contagemTipoMercado += key.preco;
                 }
                 if (key.gasto == "Café") {
-                    contagemTipoCafe += 1;
+                    contagemTipoCafe += key.preco;
                 }
             }
         });
