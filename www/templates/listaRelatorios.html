@@ -15,7 +15,10 @@
         }
     </style>
     <ion-content>
-        <div style="height: 71px;" ng-class="{'div-sumir' : platform == 'android'}">
+            <div style="height: 71px;" ng-if="platform != 'android'">
+    
+            </div>
+        <div style="height: 44px;" ng-if="platform == 'android'">
 
         </div>
         <!-- <div style="width: 100vw; height: 100vh;position: relative;">
