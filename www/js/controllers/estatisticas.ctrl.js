@@ -369,6 +369,8 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                             $scope.gastoTotalComCartao = contGastoCartao;
                         }
                         $scope.obterCompras();
+
+
                         $scope.porcComprasDinheiro = ($scope.comprasDinheiro * 100) / $scope.lista.length + $scope.listaFixa.length;
                         $scope.porcComprasCartao = 100 - $scope.porcComprasDinheiro;
 
@@ -377,8 +379,10 @@ app.controller('statsCtrl', function ($scope, Util, $ionicPopup, $timeout) {
                         $scope.precoItensTotal = $scope.precoTotalSomado();
                         $scope.data.data = new Date();
 
+                        $scope.icon = Math.floor(Math.random() * 17); 
+
                         var relatorio = {
-                            guid: $scope.data.guid, nomeRelatorio: $scope.data.relatorioNome, qtdLista: $scope.lista.length, qtdListaFixa: $scope.listaFixa.length, data: $scope.data.data,
+                            guid: $scope.data.guid, icon : $scope.icon, nomeRelatorio: $scope.data.relatorioNome, qtdLista: $scope.lista.length, qtdListaFixa: $scope.listaFixa.length, data: $scope.data.data,
                             precoAdc: $scope.precoItensAdc, precoFixados: $scope.precoItensFixado, precoTotal: $scope.precoItensTotal,
                             porcComprasDinheiro: $scope.porcComprasDinheiro, porcComprasCartao: $scope.porcComprasCartao,
                             comprasDinheiro: $scope.comprasDinheiro, comprasCartao: $scope.comprasCartao, gastoTotalComDinheiro: $scope.gastoTotalComDinheiro, gastoTotalComCartao: $scope.gastoTotalComCartao

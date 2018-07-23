@@ -9,8 +9,9 @@
     </div>
     <style type="text/css">
         .item-content {
-            height: 46px;
-            padding: 10px 7px 0px 7px !important;
+            height: 60px;
+            padding: 5px 7px 0px 7px !important;
+            line-height: 10px;
         }
     </style>
     <ion-content>
@@ -29,10 +30,13 @@
         </div>
         <ion-list can-swipe="listCanSwipe">
             <ion-item ng-repeat="item in listaRelatorios" ng-click="irDetalheRelatorio(listaRelatorios[$index].guid)">
-                <h2>{{item.nomeRelatorio | uppercase}}</h2>
-                <span style="font-size: 10px;position: absolute;top: 24px; color: #949494">
-                    Salvo em: {{item.data | date: 'dd/MM/yy'}} às {{item.data | date: 'HH:mm'}}
-                </span>
+                <img ng-src="img/graph{{item.icon}}.png" style="width: 50px;position:absolute;top: 6px;left: 4px">
+                <div style="position:absolute; left: 50px;">
+                    <span style="font-size: 20px;position: absolute;top: 15px; left: 11px;">{{item.nomeRelatorio | uppercase}}</span><br>
+                    <span style="font-size: 10px;position: absolute;top: 35px; color: #949494; left: 11px;">
+                        Salvo em: {{item.data | date: 'dd/MM/yy'}} às {{item.data | date: 'HH:mm'}}
+                    </span>
+                </div>
                 <div style="position: absolute;right: 10px; top: 50%; transform: translate(0%, -50%);">
                     <i class="icon ion-chevron-right"></i>
                 </div>
