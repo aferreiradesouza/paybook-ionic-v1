@@ -58,7 +58,7 @@ app.controller('relatorioCtrl', function ($scope, Util, $ionicPopup, $timeout, $
 
         iniciar();
 
-        $scope.tabAtual = 'cores';
+        $scope.tabAtual = 'geral';
 
         $scope.categoriaAtual = 'todos';
 
