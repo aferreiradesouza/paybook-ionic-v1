@@ -17,6 +17,12 @@
     "angular-sanitize": "^1.6.4",
     "angular-touch": "^1.6.4",
     "angular-ui-router": "^0.4.2",
+    "cordova-plugin-keyboard": "^1.2.0",
     "ionic-native-transitions": "^1.0.3"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-keyboard": {}
+    }
   }
 }
