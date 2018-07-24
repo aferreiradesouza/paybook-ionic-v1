@@ -4,7 +4,12 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
-        Keyboard.shrinkView(true);
+        cordova.plugins.Keyboard.shrinkView(true, () => {
+          alert('foi cord');
+        });
+        Keyboard.shrinkView(true, () => {
+          alert('foi');
+        });
       }
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
@@ -12,7 +17,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
       }
     });
   })
-  
+
 
   .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
     $ionicConfigProvider.views.maxCache(0);
@@ -43,7 +48,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         templateUrl: 'templates/add-cartao.html',
         controller: 'addCartaoCtrl'
       })
-      
+
 
       .state('tutorial', {
         url: '/tutorial',
@@ -72,7 +77,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         templateUrl: 'templates/relatorioIndividual.html',
         controller: 'relatorioCtrl'
       })
-      
+
       .state('tab.cartao', {
         url: '/cartao',
         views: {
