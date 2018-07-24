@@ -4,7 +4,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
       if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
-        // alert('foi fora');
+          alert("foi fora");
         cordova.plugins.Keyboard.shrinkView(true, () => {
           alert('foi cord');
         });
