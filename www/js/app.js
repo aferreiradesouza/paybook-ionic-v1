@@ -5,12 +5,12 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         cordova.plugins.Keyboard.disableScroll(true);
         // alert('foi fora');
-        // cordova.plugins.Keyboard.shrinkView(true, () => {
-        //   alert('foi cord');
-        // });
-        // Keyboard.shrinkView(true, () => {
-        //   alert('foi');
-        // });
+        cordova.plugins.Keyboard.shrinkView(true, () => {
+          alert('foi cord');
+        });
+        Keyboard.shrinkView(true, () => {
+          alert('foi');
+        });
       }
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
