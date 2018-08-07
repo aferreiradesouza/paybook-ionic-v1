@@ -47,12 +47,14 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     });
 
     $scope.addItem = function () {
+        $scope.data.gastoConvPic = converterGastoPic($scope.data.gasto);
         $scope.data.gastoConv = converterGasto($scope.data.gasto);
         $scope.data.corConv = converterCor($scope.data.cor);
         $scope.data.dia = new Date();
         $scope.data.hora = new Date();
         // $scope.data.preco = parseFloat($scope.data.preco);
         $scope.data.preco = parseFloat($scope.data.preco);
+        $scope.data.classificacao = 'nenhuma';
 
         if ($scope.data.itemCartao == true) {
             $scope.data.itemCartao = true;
@@ -175,40 +177,92 @@ app.controller('addItemCtrl', function ($scope, Util, $ionicModal) {
     function converterGasto(gasto) {
         if (gasto == 'Transporte') {
             var tipoGasto = 'onibus.png';
+            var pic = 'transporte.jpg';
         }
         if (gasto == 'Lazer') {
             var tipoGasto = 'lazer.png';
+            var pic = 'lazer.jpg';
         }
         if (gasto == 'Café') {
             var tipoGasto = 'cafe.png';
+            var pic = 'cafe.jpg';
         }
         if (gasto == 'Lanche') {
             var tipoGasto = 'lanche.png';
+            var pic = 'lanche.jpg';
         }
         if (gasto == 'Essencial') {
             var tipoGasto = 'essencial.png';
+            var pic = 'essencial.jpg';
         }
         if (gasto == 'Infantil') {
             var tipoGasto = 'infantil.png';
+            var pic = 'infantil.jpg';
         }
         if (gasto == 'Presente') {
             var tipoGasto = 'present.png';
+            var pic = 'presente.jpg';
         }
         if (gasto == 'Cinema') {
             var tipoGasto = 'cinema.png';
+            var pic = 'cinema.jpg';
         }
         if (gasto == 'Mercado') {
             var tipoGasto = 'mercado.png';
+            var pic = 'mercado.jpg';
         }
         if (gasto == 'Roupa') {
             var tipoGasto = 'roupa.png';
+            var pic = 'roupa.jpg';
         }
         if (gasto == 'Utilitários') {
             var tipoGasto = 'utilitarios.png';
+            var pic = 'utilitarios.jpg';
         }
         if (gasto == 'Restaurante') {
             var tipoGasto = 'restaurante.png';
+            var pic = 'restaurante.jpg';
         }
         return tipoGasto;
+    }
+
+    function converterGastoPic(gasto) {
+        if (gasto == 'Transporte') {
+            var pic = 'transporte.jpg';
+        }
+        if (gasto == 'Lazer') {
+            var pic = 'lazer.jpg';
+        }
+        if (gasto == 'Café') {
+            var pic = 'cafe.jpg';
+        }
+        if (gasto == 'Lanche') {
+            var pic = 'lanche.jpg';
+        }
+        if (gasto == 'Essencial') {
+            var pic = 'essencial.jpg';
+        }
+        if (gasto == 'Infantil') {
+            var pic = 'infantil.jpg';
+        }
+        if (gasto == 'Presente') {
+            var pic = 'presente.jpg';
+        }
+        if (gasto == 'Cinema') {
+            var pic = 'cinema.jpg';
+        }
+        if (gasto == 'Mercado') {
+            var pic = 'mercado.jpg';
+        }
+        if (gasto == 'Roupa') {
+            var pic = 'roupa.jpg';
+        }
+        if (gasto == 'Utilitários') {
+            var pic = 'utilitarios.jpg';
+        }
+        if (gasto == 'Restaurante') {
+            var pic = 'restaurante.jpg';
+        }
+        return pic;
     }
 })

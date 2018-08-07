@@ -353,7 +353,8 @@ ion-header-bar {
 }
 
 .btn-delete {
-    right: 8px;
+    right: 5px;
+    top: 5px;
 }
 
 .scroll-refresher {

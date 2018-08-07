@@ -30,6 +30,20 @@ app.controller('listaItemCtrl', function ($scope, Util, $ionicModal) {
         $scope.sum();
     }
 
+    $scope.classificar = function (index, classf) {
+        $scope.lista[index].classificacao = classf;
+        Util.salvarObjeto('ItensDaLista', $scope.lista);
+    }
+
+    $scope.ativoClass = $scope.lista[0];
+    $scope.ativo = function (classItem) {
+        if ($scope.ativoClass == classItem) {
+            $scope.ativoClass = 'nada'
+        } else {
+            $scope.ativoClass = classItem;
+        }
+    }
+
     $scope.cartaoListaAbrir = true;
     $scope.abrirCartao = function () {
         $scope.cartaoListaAbrir = !$scope.cartaoListaAbrir;
