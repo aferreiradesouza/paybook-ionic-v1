@@ -142,3 +142,73 @@
     width: 45px;
     height: 45px;
 }
+
+/*CARD FIXO*/
+
+.cardFixo{
+    width: 160px;
+    height: 180px;
+    position: relative;
+    left: 5px;
+    margin-top: 10px;
+    margin-right: 7px;
+}
+
+.topoCardFixo{
+    height: 70px;
+    position: relative;
+    color:white;
+}
+
+.infoCardFixo{
+    width: 100%;
+    height: 110px;
+    position: relative;
+    background-color: #f8f8f8;
+}
+
+.tituloCardFixoBorder{
+    background-color:#f8f8f8;
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+    padding: 2px 3px;
+}
+
+.tituloCardFixo{
+    vertical-align: middle;
+    text-align: center;
+    padding: 2px 12px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+.precoFixo{
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    font-size: 18px;
+}
+
+.tipoPagamentoFixo{
+    width: 160px;
+    height: 15px;
+    font-size: 11px;
+    opacity: 0.6;
+    position: absolute;
+    top: 25px;
+    left: 7px;
+}
+
+.listaCardFixa{
+    display: block;
+    position: relative;
+    top: 20px;
+    padding-left: 10px;
+    vertical-align: middle;
+}

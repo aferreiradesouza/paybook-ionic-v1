@@ -21,7 +21,7 @@
     </div>
     <ion-refresher ng-if="refresher" pulling-text="Puxe e solte para atualizar..." on-refresh="atualizarLista()" ng-class="{'scroll-refresher-android' : platform == 'android'}">
     </ion-refresher>
-    <div style="position: relative;width: 90%; margin: 5px auto; border-bottom: 1px solid #e0e0e0; margin-bottom: 0px;">
+    <!-- <div style="position: relative;width: 90%; margin: 5px auto; border-bottom: 1px solid #e0e0e0; margin-bottom: 0px;">
       <div style="width: 135px; font-size: 12px;letter-spacing:2px; padding-bottom: 5px;">
         ITENS FIXADOS
       </div>
@@ -31,99 +31,80 @@
           <div class="btnSumirFixo" style="font-size: 11px; letter-spacing:1px;" id="limparFixo" ng-click="limparListaFixa()">LIMPAR</div>
         </div>
       </div>
-    </div>
+    </div> -->
+    <div style="position: relative;width: 95%; margin: 10px auto; margin-bottom: -6px;">
+        <div style="width: 165px;letter-spacing:2px; font-size: 12px; padding-bottom: 5px; font-weight: bold">
+          ITENS FIXADOS
+        </div>
+        <div style="position: absolute;top: 32%;transform: translate( 0,-50%);right: 0;">
+          <div class="btnLimpar">
+            <i class="icon ion-ios-close-empty" id="x" style="font-size: 21px; top: 50%; transform: translate(-45%, -44%); left: 50%; position: absolute; margin-top: -1px;"></i>
+            <div class="btnSumirFixo" style="font-size: 11px; letter-spacing:1px;" id="limpar" ng-click="limparListaFixa()">LIMPAR</div>
+          </div>
+        </div>
+      </div>
     <div ng-if="listaFixa == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
       Não tem nenhum item fixado..
     </div>
     <div ng-if="listaFixa != ''" class="slider-wrapper card-slider-fixo">
       <div class="slider-content">
         <div class="card-slider" ng-repeat="item in listaFixa track by item.id" my-touchstart="touchStart()" my-touchend="touchEnd()">
-          <div class="animated flipInX" style="display: inline-block;width: 140px; height: 160px; background-color: rgb(241, 241, 241);margin-left: 7px;margin-top:7px;border-radius: 7px; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);">
-            <div ng-click="setActiveFixo(item)" style="position: absolute;width: 140px; height: 50px;border-top-left-radius: 7px;border-top-right-radius: 7px;text-align: center; color: white; background-color: {{item.corConv}}">
-              <div style="position: absolute; left: 5px; top: 6px; width: 20px; height: 20px; text-align: center;">
-                <i class="icon ion-chevron-down" style="font-size: 15px; "></i>
+          <div class="cardFixo">
+            <div class="topoCardFixo">
+              <div style="position: absolute; height: 100%; width: 100%; background: URL('img/{{item.gastoConvPic}}') no-repeat center; background-size: cover;">
+                <div style="position: absolute; height: 100%; width: 100%;background: linear-gradient(135deg, {{item.corConv}} 0%, {{item.corConv}} 15%, rgba(0,0,0,0.5) 100%);"></div>
               </div>
-              <div style="margin-top: 5px;font-size: 15px;">{{item.preco | currency:"R$"}}</div>
-              <div style="position: absolute; left: 8px; bottom: -2.2px; font-size: 10px; opacity: 0.6">
-                <i ng-if="listaFixa[$index].itemCartao == true" class="icon ion-card" style="font-size: 14px;"></i>
+              <div class="precoFixo">
+                {{item.preco | currency:"R$"}}
+              </div>
+              <div class="tipoPagamentoFixo">
+                <i ng-if="listaFixa[$index].itemCartao == true" class="icon ion-card" style="position: absolute;top: -2px;font-size: 14px;"></i>
+                <span ng-if="listaFixa[$index].itemCartao == true" style="position: absolute; top:50%; transform: translate(0%, -50%); left: 20px;">{{item.cartao | uppercase}}</span>
+                
                 <i ng-if="listaFixa[$index].itemCartao == false" class="icon ion-cash" style="font-size: 14px"></i>
+                <span ng-if="listaFixa[$index].itemCartao == false" style="position: absolute; left: 20px;">DINHEIRO</span>
               </div>
-              <div style="margin-top: 5px;">{{item.item}}</div>
               <div class="btn-delete close" style="position: absolute;top: 4px;" ng-click="deletarItemLista(listaFixa[$index], listaFixa,listaExcluir)">
                 <i class="icon ion-close-circled" style="font-size: 20px;"></i>
               </div>
             </div>
-            <div style="padding: 3px 5px 0 5px;position: absolute;height: 110px;margin-top: 50px;width: 140px;border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;">
-              <div style="width: 130px; height: 27.5px;">
-                <i class="icon ion-location" style="font-size: 20px;"></i>
-                <span style="margin-left: 5px;">{{item.localizacao}}</span>
-              </div>
-              <div style="width: 130px; height: 27.5px;">
-                <div style="position: absolute; left: 2.5px;">
-                  <img ng-src="../../img/icon/{{item.gastoConv}}" style="height: 15px">
+            <div class="infoCardFixo">
+              <div class="tituloCardFixoBorder">
+                <div class="tituloCardFixo" style="border: 1px solid {{item.corConv}};">
+                  {{item.item}}
                 </div>
-                <span style="margin-left: 18.5px;">{{item.gasto}}</span>
               </div>
-              <div style="width: 130px; height: 27.5px; position: relative">
+
+              <div class="listaCardFixa">
+                <i class="icon ion-location" style="font-size: 20px;"></i>
+                <span style="left: 30px; top: 50%; transform: translate(0%, -50%); position: absolute;">{{item.localizacao}}</span>
+              </div>
+
+              <div class="listaCardFixa" style="padding-left: 8px;">
+                <img ng-src="../../img/icon/{{item.gastoConv}}" style="height: 15px;margin-left: 0px;">
+                <span style="left: 30px; top: 50%; transform: translate(0%, -50%); position: absolute;">{{item.gasto}}</span>
+              </div>
+
+              <div class="listaCardFixa">
                 <i class="icon ion-ios-calendar"></i>
-                <span style="margin-left: 5px;">{{item.dia | date:'dd/MM/yy'}}</span>
+                <span style="left: 30px; top: 50%; transform: translate(0%, -50%); position: absolute;">{{item.dia | date:'dd/MM/yy'}}</span>
               </div>
-              <div style="width: 130px; height: 27.5px;">
+
+              <div class="listaCardFixa">
                 <i class="icon ion-ios-clock"></i>
-                <span style="margin-left: 5px;">{{item.hora | date:'HH:mm'}}</span>
+                <span style="left: 30px; top: 50%; transform: translate(0%, -50%); position: absolute;">{{item.hora | date:'HH:mm'}}</span>
               </div>
-              <div style="transform: rotate(40deg);top: 86px;right: 7px;font-size: 20px;position: absolute;width: 20px; height: 20px;text-align: center;"
+
+              <div style="transform: rotate(40deg);top: 86px;right: 7px;font-size: 17px;position: absolute;width: 20px; height: 20px;text-align: center;"
                 ng-click="desfixarItem(listaFixa[$index], listaFixa,lista)">
                 <i class="icon ion-pin"></i>
-              </div>
-            </div>
-          </div>
-
-
-
-          <div class="detalhesFixo" style="background-color: {{item.corConv}}" ng-class="{'detalhes-clickFixo' : activeCardFixo === item}">
-            <div ng-click="setDesactiveFixo()" style="width: 20px;height: 20px;position: relative; left: 3px; top: 3px; color: white; font-size: 14px; text-align: center;">
-              <i class="icon ion-chevron-up"></i>
-            </div>
-            <div ng-click="setDesactiveFixo()" style="position: absolute; top: 2px; left: 25px; color: white; font-size: 13px;">DESCRIÇÃO</div>
-            <div style="width: 130px; position: absolute; top: 28px; left: 5px; height: 125px; color: white; font-size: 12px;">
-              <div ng-click="setDesactiveFixo()" style="position: absolute;width: 100%; height: 80%;white-space: normal; transition: 0.5s;"
-                ng-class="{'ativarCartaoFixo' : cartaoListaFixaAbrir}">
-                {{item.descricao}}
-                <div ng-if="item.descricao == '' || item.descricao == null" style="opacity: 0.8">
-                  Sem registro.
-                </div>
-              </div>
-            </div>
-            <div ng-if="listaFixa[$index].itemCartao == true" style="position: absolute; left: 0; top: 62%; width: 100%; height: 60px;">
-              <div style="width: 100%;z-index: 998;position: absolute; left: 4px; bottom: 24px; color: white;padding: 2px;transition: 0.25s; background-color: transparent;"
-                ng-class="{'cartaoItem' : cartaoListaFixaAbrir}" ng-click="abrirCartaoListaFixa()">
-                <span style="position: absolute; left: 0px;font-size: 12px;">
-                  CARTÃO
-                  <i class="icon" style="margin-left: 5px;" ng-class="{'ion-chevron-left': cartaoListaFixaAbrir, 'ion-chevron-right': !cartaoListaFixaAbrir}"></i>
-                </span>
-              </div>
-              <div ng-click="abrirCartaoListaFixa()" ng-class="{'cartaoDescFixo' : cartaoListaFixaAbrir, 'cartaoDescOffFixo' : !cartaoListaFixaAbrir}"
-                style="position: absolute; left:0; height: 100%; background-color: rgb(241, 241, 241); width: 0px;top: 0px;opacity: 0; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px;overflow: hidden; box-shadow: 0px -5px 40px 0px rgba(0,0,0,0.75);">
-                <div style=" top: 16px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
-                  <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">CARTÃO</span>
-                  <span style="position: absolute; right: 3px; font-size: 12px;">{{item.cartao | uppercase}}</span>
-                </div>
-                <div style=" top: 29px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
-                  <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">FINAL</span>
-                  <span style="position: absolute; right: 3px; font-size: 12px;">{{item.digitoCartao}}</span>
-                </div>
-                <div style=" bottom: 0px;position: absolute;height: 20px;width: 100%; font-size: 9px;">
-                  <span style="position: absolute; left: 3px;top: 1px; opacity: 0.5">BANDEIRA</span>
-                  <span style="position: absolute; right: 3px; font-size: 12px;">{{item.bandeiraCartao}}</span>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div style="position: relative;width: 95%; margin: 15px auto; margin-bottom: 15px;">
+    <div style="position: relative;width: 95%; margin: -10px auto; margin-bottom: 15px;">
       <div style="width: 165px;letter-spacing:2px; font-size: 12px; padding-bottom: 5px; font-weight: bold">
         ITENS ADICIONADOS
       </div>
@@ -177,8 +158,7 @@
             <img src="img/icon/dislike.png" ng-if="item.classificacao == 'negativo'">
           </div>
 
-          <div class="classOpt" ng-class="{'esconder' : ativoClass == item}">
-            <img src="img/icon/like.png" ng-if="item.classificacao != 'positivo'" ng-click="classificar($index, 'positivo')"><img src="img/icon/classifique.png" ng-if="item.classificacao == 'positivo'" ng-click="classificar($index, 'nenhuma')"><img src="img/icon/dislike.png" ng-if="item.classificacao != 'negativo'" ng-click="classificar($index, 'negativo')"><img src="img/icon/classifique.png" ng-if="item.classificacao == 'negativo'" ng-click="classificar($index, 'nenhuma')">
+          <div class="classOpt" ng-class="{'esconder' : ativoClass == item}"><img src="img/icon/like.png" ng-if="item.classificacao != 'positivo'" ng-click="classificar($index, 'positivo')"><img src="img/icon/classifique.png" ng-if="item.classificacao == 'positivo'" ng-click="classificar($index, 'nenhuma')"><img src="img/icon/dislike.png" ng-if="item.classificacao != 'negativo'" ng-click="classificar($index, 'negativo')"><img src="img/icon/classifique.png" ng-if="item.classificacao == 'negativo'" ng-click="classificar($index, 'nenhuma')">
           </div>
 
           <!-- <div style="width: 100%; height: 100%; position: absolute; background-color:red;z-index: 9"></div> -->

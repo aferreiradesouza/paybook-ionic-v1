@@ -424,7 +424,7 @@ ion-header-bar {
 
 .slider-wrapper {
     overflow: hidden;
-    height: 185px !important;
+    height: 220px !important;
 }
 
 .slider-content {
@@ -435,7 +435,7 @@ ion-header-bar {
     padding: 5px;
     height: calc(100% + 10px);
     max-height: calc(100% + 10px);
-    padding-left: 13px;
+    padding-left: 0px;
 }
 
 ::-webkit-scrollbar {
