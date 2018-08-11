@@ -43,13 +43,13 @@
           </div>
         </div>
       </div>
-    <div ng-if="listaFixa == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
+    <div ng-if="listaFixa == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);margin-bottom: 20px;">
       Não tem nenhum item fixado..
     </div>
     <div ng-if="listaFixa != ''" class="slider-wrapper card-slider-fixo">
       <div class="slider-content">
         <div class="card-slider" ng-repeat="item in listaFixa track by item.id" my-touchstart="touchStart()" my-touchend="touchEnd()">
-          <div class="cardFixo">
+          <div class="cardFixo animated flipInX" style="box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.45);">
             <div class="topoCardFixo">
               <div style="position: absolute; height: 100%; width: 100%; background: URL('img/{{item.gastoConvPic}}') no-repeat center; background-size: cover;">
                 <div style="position: absolute; height: 100%; width: 100%;background: linear-gradient(135deg, {{item.corConv}} 0%, {{item.corConv}} 15%, rgba(0,0,0,0.5) 100%);"></div>
@@ -118,7 +118,7 @@
     <div ng-if="lista == ''" style="text-align: center; margin-top: 15px; color: rgb(156, 155, 155);">
       Não tem nenhum item adicionado.
     </div>
-    <div class="cardAdd" ng-repeat="item in lista track by item.id">
+    <div class="cardAdd animated fadeInRight" ng-repeat="item in lista track by item.id">
       <div class="cardColor" style="background-color: {{item.corConv}}">
         <div style="position: absolute; height: 100%; width: 100%; background: URL('img/{{item.gastoConvPic}}') no-repeat center; background-size: cover;">
           <div style="position: absolute; height: 100%; width: 100%;background: linear-gradient(135deg, {{item.corConv}} 0%, {{item.corConv}} 25%, rgba(0,0,0,0.2) 100%);"></div>
@@ -184,7 +184,7 @@
 
 
 
-    <div ng-repeat="item in lista track by item.id">
+    <!-- <div ng-repeat="item in lista track by item.id">
       <div id="{{item.id}}" class="card-item animated flipInX fadeOut" style="border-left: 5px solid {{item.corConv}};">
         <div class="row" style="margin: 0;padding: 0;height: 100%;">
           <div class="col col-33 info color" style="position:relative;background-color: {{item.corConv}};" ng-click="setActive(item)">
@@ -263,7 +263,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div style="height: 65px; width: 100%;">
 
