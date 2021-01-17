@@ -1,15 +1,15 @@
 {
   "name": "paybook",
-  "app_id": "c093d495",
-  "type": "ionic1",
   "integrations": {
     "gulp": {},
     "cordova": {}
   },
+  "type": "ionic1",
   "watchPatterns": [
     "scss/**/*",
     "www/**/*",
     "!www/lib/**/*",
     "!www/**/*.map"
-  ]
+  ],
+  "id": "c093d495"
 }

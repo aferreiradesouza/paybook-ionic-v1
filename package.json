@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ionic/pro": "1.0.20",
+    "@ionic/v1-toolkit": "^3.2.15",
     "angular": "^1.6.4",
     "angular-animate": "^1.6.4",
     "angular-input-masks": "^4.1.0",
